@@ -26,6 +26,7 @@ export default function Board(props: BoardProps) {
       <tbody>
         <Row>
           <RowHeader
+            variant="prototype"
             title={t.board.rows.prototype.title}
             description={t.board.rows.prototype.description}
           />
@@ -41,6 +42,7 @@ export default function Board(props: BoardProps) {
         </Row>
         <Row>
           <RowHeader
+            variant="test"
             title={t.board.rows.test.title}
             description={t.board.rows.test.description}
           />
@@ -56,6 +58,7 @@ export default function Board(props: BoardProps) {
         </Row>
         <Row>
           <RowHeader
+            variant="scale"
             title={t.board.rows.scale.title}
             description={t.board.rows.scale.description}
           />

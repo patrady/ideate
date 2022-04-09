@@ -21,6 +21,19 @@
     padding: 1rem;
     vertical-align: top;
     border-radius: 4px;
+    border-left: 8px solid;
+
+    &--prototype {
+      border-color: #73ABFF;
+    }
+
+    &--test {
+      border-color: #1FA33C;
+    }
+
+    &--scale {
+      border-color: #511FA3;
+    }
   }
 
   &-rowTitle {

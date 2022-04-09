@@ -1,16 +1,20 @@
 import { useLocale } from "../../hooks";
+import useCardSort from "../../hooks/useCardSort";
+import { Card } from "../../models";
 import ColumnHeader from "./columnheader";
 import Row from "./row";
 import RowHeader from "./rowheader";
 import Square from "./square";
 import Table from "./table";
+import { Card as CardComponent } from "..";
 
 type BoardProps = {
-  cards: React.ReactNode;
+  cards: Card[];
 };
 
 export default function Board(props: BoardProps) {
   const { cards } = props;
+  const { prototype, test, scale } = useCardSort(cards);
   const t = useLocale();
 
   return (
@@ -30,14 +34,20 @@ export default function Board(props: BoardProps) {
             title={t.board.rows.prototype.title}
             description={t.board.rows.prototype.description}
           />
-          <Square id="todo-prototype">
-            <></>
+          <Square id="prototype-todo">
+            {prototype.todo.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
-          <Square id="doing-prototype">
-            <></>
+          <Square id="prototype-doing">
+            {prototype.doing.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
-          <Square id="done-prototype">
-            <></>
+          <Square id="prototype-done">
+            {prototype.done.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
         </Row>
         <Row>
@@ -46,14 +56,20 @@ export default function Board(props: BoardProps) {
             title={t.board.rows.test.title}
             description={t.board.rows.test.description}
           />
-          <Square id="todo-test">
-            <></>
+          <Square id="test-todo">
+            {test.todo.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
-          <Square id="doing-test">
-            <></>
+          <Square id="test-doing">
+            {test.doing.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
-          <Square id="done-test">
-            <></>
+          <Square id="test-done">
+            {test.done.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
         </Row>
         <Row>
@@ -62,14 +78,20 @@ export default function Board(props: BoardProps) {
             title={t.board.rows.scale.title}
             description={t.board.rows.scale.description}
           />
-          <Square id="todo-scale">
-            <></>
+          <Square id="scale-todo">
+            {scale.todo.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
-          <Square id="doing-scale">
-            <></>
+          <Square id="scale-doing">
+            {scale.doing.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
-          <Square id="done-scale">
-            <></>
+          <Square id="scale-done">
+            {scale.done.map((c) => (
+              <CardComponent key={c.id} card={c} />
+            ))}
           </Square>
         </Row>
       </tbody>

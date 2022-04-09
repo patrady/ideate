@@ -52,5 +52,11 @@
     width: 25%;
     background: #e0e0e0;
     border-radius: 4px;
+    padding: 0.25rem;
+    vertical-align: top;
+
+    & *:not(:last-child) {
+      margin-bottom: 0.25rem;
+    }
   }
 }

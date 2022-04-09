@@ -1,0 +1,20 @@
+.Card {
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+
+  &-title {
+    font-weight: bold;
+  }
+
+  &-end {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    text-align: right;
+  }
+
+  &-edit {
+      width: 1rem;
+      height: 1rem;
+  }
+}

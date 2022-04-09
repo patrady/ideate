@@ -1,0 +1,43 @@
+.Board {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+
+  &-header {
+    background: #efefef;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 4px;
+  }
+
+  &-row {
+    height: 2rem;
+  }
+
+  &-rowHeader {
+    max-width: 25rem;
+    background: #efefef;
+    text-align: left;
+    padding: 1rem;
+    vertical-align: top;
+    border-radius: 4px;
+  }
+
+  &-rowTitle {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  &-rowDescription {
+    font-size: 1rem;
+    display: block;
+  }
+
+  &-square {
+    width: 25%;
+    background: #e0e0e0;
+    border-radius: 4px;
+  }
+}

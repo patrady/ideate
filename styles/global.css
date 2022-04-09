@@ -1,0 +1,24 @@
+html,
+body,
+#__next {
+  font-family: Inter;
+  margin: 0;
+  height: 100%;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+p {
+  margin: 0;
+}
+
+th {
+  font-weight: normal;
+}

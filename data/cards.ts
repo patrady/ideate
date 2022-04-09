@@ -8,6 +8,7 @@ const cards: CardProps[] = [
     endDate: "2022-04-20T00:00:00.000",
     status: Status.Todo,
     phase: Phase.Prototype,
+    order: 0
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const cards: CardProps[] = [
       "Users are inclined to budget more if they see their unallocated transactions",
     status: Status.Todo,
     phase: Phase.Prototype,
+    order: 1
   },
 ];
 

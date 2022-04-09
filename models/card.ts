@@ -17,6 +17,7 @@ export type CardProps = {
   endDate?: string;
   status: Status;
   phase: Phase;
+  order: number;
 };
 
 export class Card {
@@ -26,14 +27,16 @@ export class Card {
   endDate?: Date;
   status: Status;
   phase: Phase;
+  order: number;
 
-  constructor({ id, title, description, endDate, status, phase }: CardProps) {
+  constructor({ id, title, description, endDate, status, phase, order }: CardProps) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.endDate = endDate ? new Date(endDate) : undefined;
     this.status = status;
     this.phase = phase;
+    this.order = order;
   }
 
   isToDo() {

@@ -19,7 +19,7 @@ export default function Square(props: SquareProps) {
         isOver: !!monitor.isOver(),
       }),
     }),
-    []
+    [onCardDrop, id]
   );
 
   return (

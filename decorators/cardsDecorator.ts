@@ -28,15 +28,6 @@ export class CardsDecorator {
     };
   }
 
-  public move(cardId: number, phase: Phase, status: Status) {
-    const card = this.find(cardId);
-    if (!card) {
-      return this;
-    }
-
-    return this.update(card.move({ phase, status }));
-  }
-
   public add(card: Card) {
     return new CardsDecorator([...this.items, card]);
   }
@@ -48,7 +39,7 @@ export class CardsDecorator {
     return new CardsDecorator([...this.cards]);
   }
 
-  private find(id: number) {
+  public find(id: number | Card): Card | undefined {
     return this.cards[this.findIndex(id)];
   }
 

@@ -83,16 +83,25 @@ export class Card {
     return newCard;
   }
 
+  public async move(phase: Phase, status: Status) {
+    const cards = await Card.getByTeam();
+    const index = cards.findIndex((c) => c.equals(this));
+    if (index === -1) {
+      return this;
+    }
+
+    cards[index] = new Card({ ...this, phase, status });
+    localStorage.setItem("cards", JSON.stringify(cards));
+
+    return cards[index];
+  }
+
   public equals(card: number | Card) {
     if (typeof card === "number") {
       return this.id === card;
     }
 
     return this.id === card.id;
-  }
-
-  public move({ phase, status }: { phase: Phase; status: Status }) {
-    return new Card({ ...this, phase, status });
   }
 
   public isPrototypeToDo() {

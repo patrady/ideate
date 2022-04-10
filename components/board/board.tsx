@@ -9,17 +9,22 @@ import { parseSquareId, SquareId, Squares } from "../../types";
 import { useState } from "react";
 import { AddCardModal } from "../card";
 import { AddCardFormProps } from "../card/addCardModal";
+import styles from './board.module.scss';
 
 export default function Board() {
-  const { cards, setCards, addCard } = useCards();
+  const { cards, addCard, moveCard } = useCards();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const t = useLocale();
   const { prototype, test, scale } = cards.sort();
 
-  function onDrop(cardId: number, column: SquareId) {
+  async function onDrop(cardId: number, column: SquareId) {
     const [phase, status] = parseSquareId(column);
+    const card = cards.find(cardId);
+    if (!card) {
+      return;
+    }
 
-    setCards(cards.move(cardId, phase, status));
+    await moveCard(card, phase, status);
   }
 
   async function handleAddCard(values: AddCardFormProps) {
@@ -28,7 +33,7 @@ export default function Board() {
   }
 
   return (
-    <div>
+    <>
       <Table>
         <thead>
           <Row>
@@ -107,12 +112,12 @@ export default function Board() {
           </Row>
         </tbody>
       </Table>
-      <button onClick={() => setIsAddModalOpen(true)}>Add Card</button>
+      <button className={styles['Board-addCard']} onClick={() => setIsAddModalOpen(true)}>Add Card</button>
       <AddCardModal
         isOpen={isAddModalOpen}
         onAdd={handleAddCard}
         onClose={() => setIsAddModalOpen(false)}
       />
-    </div>
+    </>
   );
 }

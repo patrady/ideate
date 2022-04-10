@@ -7,13 +7,16 @@ import Table from "./table";
 import { Card as CardComponent } from "..";
 import { parseSquareId, SquareId, Squares } from "../../types";
 import { useState } from "react";
-import { AddCardModal } from "../card";
+import { AddCardModal, UpdateCardModal } from "../card";
 import { AddCardFormProps } from "../card/addCardModal";
-import styles from './board.module.scss';
+import styles from "./board.module.scss";
+import { UpdateCardFormProps } from "../card/updateCardModal";
+import { Card } from "../../models";
 
 export default function Board() {
-  const { cards, addCard, moveCard } = useCards();
+  const { cards, addCard, moveCard, updateCard, removeCard } = useCards();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<Card>();
   const t = useLocale();
   const { prototype, test, scale } = cards.sort();
 
@@ -30,6 +33,24 @@ export default function Board() {
   async function handleAddCard(values: AddCardFormProps) {
     await addCard(values);
     setIsAddModalOpen(false);
+  }
+
+  async function handleUpdateCard(values: UpdateCardFormProps) {
+    if (!selectedCard) {
+      return;
+    }
+
+    await updateCard(selectedCard, values);
+    setSelectedCard(undefined);
+  }
+
+  async function handleDeleteCard() {
+    if (!selectedCard) {
+      return;
+    }
+
+    await removeCard(selectedCard);
+    setSelectedCard(undefined);
   }
 
   return (
@@ -52,17 +73,17 @@ export default function Board() {
             />
             <Square id={Squares.PrototypeTodo} onCardDrop={onDrop}>
               {prototype.todo.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
             <Square id={Squares.PrototypeDoing} onCardDrop={onDrop}>
               {prototype.doing.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
             <Square id={Squares.PrototypeDone} onCardDrop={onDrop}>
               {prototype.done.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
           </Row>
@@ -74,17 +95,17 @@ export default function Board() {
             />
             <Square id={Squares.TestTodo} onCardDrop={onDrop}>
               {test.todo.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
             <Square id={Squares.TestDoing} onCardDrop={onDrop}>
               {test.doing.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
             <Square id={Squares.TestDone} onCardDrop={onDrop}>
               {test.done.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
           </Row>
@@ -96,28 +117,43 @@ export default function Board() {
             />
             <Square id={Squares.ScaleTodo} onCardDrop={onDrop}>
               {scale.todo.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
             <Square id={Squares.ScaleDoing} onCardDrop={onDrop}>
               {scale.doing.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
             <Square id={Squares.ScaleDone} onCardDrop={onDrop}>
               {scale.done.map((c) => (
-                <CardComponent key={c.id} card={c} />
+                <CardComponent key={c.id} card={c} onEdit={setSelectedCard} />
               ))}
             </Square>
           </Row>
         </tbody>
       </Table>
-      <button className={styles['Board-addCard']} onClick={() => setIsAddModalOpen(true)}>Add Card</button>
+      <button
+        className={styles["Board-addCard"]}
+        onClick={() => setIsAddModalOpen(true)}
+      >
+        Add Card
+      </button>
       <AddCardModal
         isOpen={isAddModalOpen}
         onAdd={handleAddCard}
         onClose={() => setIsAddModalOpen(false)}
       />
+
+      {selectedCard && (
+        <UpdateCardModal
+          isOpen
+          card={selectedCard}
+          onUpdate={handleUpdateCard}
+          onDelete={handleDeleteCard}
+          onClose={() => setSelectedCard(undefined)}
+        />
+      )}
     </>
   );
 }

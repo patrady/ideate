@@ -11,7 +11,7 @@ type InputProps = {
 
 export default function Input(props: InputProps) {
   const { className, name, label, help } = props;
-  const [{ onChange, onBlur }, { touched, error }] = useField(name);
+  const [{ value, onChange, onBlur }, { touched, error }] = useField(name);
 
   return (
     <div className={clsx(className, styles["rds-FormField"])}>
@@ -20,7 +20,7 @@ export default function Input(props: InputProps) {
       </label>
       <div className={styles["rds-FormField-control"]}>
         <div className={styles["rds-Input"]}>
-          <input name={name} onChange={onChange} onBlur={onBlur} />
+          <input name={name} value={value} onChange={onChange} onBlur={onBlur} />
         </div>
       </div>
       {help && <div className={styles["rds-FormField-help"]}>{help}</div>}

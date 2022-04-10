@@ -11,6 +11,8 @@ type UseCardsValue = {
   setCards: Dispatch<SetStateAction<CardsDecorator>>;
   addCard(values: AddCardProps): Promise<void>;
   moveCard(card: Card, phase: Phase, status: Status): Promise<void>;
+  updateCard(card: Card, values: UpdateCardProps): Promise<void>;
+  removeCard(card: Card): Promise<void>;
 };
 
 export default function useCards(): UseCardsValue {
@@ -55,16 +57,20 @@ export default function useCards(): UseCardsValue {
     }
   }
 
-  async function updateCard(values: UpdateCardProps) {
+  async function updateCard(card: Card, values: UpdateCardProps) {
     try {
+      const updatedCard = await card.update(values);
+      setCards(cards.update(updatedCard));
     } catch (error) {
       console.error(error);
       setError(t.models.card.errors.update);
     }
   }
 
-  async function deleteCard() {
+  async function removeCard(card: Card) {
     try {
+      await card.delete();
+      setCards(cards.remove(card));
     } catch (error) {
       console.error(error);
       setError(t.models.card.errors.delete);
@@ -77,6 +83,8 @@ export default function useCards(): UseCardsValue {
     error,
     setCards,
     addCard,
-    moveCard
+    moveCard,
+    updateCard,
+    removeCard
   };
 }

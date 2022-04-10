@@ -39,6 +39,10 @@ export class CardsDecorator {
     return new CardsDecorator([...this.cards]);
   }
 
+  public remove(card: Card) {
+    return new CardsDecorator(this.cards.filter((c) => !c.equals(card)));
+  }
+
   public find(id: number | Card): Card | undefined {
     return this.cards[this.findIndex(id)];
   }

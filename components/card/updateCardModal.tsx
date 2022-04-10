@@ -2,30 +2,33 @@ import { Form, Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal } from "..";
 import { useLocale } from "../../hooks";
+import { Card } from "../../models";
 import { Input, Checkbox } from "../rds";
 
-type AddCardModalProps = {
+type UpdateCardModalProps = {
   isOpen: boolean;
-  onAdd(card: AddCardFormProps): Promise<void>;
+  card: Card;
+  onUpdate(card: UpdateCardFormProps): Promise<void>;
+  onDelete(): Promise<void>;
   onClose(): void;
 };
 
-export type AddCardFormProps = {
+export type UpdateCardFormProps = {
   title: string;
   description: string;
   testSuccessCriteria: string;
   isArchived: boolean;
 };
 
-export default function AddCardModal(props: AddCardModalProps) {
-  const { isOpen, onAdd, onClose } = props;
+export default function UpdateCardModal(props: UpdateCardModalProps) {
+  const { isOpen, card, onUpdate, onDelete, onClose } = props;
   const t = useLocale();
 
   async function handleSubmit(
-    values: AddCardFormProps,
-    { setSubmitting }: FormikHelpers<AddCardFormProps>
+    values: UpdateCardFormProps,
+    { setSubmitting }: FormikHelpers<UpdateCardFormProps>
   ) {
-    await onAdd(values);
+    await onUpdate(values);
     setSubmitting(false);
   }
 
@@ -33,10 +36,10 @@ export default function AddCardModal(props: AddCardModalProps) {
     <Modal title={t.board.modal.title} isOpen={isOpen} onClose={onClose}>
       <Formik
         initialValues={{
-          title: "",
-          description: "",
-          testSuccessCriteria: "",
-          isArchived: false,
+          title: card.title,
+          description: card.description,
+          testSuccessCriteria: card.testSuccessCriteria,
+          isArchived: card.isArchived,
         }}
         validationSchema={yup.object().shape({
           title: yup.string().required("Please provide a title"),
@@ -51,7 +54,8 @@ export default function AddCardModal(props: AddCardModalProps) {
           <Input name="description" label="Description" />
           <Input name="testSuccessCriteria" label="Test Success Criteria" />
           <Checkbox name="isArchived" label="isArchived" />
-          <button type="submit">Add</button>
+          <button onClick={onDelete}>Delete</button>
+          <button type="submit">Update</button>
         </Form>
       </Formik>
     </Modal>

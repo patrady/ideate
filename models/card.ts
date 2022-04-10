@@ -17,7 +17,11 @@ export type AddCardProps = Pick<
   "title" | "description" | "testSuccessCriteria" | "isArchived"
 >;
 
-export type UpdateCardProps = CardProps;
+export type UpdateCardProps = Pick<
+  CardProps,
+  "title" | "description" | "testSuccessCriteria" | "isArchived"
+>;
+
 
 export class Card {
   id: number;
@@ -94,6 +98,28 @@ export class Card {
     localStorage.setItem("cards", JSON.stringify(cards));
 
     return cards[index];
+  }
+
+  public async update(props: UpdateCardProps) {
+    const cards = await Card.getByTeam();
+    const index = cards.findIndex((c) => c.equals(this));
+    if (index === -1) {
+      return this;
+    }
+
+    cards[index] = new Card({ ...this, ...props });
+    localStorage.setItem("cards", JSON.stringify(cards));
+
+    return cards[index];
+  }
+
+  public async delete() {
+    const cards = await Card.getByTeam();
+    const newCards = cards.filter((c) => !c.equals(this));
+
+    localStorage.setItem("cards", JSON.stringify(newCards));
+
+    return this;
   }
 
   public equals(card: number | Card) {

@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Board } from "../components";
-import cards from "../data/cards";
 
 const BoardPage: NextPage = () => {
   return (
@@ -15,7 +14,7 @@ const BoardPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Board cards={cards} />
+      <Board />
     </>
   );
 };

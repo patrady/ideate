@@ -1,25 +1,21 @@
-import { useLocale } from "../../hooks";
-import useCardSort from "../../hooks/useCardSort";
-import { Card } from "../../models";
+import { useCards, useLocale } from "../../hooks";
 import ColumnHeader from "./columnheader";
 import Row from "./row";
 import RowHeader from "./rowheader";
 import Square from "./square";
 import Table from "./table";
 import { Card as CardComponent } from "..";
-import { Squares } from "../../types";
+import { parseSquareId, SquareId, Squares } from "../../types";
 
-type BoardProps = {
-  cards: Card[];
-};
-
-export default function Board(props: BoardProps) {
-  const { cards } = props;
-  const { prototype, test, scale } = useCardSort(cards);
+export default function Board() {
+  const { cards, onChangeCards } = useCards();
+  const { prototype, test, scale } = cards.sort();
   const t = useLocale();
 
-  function onDrop(cardId: number, column: Squares) {
-    console.log("card id", cardId, "column", column);
+  function onDrop(cardId: number, column: SquareId) {
+    const [phase, status] = parseSquareId(column);
+
+    onChangeCards(cards.move(cardId, phase, status));
   }
 
   return (

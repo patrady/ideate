@@ -1,20 +1,10 @@
-export enum Status {
-  Todo = 'todo',
-  Doing = 'doing',
-  Done = 'done',
-}
-
-export enum Phase {
-  Prototype = 'prototype',
-  Test = 'test',
-  Scale = 'scale',
-}
+import { Phase, Status } from "../types";
 
 export type CardProps = {
   id: number;
   title: string;
   description: string;
-  endDate?: string;
+  endDate?: string | Date;
   status: Status;
   phase: Phase;
   order: number;
@@ -29,7 +19,15 @@ export class Card {
   phase: Phase;
   order: number;
 
-  constructor({ id, title, description, endDate, status, phase, order }: CardProps) {
+  constructor({
+    id,
+    title,
+    description,
+    endDate,
+    status,
+    phase,
+    order,
+  }: CardProps) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -39,63 +37,75 @@ export class Card {
     this.order = order;
   }
 
-  isToDo() {
-    return this.status === Status.Todo;
+  public equals(card: number | Card) {
+    if (typeof card === "number") {
+      return this.id === card;
+    }
+
+    return this.id === card.id;
   }
 
-  isDoing() {
-    return this.status === Status.Doing;
+  public move({ phase, status }: { phase: Phase; status: Status }) {
+    return new Card({ ...this, phase, status });
   }
 
-  isDone() {
-    return this.status === Status.Done;
-  }
-
-  isPrototype() {
-    return this.phase === Phase.Prototype;
-  }
-
-  isTest() {
-    return this.phase === Phase.Test;
-  }
-
-  isScale() {
-    return this.phase === Phase.Scale;
-  }
-
-  isPrototypeToDo() {
+  public isPrototypeToDo() {
     return this.isPrototype() && this.isToDo();
   }
 
-  isPrototypeDoing() {
+  public isPrototypeDoing() {
     return this.isPrototype() && this.isDoing();
   }
 
-  isPrototypeDone() {
+  public isPrototypeDone() {
     return this.isPrototype() && this.isDone();
   }
 
-  isTestToDo() {
+  public isTestToDo() {
     return this.isTest() && this.isToDo();
   }
 
-  isTestDoing() {
+  public isTestDoing() {
     return this.isTest() && this.isDoing();
   }
 
-  isTestDone() {
+  public isTestDone() {
     return this.isTest() && this.isDone();
   }
 
-  isScaleToDo() {
+  public isScaleToDo() {
     return this.isScale() && this.isToDo();
   }
 
-  isScaleDoing() {
+  public isScaleDoing() {
     return this.isScale() && this.isDoing();
   }
 
-  isScaleDone() {
+  public isScaleDone() {
     return this.isScale() && this.isDone();
+  }
+
+  private isToDo() {
+    return this.status === Status.Todo;
+  }
+
+  private isDoing() {
+    return this.status === Status.Doing;
+  }
+
+  private isDone() {
+    return this.status === Status.Done;
+  }
+
+  private isPrototype() {
+    return this.phase === Phase.Prototype;
+  }
+
+  private isTest() {
+    return this.phase === Phase.Test;
+  }
+
+  private isScale() {
+    return this.phase === Phase.Scale;
   }
 }

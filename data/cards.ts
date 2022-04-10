@@ -1,4 +1,5 @@
-import { CardProps, Phase, Status, Card } from "../models";
+import { CardProps, Card } from "../models";
+import { Phase, Status } from "../types";
 
 const cards: CardProps[] = [
   {

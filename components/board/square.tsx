@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import { TdHTMLAttributes } from "react";
 import { useDrop } from "react-dnd";
-import { Squares } from "../../types";
+import { SquareId } from "../../types";
 import styles from "./board.module.scss";
 
 type SquareProps = TdHTMLAttributes<HTMLTableCellElement> & {
-  id: Squares;
-  onCardDrop(id: number, column: Squares): void;
+  id: SquareId;
+  onCardDrop(id: number, column: SquareId): void;
 };
 
 export default function Square(props: SquareProps) {

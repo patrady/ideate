@@ -1,0 +1,52 @@
+.rds {
+  &-Input {
+    input {
+      border: 1px solid #b6bec2;
+      border-radius: 4px;
+      background-color: #fff;
+      padding: 0.25rem 1rem;
+      color: #1f2426;
+      font-size: 1rem;
+      display: inline-block;
+      height: 2rem;
+
+      &:active {
+        outline: 0;
+        border-color: #0073b9;
+        box-shadow: inset 0 0 0 1px #0073b9;
+      }
+    }
+  }
+
+  &-FormField {
+    margin-bottom: 1rem;
+
+    &-label {
+      display: inline-block;
+      line-height: 1;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      margin-top: 0;
+    }
+
+    &-control {
+      margin-bottom: 0.25rem;
+      margin-top: 0;
+    }
+
+    &-help {
+      color: #69757a;
+      line-height: 1;
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+      margin-top: 0;
+    }
+
+    &-error {
+      color: #cc392f;
+      line-height: 1;
+      font-size: 0.875rem;
+    }
+  }
+}

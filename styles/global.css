@@ -1,7 +1,7 @@
 html,
 body,
 #__next {
-  font-family: Inter;
+  font-family: canada-type-gibson;
   margin: 0;
   height: 100%;
 }
@@ -21,4 +21,8 @@ p {
 
 th {
   font-weight: normal;
+}
+
+input {
+  font-family: canada-type-gibson;
 }

@@ -1,0 +1,43 @@
+.Modal {
+  position: absolute;
+  inset: 40px;
+  background: white;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  margin: auto;
+  max-width: 500px;
+
+  &-overlay {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &-title {
+    margin: 0;
+  }
+
+  &-close {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &-content {
+    margin-bottom: 1rem;
+  }
+
+  &-actions {
+  }
+}

@@ -23,5 +23,18 @@ export default {
         description: "Are we delivering the solution well?",
       },
     },
+    modal: {
+      title: "Add Card",
+    },
+  },
+  models: {
+    card: {
+      errors: {
+        get: "Oh no, the cards could not be retrieved",
+        add: "Oh no, that card couldn't be added",
+        update: "Oh no, that card couldn't be updated",
+        delete: "Oh no, that card couldn't be deleted",
+      },
+    },
   },
 };

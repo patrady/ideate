@@ -1,5 +1,6 @@
 import { ThHTMLAttributes } from "react";
-import styles from './board.module.scss';
+import Text from "@ramsey-design-system/text";
+import styles from "./board.module.scss";
 
 type ColumnHeaderProps = ThHTMLAttributes<HTMLTableCellElement> & {
   empty?: false;
@@ -19,5 +20,14 @@ export default function ColumnHeader(
     return <td></td>;
   }
 
-  return <th scope="col" className={styles["Board-header"]}>{props.title}</th>;
+  return (
+    <Text
+      element="th"
+      size="bodyLarge"
+      scope="col"
+      className={styles["Board-header"]}
+    >
+      {props.title}
+    </Text>
+  );
 }

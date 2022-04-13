@@ -1,52 +1,67 @@
+@import "@ramsey-design-system/tokens/dist/variables";
+
 .rds {
   &-Input {
     input {
-      border: 1px solid #b6bec2;
-      border-radius: 4px;
-      background-color: #fff;
-      padding: 0.25rem 1rem;
-      color: #1f2426;
-      font-size: 1rem;
+      border: $rds-size-border-small solid $rds-color-base-gray-40;
+      border-radius: $rds-size-radius-small;
+      background-color: $rds-color-base-white;
+      padding: $rds-size-spacing-inset-squish-xsmall;
+      color: $rds-color-base-gray-90;
+      font-size: $rds-size-font-3;
       display: inline-block;
       height: 2rem;
 
       &:active {
         outline: 0;
-        border-color: #0073b9;
-        box-shadow: inset 0 0 0 1px #0073b9;
+        border-color: $rds-color-base-blue-50;
+        box-shadow: inset 0 0 0 1px $rds-color-base-blue-50;
       }
     }
   }
 
   &-FormField {
-    margin-bottom: 1rem;
+    margin-bottom: $rds-size-spacing-stack-medium;
 
     &-label {
       display: inline-block;
-      line-height: 1;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
+      line-height: $rds-size-line-height-reset;
+      font-size: $rds-size-font-3;
+      font-weight: $rds-font-weight-semibold;
+      margin-bottom: $rds-size-spacing-stack-xsmall;
       margin-top: 0;
     }
 
     &-control {
-      margin-bottom: 0.25rem;
+      margin-bottom: $rds-size-spacing-stack-xsmall;
       margin-top: 0;
     }
 
     &-help {
-      color: #69757a;
-      line-height: 1;
-      font-size: 0.875rem;
-      margin-bottom: 0.25rem;
+      color: $rds-color-base-gray-60;
+      line-height: $rds-size-line-height-reset;
+      font-size: $rds-size-font-2;
+      margin-bottom: $rds-size-spacing-stack-xsmall;
       margin-top: 0;
     }
 
     &-error {
-      color: #cc392f;
-      line-height: 1;
-      font-size: 0.875rem;
+      color: $rds-color-base-red-60;
+      line-height: $rds-size-line-height-reset;
+      font-size: $rds-size-font-2;
+    }
+  }
+
+  &-ButtonGroup {
+    display: flex;
+    justify-content: flex-start;
+
+    *:not(:last-child) {
+      margin-right: $rds-size-spacing-inset-small;
+    }
+
+    &--right {
+      justify-content: flex-end;
     }
   }
 }

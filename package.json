@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ramsey-design-system/button": "^2.2.2",
+    "@ramsey-design-system/icon": "^2.0.5",
+    "@ramsey-design-system/icons": "^2.4.0",
+    "@ramsey-design-system/text": "^1.0.3",
+    "@ramsey-design-system/tokens": "^0.7.1",
     "clsx": "^1.1.1",
     "formik": "^2.2.9",
     "next": "12.1.4",

@@ -12,6 +12,7 @@ import { AddCardFormProps } from "../card/addCardModal";
 import styles from "./board.module.scss";
 import { UpdateCardFormProps } from "../card/updateCardModal";
 import { Card } from "../../models";
+import Button from "@ramsey-design-system/button";
 
 export default function Board() {
   const { cards, addCard, moveCard, updateCard, removeCard } = useCards();
@@ -133,12 +134,12 @@ export default function Board() {
           </Row>
         </tbody>
       </Table>
-      <button
+      <Button
         className={styles["Board-addCard"]}
         onClick={() => setIsAddModalOpen(true)}
       >
         Add Card
-      </button>
+      </Button>
       <AddCardModal
         isOpen={isAddModalOpen}
         onAdd={handleAddCard}

@@ -1,3 +1,4 @@
+import Text from "@ramsey-design-system/text";
 import clsx from "clsx";
 import { useField } from "formik";
 import styles from "./rds.module.scss";
@@ -15,17 +16,17 @@ export default function Input(props: InputProps) {
 
   return (
     <div className={clsx(className, styles["rds-FormField"])}>
-      <label className={styles["rds-FormField-label"]} htmlFor={name}>
+      <Text element="label" className={styles["rds-FormField-label"]} htmlFor={name}>
         {label}
-      </label>
+      </Text>
       <div className={styles["rds-FormField-control"]}>
         <div className={styles["rds-Input"]}>
           <input name={name} value={value} onChange={onChange} onBlur={onBlur} />
         </div>
       </div>
-      {help && <div className={styles["rds-FormField-help"]}>{help}</div>}
+      {help && <Text className={styles["rds-FormField-help"]} color="subdued">{help}</Text>}
       {touched && error && (
-        <span className={styles["rds-FormField-error"]}>{error}</span>
+        <Text element="span" className={styles["rds-FormField-error"]}>{error}</Text>
       )}
     </div>
   );

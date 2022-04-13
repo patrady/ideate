@@ -1,3 +1,4 @@
+import Text from "@ramsey-design-system/text";
 import ReactModal from "react-modal";
 import styles from "./modal.module.scss";
 
@@ -21,7 +22,7 @@ export default function Modal(props: ModalProps) {
       shouldCloseOnOverlayClick
     >
       <div className={styles["Modal-header"]}>
-        <h2 className={styles["Modal-title"]}>{title}</h2>
+        <Text className={styles["Modal-title"]} element="h2" size="bodyLarge">{title}</Text>
         <button className={styles["Modal-close"]} onClick={onClose}>
           X
         </button>

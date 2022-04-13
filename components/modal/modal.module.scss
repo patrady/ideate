@@ -1,11 +1,13 @@
+@import "@ramsey-design-system/tokens/dist/variables";
+
 .Modal {
   position: absolute;
   inset: 40px;
-  background: white;
+  background: $rds-color-base-white;
   overflow: auto;
-  border-radius: 4px;
+  border-radius: $rds-size-radius-small;
   outline: none;
-  padding: 20px;
+  padding: $rds-size-spacing-inset-squish-large;
   margin: auto;
   max-width: 500px;
 
@@ -22,7 +24,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: $rds-size-spacing-basis;
   }
 
   &-title {
@@ -35,7 +37,7 @@
   }
 
   &-content {
-    margin-bottom: 1rem;
+    margin-bottom: $rds-size-spacing-basis;
   }
 
   &-actions {

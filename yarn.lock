@@ -139,6 +139,43 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@ramsey-design-system/button@^2.2.2":
+  version "2.2.2"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_5qnmu/%40ramsey-design-system%2Fbutton-2.2.2.tgz#8b7dc491549bb2928ccce2267e4e96693c546435"
+  integrity sha1-i33EkVSbspKMzOImfk6WaTxUZDU=
+  dependencies:
+    "@ramsey-design-system/tokens" "^0.7.1"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
+"@ramsey-design-system/icon@^2.0.5":
+  version "2.0.5"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_1aPnUg/%40ramsey-design-system%2Ficon-2.0.5.tgz#d578fa4d9495469e8c25572564857409ec4efcd7"
+  integrity sha1-1Xj6TZSVRp6MJVclZIV0CexO/Nc=
+  dependencies:
+    "@ramsey-design-system/tokens" "^0.7.1"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
+"@ramsey-design-system/icons@^2.4.0":
+  version "2.4.0"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_hJAvf/%40ramsey-design-system%2Ficons-2.4.0.tgz#aea3b67e31c4dcdc922c3178ce1ff75256ca9d5a"
+  integrity sha1-rqO2fjHE3NySLDF4zh/3UlbKnVo=
+
+"@ramsey-design-system/text@^1.0.3":
+  version "1.0.3"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_1fFcgG/%40ramsey-design-system%2Ftext-1.0.3.tgz#b5c916ded41fc3ecf93e3b32f0f93d0683a31cf6"
+  integrity sha1-tckW3tQfw+z5Pjsy8Pk9BoOjHPY=
+  dependencies:
+    "@ramsey-design-system/tokens" "^0.7.1"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
+"@ramsey-design-system/tokens@^0.7.1":
+  version "0.7.1"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_1o9NF6/%40ramsey-design-system%2Ftokens-0.7.1.tgz#f2d16b7227fa84c459f8546edc6c5856c022b125"
+  integrity sha1-8tFrcif6hMRZ+FRu3GxYVsAisSU=
+
 "@react-dnd/asap@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@react-dnd/asap/-/asap-5.0.0.tgz#e56419b90d24bfb53136319b3fa0bbe7a21a9065"
@@ -436,6 +473,11 @@ chalk@^4.0.0:
     readdirp "~3.6.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+classnames@^2.2.6:
+  version "2.3.1"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
 clsx@^1.1.1:
   version "1.1.1"

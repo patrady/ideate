@@ -1,15 +1,17 @@
+@import "@ramsey-design-system/tokens/dist/variables";
+
 .Card {
-  background-color: white;
-  padding: 0.75rem;
-  border-radius: 8px;
+  background-color: $rds-color-base-white;
+  padding: $rds-size-spacing-inset-squish-small;
+  border-radius: $rds-size-radius-medium;
+  margin-bottom: $rds-size-spacing-basis;
 
   &-title {
     font-weight: bold;
   }
 
   &-end {
-    margin-top: 0.25rem;
-    font-size: 0.75rem;
+    margin-top: $rds-size-spacing-stack-xsmall;
     text-align: right;
   }
 

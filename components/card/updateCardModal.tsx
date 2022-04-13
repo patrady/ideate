@@ -1,9 +1,10 @@
+import Button from "@ramsey-design-system/button";
 import { Form, Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal } from "..";
 import { useLocale } from "../../hooks";
 import { Card } from "../../models";
-import { Input, Checkbox } from "../rds";
+import { Input, Checkbox, ButtonGroup } from "../rds";
 
 type UpdateCardModalProps = {
   isOpen: boolean;
@@ -54,8 +55,13 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
           <Input name="description" label="Description" />
           <Input name="testSuccessCriteria" label="Test Success Criteria" />
           <Checkbox name="isArchived" label="isArchived" />
-          <button onClick={onDelete}>Delete</button>
-          <button type="submit">Update</button>
+          <ButtonGroup alignRight>
+            <Button appearance="dangerSubtle" onClick={onDelete}>
+              Delete
+            </Button>
+            <Button appearance="ghost" onClick={onClose}>Cancel</Button>
+            <Button type="submit">Update</Button>
+          </ButtonGroup>
         </Form>
       </Formik>
     </Modal>

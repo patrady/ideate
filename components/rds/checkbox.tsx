@@ -1,3 +1,4 @@
+import Text from "@ramsey-design-system/text";
 import clsx from "clsx";
 import { useField } from "formik";
 import styles from "./rds.module.scss";
@@ -16,12 +17,16 @@ export default function Checkbox(props: CheckboxProps) {
   return (
     <div className={clsx(className, styles["rds-FormField"])}>
       <input type="checkbox" name={name} value={value} onChange={onChange} />
-      <label className={styles["rds-FormField-label"]} htmlFor={name}>
+      <Text
+        element="label"
+        className={styles["rds-FormField-label"]}
+        htmlFor={name}
+      >
         {label}
-      </label>
-      {help && <div className={styles["rds-FormField-help"]}>{help}</div>}
+      </Text>
+      {help && <Text className={styles["rds-FormField-help"]}>{help}</Text>}
       {touched && error && (
-        <span className={styles["rds-FormField-error"]}>{label}</span>
+        <Text element="span" className={styles["rds-FormField-error"]}>{label}</Text>
       )}
     </div>
   );

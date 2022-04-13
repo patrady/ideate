@@ -1,8 +1,9 @@
+import Button from "@ramsey-design-system/button";
 import { Form, Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal } from "..";
 import { useLocale } from "../../hooks";
-import { Input, Checkbox } from "../rds";
+import { Input, Checkbox, ButtonGroup } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
@@ -51,7 +52,10 @@ export default function AddCardModal(props: AddCardModalProps) {
           <Input name="description" label="Description" />
           <Input name="testSuccessCriteria" label="Test Success Criteria" />
           <Checkbox name="isArchived" label="isArchived" />
-          <button type="submit">Add</button>
+          <ButtonGroup alignRight>
+            <Button appearance="ghost" type="button" onClick={onClose}>Cancel</Button>
+            <Button type="submit">Add</Button>
+          </ButtonGroup>
         </Form>
       </Formik>
     </Modal>

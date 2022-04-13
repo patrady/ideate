@@ -1,5 +1,6 @@
 import { ThHTMLAttributes } from "react";
 import clsx from "clsx";
+import Text from '@ramsey-design-system/text';
 import styles from "./board.module.scss";
 
 type RowHeaderProps = ThHTMLAttributes<HTMLTableCellElement> & {
@@ -19,8 +20,8 @@ export default function RowHeader(props: RowHeaderProps) {
         styles[`Board-rowHeader--${variant}`]
       )}
     >
-      <span className={styles["Board-rowTitle"]}>{title}</span>
-      <span className={styles["Board-rowDescription"]}>{description}</span>
+      <Text className={styles["Board-rowTitle"]} element="span" size="bodyLarge">{title}</Text>
+      <Text className={styles["Board-rowDescription"]} element="span" size="bodySmall">{description}</Text>
     </th>
   );
 }

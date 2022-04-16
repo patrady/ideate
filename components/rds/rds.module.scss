@@ -35,6 +35,14 @@
     &-control {
       margin-bottom: $rds-size-spacing-stack-xsmall;
       margin-top: 0;
+
+      &--error {
+        margin-bottom: 0;
+
+        input {
+          border-color: $rds-color-base-red-60;
+        }
+      }
     }
 
     &-help {
@@ -45,7 +53,7 @@
       margin-top: 0;
     }
 
-    &-error {
+    &-errorMessage {
       color: $rds-color-base-red-60;
       line-height: $rds-size-line-height-reset;
       font-size: $rds-size-font-2;

@@ -1,4 +1,4 @@
-import Text from "@ramsey-design-system/text";
+import Heading from "@ramsey-design-system/heading";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { useBool } from "../../hooks";
@@ -42,9 +42,9 @@ function AccordianItem(props: AccordianItemProps) {
       })}
     >
       <button type="button" className={styles["AccordianItem-toggle"]} onClick={handleClick}>
-        <Text element="h3" className={styles["AccordianItem-title"]}>
+        <Heading level="3" className={styles["AccordianItem-title"]}>
           {title}
-        </Text>
+        </Heading>
       </button>
       <div className={styles["AccordianItem-body"]} style={{ height }}>
         <div ref={contentRef} className={styles["AccordianItem-content"]}>

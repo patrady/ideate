@@ -1128,6 +1128,15 @@
     classnames "^2.2.6"
     prop-types "^15.7.2"
 
+"@ramsey-design-system/heading@^1.0.2":
+  version "1.0.2"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_1VBcmT/%40ramsey-design-system%2Fheading-1.0.2.tgz#035cbad302db5d3c895ecf004decab8984837551"
+  integrity sha1-A1y60wLbXTyJXs8ATeyriYSDdVE=
+  dependencies:
+    "@ramsey-design-system/tokens" "^0.7.1"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
 "@ramsey-design-system/icon@^2.0.5":
   version "2.0.5"
   resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_1aPnUg/%40ramsey-design-system%2Ficon-2.0.5.tgz#d578fa4d9495469e8c25572564857409ec4efcd7"

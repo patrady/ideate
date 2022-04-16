@@ -1,4 +1,4 @@
-import Text from "@ramsey-design-system/text";
+import Heading from "@ramsey-design-system/heading";
 import { Form } from "formik";
 import ReactModal from "react-modal";
 import styles from "./modal.module.scss";
@@ -52,9 +52,9 @@ function ModalHeader(props: ModalHeaderProps) {
   const StyledChildren = () => {
     if (typeof children === "string") {
       return (
-        <Text className={styles["Modal-title"]} element="h2" size="bodyLarge">
+        <Heading className={styles["Modal-title"]} level="2" size="medium">
           {children}
-        </Text>
+        </Heading>
       );
     }
 

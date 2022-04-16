@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ramsey-design-system/button": "^2.2.2",
+    "@ramsey-design-system/heading": "^1.0.2",
     "@ramsey-design-system/icon": "^2.0.5",
     "@ramsey-design-system/icons": "^2.4.0",
     "@ramsey-design-system/stack": "^1.0.8",

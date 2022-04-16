@@ -1,10 +1,25 @@
 import { Phase, Status } from "../types";
 
+type TestProps = {
+  metrics: string;
+  successCriteria: string;
+};
+
+type ScaleProps = {
+  notes: string;
+};
+
+type PrototypeProps = {
+  notes: string;
+};
+
 export type CardProps = {
   id: number;
   title: string;
   description: string;
-  testSuccessCriteria: string;
+  prototype: PrototypeProps;
+  test: TestProps;
+  scale: ScaleProps;
   endDate?: string | Date;
   tags: string[];
   status: Status;
@@ -15,20 +30,33 @@ export type CardProps = {
 
 export type AddCardProps = Pick<
   CardProps,
-  "title" | "description" | "testSuccessCriteria" | "tags" | "isArchived"
+  | "title"
+  | "description"
+  | "prototype"
+  | "test"
+  | "scale"
+  | "tags"
+  | "isArchived"
 >;
 
 export type UpdateCardProps = Pick<
   CardProps,
-  "title" | "description" | "testSuccessCriteria" | "tags" | "isArchived"
+  | "title"
+  | "description"
+  | "prototype"
+  | "test"
+  | "scale"
+  | "tags"
+  | "isArchived"
 >;
-
 
 export class Card {
   id: number;
   title: string;
   description: string;
-  testSuccessCriteria: string;
+  prototype: PrototypeProps;
+  test: TestProps;
+  scale: ScaleProps;
   endDate?: Date;
   tags: string[];
   status: Status;
@@ -40,7 +68,9 @@ export class Card {
     id,
     title,
     description,
-    testSuccessCriteria,
+    test,
+    scale,
+    prototype,
     endDate,
     tags,
     status,
@@ -51,7 +81,9 @@ export class Card {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.testSuccessCriteria = testSuccessCriteria;
+    this.prototype = prototype;
+    this.test = test;
+    this.scale = scale;
     this.endDate = endDate ? new Date(endDate) : undefined;
     this.tags = tags || [];
     this.status = status;
@@ -71,7 +103,8 @@ export class Card {
   }
 
   public static async add(props: AddCardProps) {
-    const { title, description, testSuccessCriteria, tags, isArchived } = props;
+    const { title, description, prototype, test, scale, tags, isArchived } =
+      props;
 
     const cards = await this.getByTeam();
     const previousCard = cards.length > 0 ? cards[cards.length - 1] : undefined;
@@ -79,7 +112,9 @@ export class Card {
       id: (previousCard?.id || 0) + 1,
       title,
       description,
-      testSuccessCriteria,
+      prototype,
+      test,
+      scale,
       tags,
       status: Status.Todo,
       phase: Phase.Prototype,

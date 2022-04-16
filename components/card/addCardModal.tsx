@@ -3,21 +3,14 @@ import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal, Accordian } from "..";
 import { useLocale } from "../../hooks";
+import { AddCardProps } from "../../models";
 import { AccordianItem } from "../accordian";
 import { Input, Checkbox, ButtonGroup, TextArea, Tags } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
-  onAdd(card: AddCardFormProps): Promise<void>;
+  onAdd(card: AddCardProps): Promise<void>;
   onClose(): void;
-};
-
-export type AddCardFormProps = {
-  title: string;
-  description: string;
-  testSuccessCriteria: string;
-  isArchived: boolean;
-  tags: string[];
 };
 
 export default function AddCardModal(props: AddCardModalProps) {
@@ -25,8 +18,8 @@ export default function AddCardModal(props: AddCardModalProps) {
   const t = useLocale();
 
   async function handleSubmit(
-    values: AddCardFormProps,
-    { setSubmitting }: FormikHelpers<AddCardFormProps>
+    values: AddCardProps,
+    { setSubmitting }: FormikHelpers<AddCardProps>
   ) {
     await onAdd(values);
     setSubmitting(false);
@@ -37,9 +30,18 @@ export default function AddCardModal(props: AddCardModalProps) {
       initialValues={{
         title: "",
         description: "",
-        testSuccessCriteria: "",
+        prototype: {
+          notes: "",
+        },
+        test: {
+          successCriteria: "",
+          metrics: "",
+        },
+        scale: {
+          notes: "",
+        },
         isArchived: false,
-        tags: ["abc", "123"],
+        tags: [] as string[],
       }}
       validationSchema={yup.object().shape({
         title: yup.string().required("Please provide a title"),
@@ -66,14 +68,16 @@ export default function AddCardModal(props: AddCardModalProps) {
         <Input name="title" label="Title" help="What displays on the card" />
         <Input name="description" label="Description" />
         <Accordian>
-          <AccordianItem title="Prototype"></AccordianItem>
-          <AccordianItem title="Test">
-            <TextArea
-              name="testSuccessCriteria"
-              label="Success Criteria"
-            />
+          <AccordianItem title="Prototype">
+            <TextArea name="prototype.notes" label="Notes" />
           </AccordianItem>
-          <AccordianItem title="Scale"></AccordianItem>
+          <AccordianItem title="Test">
+            <TextArea name="test.successCriteria" label="Success Criteria" />
+            <TextArea name="test.metrics" label="Metrics" />
+          </AccordianItem>
+          <AccordianItem title="Scale">
+            <TextArea name="scale.notes" label="Notes" />
+          </AccordianItem>
         </Accordian>
 
         <Tags name="tags" label="Tags" />

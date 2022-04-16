@@ -41,7 +41,7 @@ function AccordianItem(props: AccordianItemProps) {
         [styles["AccordianItem--active"]]: isOpen,
       })}
     >
-      <button className={styles["AccordianItem-toggle"]} onClick={handleClick}>
+      <button type="button" className={styles["AccordianItem-toggle"]} onClick={handleClick}>
         <Text element="h3" className={styles["AccordianItem-title"]}>
           {title}
         </Text>

@@ -6,24 +6,27 @@ import styles from "./rds.module.scss";
 type InputProps = {
   className?: string;
   name: string;
-  label: string;
+  label?: string;
   help?: string;
 };
 
 export default function Input(props: InputProps) {
   const { className, name, label, help } = props;
-  const [{ value, onChange, onBlur }, { touched, error }] = useField<string>(name);
+  const [{ value, onChange, onBlur }, { touched, error }] =
+    useField<string>(name);
   const hasError = touched && error;
 
   return (
     <div className={clsx(styles["rds-FormField"], className)}>
-      <Text
-        element="label"
-        className={styles["rds-FormField-label"]}
-        htmlFor={name}
-      >
-        {label}
-      </Text>
+      {label && (
+        <Text
+          element="label"
+          className={styles["rds-FormField-label"]}
+          htmlFor={name}
+        >
+          {label}
+        </Text>
+      )}
       <div
         className={clsx(styles["rds-FormField-control"], {
           [styles["rds-FormField-control--error"]]: hasError,

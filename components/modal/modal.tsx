@@ -62,7 +62,7 @@ function ModalHeader(props: ModalHeaderProps) {
   return (
     <div className={styles["Modal-header"]}>
       <StyledChildren />
-      <button className={styles["Modal-close"]} onClick={onClose}>
+      <button type="button" className={styles["Modal-close"]} onClick={onClose}>
         X
       </button>
     </div>

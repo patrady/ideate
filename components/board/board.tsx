@@ -9,8 +9,7 @@ import { parseSquareId, SquareId, Squares } from "../../types";
 import { AddCardModal, UpdateCardModal } from "../card";
 import { AddCardFormProps } from "../card/addCardModal";
 import styles from "./board.module.scss";
-import { UpdateCardFormProps } from "../card/updateCardModal";
-import { Card } from "../../models";
+import { Card, UpdateCardProps } from "../../models";
 import Button from "@ramsey-design-system/button";
 
 export default function Board() {
@@ -36,7 +35,7 @@ export default function Board() {
     closeAddModal();
   }
 
-  async function handleUpdateCard(values: UpdateCardFormProps) {
+  async function handleUpdateCard(values: UpdateCardProps) {
     if (!selectedCard) {
       return;
     }

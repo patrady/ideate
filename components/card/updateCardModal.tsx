@@ -3,22 +3,15 @@ import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal } from "..";
 import { useLocale } from "../../hooks";
-import { Card } from "../../models";
-import { Input, Checkbox, ButtonGroup, TextArea } from "../rds";
+import { Card, UpdateCardProps } from "../../models";
+import { Input, Checkbox, ButtonGroup, TextArea, Tags } from "../rds";
 
 type UpdateCardModalProps = {
   isOpen: boolean;
   card: Card;
-  onUpdate(card: UpdateCardFormProps): Promise<void>;
+  onUpdate(card: UpdateCardProps): Promise<void>;
   onDelete(): Promise<void>;
   onClose(): void;
-};
-
-export type UpdateCardFormProps = {
-  title: string;
-  description: string;
-  testSuccessCriteria: string;
-  isArchived: boolean;
 };
 
 export default function UpdateCardModal(props: UpdateCardModalProps) {
@@ -26,8 +19,8 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
   const t = useLocale();
 
   async function handleSubmit(
-    values: UpdateCardFormProps,
-    { setSubmitting }: FormikHelpers<UpdateCardFormProps>
+    values: UpdateCardProps,
+    { setSubmitting }: FormikHelpers<UpdateCardProps>
   ) {
     await onUpdate(values);
     setSubmitting(false);
@@ -39,6 +32,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
         title: card.title,
         description: card.description,
         testSuccessCriteria: card.testSuccessCriteria,
+        tags: card.tags,
         isArchived: card.isArchived,
       }}
       validationSchema={yup.object().shape({
@@ -69,6 +63,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
         <Input name="title" label="Title" help="What displays on the card" />
         <Input name="description" label="Description" />
         <TextArea name="testSuccessCriteria" label="Test Success Criteria" />
+        <Tags name="tags" label="Tags" />
         <Checkbox name="isArchived" label="Archived" />
       </Modal>
     </Formik>

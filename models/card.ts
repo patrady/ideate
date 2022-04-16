@@ -6,6 +6,7 @@ export type CardProps = {
   description: string;
   testSuccessCriteria: string;
   endDate?: string | Date;
+  tags: string[];
   status: Status;
   phase: Phase;
   order: number;
@@ -14,12 +15,12 @@ export type CardProps = {
 
 export type AddCardProps = Pick<
   CardProps,
-  "title" | "description" | "testSuccessCriteria" | "isArchived"
+  "title" | "description" | "testSuccessCriteria" | "tags" | "isArchived"
 >;
 
 export type UpdateCardProps = Pick<
   CardProps,
-  "title" | "description" | "testSuccessCriteria" | "isArchived"
+  "title" | "description" | "testSuccessCriteria" | "tags" | "isArchived"
 >;
 
 
@@ -29,6 +30,7 @@ export class Card {
   description: string;
   testSuccessCriteria: string;
   endDate?: Date;
+  tags: string[];
   status: Status;
   phase: Phase;
   order: number;
@@ -40,6 +42,7 @@ export class Card {
     description,
     testSuccessCriteria,
     endDate,
+    tags,
     status,
     phase,
     order,
@@ -50,6 +53,7 @@ export class Card {
     this.description = description;
     this.testSuccessCriteria = testSuccessCriteria;
     this.endDate = endDate ? new Date(endDate) : undefined;
+    this.tags = tags;
     this.status = status;
     this.phase = phase;
     this.order = order;
@@ -67,7 +71,7 @@ export class Card {
   }
 
   public static async add(props: AddCardProps) {
-    const { title, description, testSuccessCriteria, isArchived } = props;
+    const { title, description, testSuccessCriteria, tags, isArchived } = props;
 
     const cards = await this.getByTeam();
     const previousCard = cards.length > 0 ? cards[cards.length - 1] : undefined;
@@ -76,6 +80,7 @@ export class Card {
       title,
       description,
       testSuccessCriteria,
+      tags,
       status: Status.Todo,
       phase: Phase.Prototype,
       order: 10,

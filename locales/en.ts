@@ -29,6 +29,7 @@ export default {
     updateCardModal: {
       title: "Update Card",
     },
+    addCard: "Add Card"
   },
   pages: {
     index: {

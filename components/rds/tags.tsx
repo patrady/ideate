@@ -1,10 +1,14 @@
 import Text from "@ramsey-design-system/text";
 import clsx from "clsx";
-import { FieldArray, useField } from "formik";
+import { FieldArray, Formik, useField, yupToFormErrors } from "formik";
 import Tag from "./tag";
 import styles from "./rds.module.scss";
 import Button from "@ramsey-design-system/button";
-import { useState } from "react";
+import * as yup from "yup";
+import { useBool } from "../../hooks";
+import Modal from "../modal/modal";
+import ButtonGroup from "./buttonGroup";
+import Input from "./input";
 
 type TagsProps = {
   className?: string;
@@ -15,6 +19,7 @@ type TagsProps = {
 
 export default function Tags(props: TagsProps) {
   const { className, name, label, help } = props;
+  const [isAddTagOpen, closeAddTag, openAddTag] = useBool();
   const [{ value = [], onChange, onBlur }, { touched, error }] =
     useField<string[]>(name);
   const hasError = touched && error;
@@ -30,7 +35,7 @@ export default function Tags(props: TagsProps) {
       </Text>
       <FieldArray
         name={name}
-        render={({ remove }) => (
+        render={({ remove, push }) => (
           <div className={styles["rds-Group"]}>
             {value.map((tag, index) => (
               <Tag
@@ -42,9 +47,39 @@ export default function Tags(props: TagsProps) {
               />
             ))}
 
-            <Button appearance="ghost" size="small">
+            <Button type="button" appearance="ghost" size="small" onClick={openAddTag}>
               Add Tag
             </Button>
+
+            {isAddTagOpen && (
+              <Formik
+                initialValues={{ tag: "" }}
+                validationSchema={yup.object().shape({
+                  tag: yup.string().required("Please provide a tag"),
+                })}
+                onSubmit={({ tag }) => {
+                  push(tag);
+                  closeAddTag();
+                }}
+              >
+                <Modal
+                  form
+                  isOpen
+                  title="Add Tag"
+                  onClose={closeAddTag}
+                  actions={
+                    <ButtonGroup alignRight>
+                      <Button type="button" appearance="ghost">
+                        Cancel
+                      </Button>
+                      <Button type="submit">Add</Button>
+                    </ButtonGroup>
+                  }
+                >
+                  <Input name="tag" />
+                </Modal>
+              </Formik>
+            )}
           </div>
         )}
       />

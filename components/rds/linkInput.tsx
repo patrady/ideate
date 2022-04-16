@@ -1,9 +1,16 @@
+import Button from "@ramsey-design-system/button";
 import clsx from "clsx";
 import { useMemo } from "react";
+import { DeleteIcon, DocumentOutlinedIcon, LinkExternalIcon } from "..";
 import styles from "./rds.module.scss";
 
 type LinkInputButtons = "copy" | "open" | "delete";
-type Actions = { [key in LinkInputButtons]: (value: string) => any };
+type Actions = {
+  [key in LinkInputButtons]: {
+    action: (value: string) => any;
+    icon: () => JSX.Element;
+  };
+};
 
 type InputProps = {
   value: string;
@@ -15,24 +22,34 @@ export default function LinkInput(props: InputProps) {
   const { value, actions = [], onDelete } = props;
   const actionCallbacks = useMemo<Actions>(
     () => ({
-      open: (href: string) => window.open(href, "_blank"),
-      copy: (value: string) => navigator.clipboard.writeText(value),
-      delete: (value: string) => onDelete && onDelete(value),
+      open: {
+        action: (href: string) => window.open(href, "_blank"),
+        icon: LinkExternalIcon,
+      },
+      copy: {
+        action: (value: string) => navigator.clipboard.writeText(value),
+        icon: DocumentOutlinedIcon,
+      },
+      delete: {
+        action: (value: string) => onDelete && onDelete(value),
+        icon: DeleteIcon,
+      },
     }),
     [onDelete]
   );
 
   function ActionButton({ type }: { type: LinkInputButtons }) {
-    const onClick = () => actionCallbacks[type](value);
+    const { icon, action } = actionCallbacks[type];
 
     return (
-      <button
+      <Button
         className={styles["rds-LinkInput-action"]}
         type="button"
-        onClick={onClick}
-      >
-        {type.toString()}
-      </button>
+        appearance="subtle"
+        iconOnly
+        icon={icon}
+        onClick={() => action(value)}
+      />
     );
   }
 

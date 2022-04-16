@@ -78,7 +78,7 @@
     }
 
     &-actions {
-      margin-left: -$rds-size-spacing-stack-xsmall;
+      margin-left: -3px;
 
       :last-child {
         border-top-right-radius: $rds-size-radius-small;
@@ -94,6 +94,7 @@
       width: 42px;
       height: 42px;
       border: $rds-size-border-small solid $rds-color-base-gray-40;
+      border-radius: 0;
     }
   }
 
@@ -123,6 +124,19 @@
       border-color: $rds-color-base-gray-40;
       border-radius: $rds-size-radius-small;
       padding: $rds-size-spacing-inset-squish-xsmall;
+    }
+  }
+
+  &-Tag {
+    &-delete {
+      margin-left: $rds-size-spacing-basis;
+      border-radius: $rds-size-radius-rounded;
+      margin-right: -6px;
+
+      svg {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
     }
   }
 }

@@ -1,6 +1,8 @@
+import Button from "@ramsey-design-system/button";
 import Heading from "@ramsey-design-system/heading";
 import { Form } from "formik";
 import ReactModal from "react-modal";
+import { CloseIcon } from "../icons/icons";
 import styles from "./modal.module.scss";
 
 type ModalProps = {
@@ -12,7 +14,7 @@ type ModalProps = {
   onClose(): void;
 };
 
-ReactModal.setAppElement('#__next');
+ReactModal.setAppElement("#__next");
 
 export default function Modal(props: ModalProps) {
   const {
@@ -64,9 +66,14 @@ function ModalHeader(props: ModalHeaderProps) {
   return (
     <div className={styles["Modal-header"]}>
       <StyledChildren />
-      <button type="button" className={styles["Modal-close"]} onClick={onClose}>
-        X
-      </button>
+      <Button
+        iconOnly
+        icon={CloseIcon}
+        type="button"
+        appearance="subtle"
+        className={styles["Modal-close"]}
+        onClick={onClose}
+      />
     </div>
   );
 }

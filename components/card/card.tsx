@@ -1,10 +1,9 @@
-import Button from "@ramsey-design-system/button";
 import { useDrag } from "react-dnd";
-import Icon from "@ramsey-design-system/icon"
-import { EditOutlinedIcon } from "@ramsey-design-system/icons/dist";
 import Text from '@ramsey-design-system/text';
 import { Card as CardModel } from "../../models";
 import styles from "./card.module.scss";
+import Button from "@ramsey-design-system/button";
+import { EditOutlinedIcon } from "..";
 
 type CardProps = {
   card: CardModel;
@@ -26,8 +25,7 @@ export default function Card(props: CardProps) {
     <div className={styles.Card} ref={drag}>
       <div className={styles["Card-content"]}>
         <Text element="section">{card.title}</Text>
-        {/* <Button className={styles["Card-edit"]} icon={EditOutlinedIcon} iconOnly onClick={handleEdit} /> */}
-        <button className={styles["Card-edit"]} onClick={handleEdit} >E</button>
+        <Button iconOnly icon={EditOutlinedIcon} appearance="subtle" className={styles["Card-edit"]} onClick={handleEdit} />
       </div>
       {card.endDate && (
         <Text className={styles["Card-end"]} size="bodySmall">

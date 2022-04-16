@@ -1,11 +1,12 @@
 import Button from "@ramsey-design-system/button";
+import Stack from '@ramsey-design-system/stack';
 import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal, Accordian } from "..";
 import { useLocale } from "../../hooks";
 import { AddCardProps } from "../../models";
 import { AccordianItem } from "../accordian";
-import { Input, Checkbox, Group, TextArea, Tags } from "../rds";
+import { Input, Checkbox, TextArea, Tags } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
@@ -57,12 +58,12 @@ export default function AddCardModal(props: AddCardModalProps) {
         isOpen={isOpen}
         onClose={onClose}
         actions={
-          <Group alignRight>
+          <Stack horizontalAlignment="right">
             <Button appearance="ghost" type="button" onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit">Add</Button>
-          </Group>
+          </Stack>
         }
       >
         <Input name="title" label="Title" help="What displays on the card" />
@@ -72,10 +73,10 @@ export default function AddCardModal(props: AddCardModalProps) {
             <TextArea name="prototype.notes" label="Notes" />
           </AccordianItem>
           <AccordianItem title="Test">
-            <Group>
+            <Stack>
               <Input name="test.startDate" label="Start" type="date" />
               <Input name="test.endDate" label="End" type="date" />
-            </Group>
+            </Stack>
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
           </AccordianItem>

@@ -89,22 +89,4 @@
       padding: $rds-size-spacing-inset-squish-xsmall;
     }
   }
-
-  &-Group {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-
-    * {
-      margin-bottom: $rds-size-spacing-stack-xsmall;
-    }
-
-    *:not(:last-child) {
-      margin-right: $rds-size-spacing-inset-small;
-    }
-
-    &--right {
-      justify-content: flex-end;
-    }
-  }
 }

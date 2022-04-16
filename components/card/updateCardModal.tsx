@@ -1,10 +1,11 @@
 import Button from "@ramsey-design-system/button";
+import Stack from "@ramsey-design-system/stack";
 import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Accordian, AccordianItem, Modal } from "..";
 import { useLocale } from "../../hooks";
 import { Card, UpdateCardProps } from "../../models";
-import { Input, Checkbox, Group, TextArea, Tags } from "../rds";
+import { Input, Checkbox, TextArea, Tags } from "../rds";
 
 type UpdateCardModalProps = {
   isOpen: boolean;
@@ -51,7 +52,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
         isOpen={isOpen}
         onClose={onClose}
         actions={
-          <Group alignRight>
+          <Stack horizontalAlignment="right">
             <Button appearance="dangerSubtle" onClick={onDelete}>
               Delete
             </Button>
@@ -59,7 +60,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
               Cancel
             </Button>
             <Button type="submit">Update</Button>
-          </Group>
+          </Stack>
         }
       >
         <Input name="title" label="Title" help="What displays on the card" />

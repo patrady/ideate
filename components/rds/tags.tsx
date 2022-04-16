@@ -1,4 +1,5 @@
 import Text from "@ramsey-design-system/text";
+import Stack from "@ramsey-design-system/stack";
 import clsx from "clsx";
 import { FieldArray, useField } from "formik";
 import Tag from "./tag";
@@ -33,7 +34,7 @@ export default function Tags(props: TagsProps) {
       <FieldArray
         name={name}
         render={({ remove, push }) => (
-          <div className={styles["rds-Group"]}>
+          <Stack>
             {value.map((tag, index) => (
               <Tag
                 key={tag}
@@ -56,7 +57,7 @@ export default function Tags(props: TagsProps) {
             {isAddTagOpen && (
               <AddTagModal isOpen onAdd={push} onClose={closeAddTag} />
             )}
-          </div>
+          </Stack>
         )}
       />
       {hasError && (

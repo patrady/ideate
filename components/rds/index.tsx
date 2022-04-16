@@ -1,4 +1,3 @@
-export { default as Group } from './group';
 export { default as Checkbox } from "./checkbox";
 export { default as Input } from "./input";
 export { default as Tag } from './tag';

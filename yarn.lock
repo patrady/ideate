@@ -1142,6 +1142,15 @@
   resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_hJAvf/%40ramsey-design-system%2Ficons-2.4.0.tgz#aea3b67e31c4dcdc922c3178ce1ff75256ca9d5a"
   integrity sha1-rqO2fjHE3NySLDF4zh/3UlbKnVo=
 
+"@ramsey-design-system/stack@^1.0.8":
+  version "1.0.8"
+  resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_1A6J2o/%40ramsey-design-system%2Fstack-1.0.8.tgz#ad2c45b1250a9cb2a8364fec84deafb8b8f5a4a8"
+  integrity sha1-rSxFsSUKnLKoNk/shN6vuLj1pKg=
+  dependencies:
+    "@ramsey-design-system/tokens" "^0.7.1"
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
 "@ramsey-design-system/tag@^2.2.3":
   version "2.2.3"
   resolved "https://ramseysolutions.jfrog.io/artifactory/api/npm/npm/~/up/ver_29NPV9/%40ramsey-design-system%2Ftag-2.2.3.tgz#2118b689ae01f4ac4c4f133d0013ce28a70dd279"

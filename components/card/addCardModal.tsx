@@ -48,7 +48,7 @@ export default function AddCardModal(props: AddCardModalProps) {
     >
       <Modal
         form
-        title={t.board.modal.title}
+        title={t.board.addCardModal.title}
         isOpen={isOpen}
         onClose={onClose}
         actions={

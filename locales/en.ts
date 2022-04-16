@@ -23,8 +23,11 @@ export default {
         description: "Are we delivering the solution well?",
       },
     },
-    modal: {
+    addCardModal: {
       title: "Add Card",
+    },
+    updateCardModal: {
+      title: "Update Card",
     },
   },
   models: {

@@ -51,7 +51,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
     >
       <Modal
         form
-        title={t.board.modal.title}
+        title={t.board.updateCardModal.title}
         isOpen={isOpen}
         onClose={onClose}
         actions={

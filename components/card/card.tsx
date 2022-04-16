@@ -13,7 +13,6 @@ type CardProps = {
 
 export default function Card(props: CardProps) {
   const { card, onEdit } = props;
-
   const [, drag] = useDrag(() => ({
     type: "card",
     item: { id: card.id },

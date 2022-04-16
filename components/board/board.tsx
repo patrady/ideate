@@ -1,4 +1,4 @@
-import { useCards, useLocale } from "../../hooks";
+import { useBool, useCards, useLocale, useSelected } from "../../hooks";
 import ColumnHeader from "./columnheader";
 import Row from "./row";
 import RowHeader from "./rowheader";
@@ -6,7 +6,6 @@ import Square from "./square";
 import Table from "./table";
 import { Card as CardComponent } from "..";
 import { parseSquareId, SquareId, Squares } from "../../types";
-import { useState } from "react";
 import { AddCardModal, UpdateCardModal } from "../card";
 import { AddCardFormProps } from "../card/addCardModal";
 import styles from "./board.module.scss";
@@ -16,8 +15,9 @@ import Button from "@ramsey-design-system/button";
 
 export default function Board() {
   const { cards, addCard, moveCard, updateCard, removeCard } = useCards();
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<Card>();
+  const [isAddModalOpen, closeAddModal, openAddModal] = useBool();
+  const [selectedCard, setSelectedCard, resetSelectedCard] =
+    useSelected<Card>();
   const t = useLocale();
   const { prototype, test, scale } = cards.sort();
 
@@ -33,7 +33,7 @@ export default function Board() {
 
   async function handleAddCard(values: AddCardFormProps) {
     await addCard(values);
-    setIsAddModalOpen(false);
+    closeAddModal();
   }
 
   async function handleUpdateCard(values: UpdateCardFormProps) {
@@ -42,7 +42,7 @@ export default function Board() {
     }
 
     await updateCard(selectedCard, values);
-    setSelectedCard(undefined);
+    resetSelectedCard();
   }
 
   async function handleDeleteCard() {
@@ -51,7 +51,7 @@ export default function Board() {
     }
 
     await removeCard(selectedCard);
-    setSelectedCard(undefined);
+    resetSelectedCard();
   }
 
   return (
@@ -136,14 +136,14 @@ export default function Board() {
       </Table>
       <Button
         className={styles["Board-addCard"]}
-        onClick={() => setIsAddModalOpen(true)}
+        onClick={openAddModal}
       >
-        Add Card
+        {t.board.addCard}
       </Button>
       <AddCardModal
         isOpen={isAddModalOpen}
         onAdd={handleAddCard}
-        onClose={() => setIsAddModalOpen(false)}
+        onClose={closeAddModal}
       />
 
       {selectedCard && (
@@ -152,7 +152,7 @@ export default function Board() {
           card={selectedCard}
           onUpdate={handleUpdateCard}
           onDelete={handleDeleteCard}
-          onClose={() => setSelectedCard(undefined)}
+          onClose={resetSelectedCard}
         />
       )}
     </>

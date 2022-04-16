@@ -30,6 +30,12 @@ export default {
       title: "Update Card",
     },
   },
+  pages: {
+    index: {
+      title: "Ideate | Board",
+      description: "Track product prototypes, tests, and features",
+    },
+  },
   models: {
     card: {
       errors: {

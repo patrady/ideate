@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CardsDecorator } from "../decorators";
 import { AddCardProps, Card, UpdateCardProps } from "../models";
 import { Phase, Status } from "../types";
@@ -8,7 +8,6 @@ type UseCardsValue = {
   cards: CardsDecorator;
   isLoading: boolean;
   error?: string;
-  setCards: Dispatch<SetStateAction<CardsDecorator>>;
   addCard(values: AddCardProps): Promise<void>;
   moveCard(card: Card, phase: Phase, status: Status): Promise<void>;
   updateCard(card: Card, values: UpdateCardProps): Promise<void>;
@@ -81,7 +80,6 @@ export default function useCards(): UseCardsValue {
     cards,
     isLoading,
     error,
-    setCards,
     addCard,
     moveCard,
     updateCard,

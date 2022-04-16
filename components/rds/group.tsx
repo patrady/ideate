@@ -2,12 +2,12 @@ import clsx from "clsx";
 import { ReactNode } from "react";
 import styles from "./rds.module.scss";
 
-type ButtonGroupProps = {
+type GroupProps = {
   children: ReactNode;
   alignRight?: boolean;
 };
 
-export default function ButtonGroup(props: ButtonGroupProps) {
+export default function Group(props: GroupProps) {
   const { alignRight, children } = props;
 
   return (

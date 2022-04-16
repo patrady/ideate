@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { useLocale } from "../../hooks";
 import { AddModalProps } from "../../types";
 import Modal from "../modal/modal";
-import { ButtonGroup, Input } from "../rds";
+import { Group, Input } from "../rds";
 
 type FormProps = {
   tag: string;
@@ -37,12 +37,12 @@ export default function AddTagModal(props: AddModalProps<string>) {
         title={t.addTagModal.title}
         onClose={onClose}
         actions={
-          <ButtonGroup alignRight>
+          <Group alignRight>
             <Button type="button" appearance="ghost" onClick={onClose}>
               {t.addTagModal.cancel}
             </Button>
             <Button type="submit">{t.addTagModal.add}</Button>
-          </ButtonGroup>
+          </Group>
         }
       >
         <Input name="tag" />

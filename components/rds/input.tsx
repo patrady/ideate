@@ -1,17 +1,19 @@
 import Text from "@ramsey-design-system/text";
 import clsx from "clsx";
 import { useField } from "formik";
+import { HTMLInputTypeAttribute } from "react";
 import styles from "./rds.module.scss";
 
 type InputProps = {
   className?: string;
   name: string;
+  type?: HTMLInputTypeAttribute;
   label?: string;
   help?: string;
 };
 
 export default function Input(props: InputProps) {
-  const { className, name, label, help } = props;
+  const { className, name, type, label, help } = props;
   const [{ value, onChange, onBlur }, { touched, error }] =
     useField<string>(name);
   const hasError = touched && error;
@@ -36,6 +38,7 @@ export default function Input(props: InputProps) {
           <input
             name={name}
             value={value}
+            type={type}
             onChange={onChange}
             onBlur={onBlur}
           />

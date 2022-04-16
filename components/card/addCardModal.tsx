@@ -5,7 +5,7 @@ import { Modal, Accordian } from "..";
 import { useLocale } from "../../hooks";
 import { AddCardProps } from "../../models";
 import { AccordianItem } from "../accordian";
-import { Input, Checkbox, ButtonGroup, TextArea, Tags } from "../rds";
+import { Input, Checkbox, Group, TextArea, Tags } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
@@ -57,12 +57,12 @@ export default function AddCardModal(props: AddCardModalProps) {
         isOpen={isOpen}
         onClose={onClose}
         actions={
-          <ButtonGroup alignRight>
+          <Group alignRight>
             <Button appearance="ghost" type="button" onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit">Add</Button>
-          </ButtonGroup>
+          </Group>
         }
       >
         <Input name="title" label="Title" help="What displays on the card" />
@@ -72,6 +72,10 @@ export default function AddCardModal(props: AddCardModalProps) {
             <TextArea name="prototype.notes" label="Notes" />
           </AccordianItem>
           <AccordianItem title="Test">
+            <Group>
+              <Input name="test.startDate" label="Start" type="date" />
+              <Input name="test.endDate" label="End" type="date" />
+            </Group>
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
           </AccordianItem>

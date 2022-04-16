@@ -11,18 +11,22 @@
   border: $rds-size-border-small solid $rds-color-base-gray-40;
 
   &:first-of-type {
-    border-radius: $rds-size-radius-small $rds-size-radius-small 0 0;
+    border-top-left-radius: $rds-size-radius-small;
+    border-top-right-radius: $rds-size-radius-small;
 
     .AccordianItem-toggle {
-      border-radius: $rds-size-radius-small $rds-size-radius-small 0 0;
+      border-top-left-radius: $rds-size-radius-small;
+      border-top-right-radius: $rds-size-radius-small;
     }
   }
 
   &:last-of-type {
-    border-radius: 0 0 $rds-size-radius-small $rds-size-radius-small;
+    border-bottom-left-radius: $rds-size-radius-small;
+    border-bottom-right-radius: $rds-size-radius-small;
 
     .AccordianItem-toggle {
-      border-radius: 0 0 $rds-size-radius-small $rds-size-radius-small;
+      border-bottom-left-radius: $rds-size-radius-small;
+      border-bottom-right-radius: $rds-size-radius-small;
     }
   }
 

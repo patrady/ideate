@@ -67,8 +67,9 @@ export default function AddCardModal(props: AddCardModalProps) {
           </Stack>
         }
       >
-        <Input name="title" label="Title" help="What displays on the card" />
+        <Input name="title" label="Title" />
         <Input name="description" label="Description" />
+        <Tags name="tags" label="Tags" />
         <Accordian>
           <AccordianItem title="Prototype">
             <TextArea name="prototype.notes" label="Notes" />
@@ -91,8 +92,11 @@ export default function AddCardModal(props: AddCardModalProps) {
           </AccordianItem>
         </Accordian>
 
-        <Tags name="tags" label="Tags" />
-        <Checkbox name="isArchived" label="Archived" />
+        <Accordian>
+          <AccordianItem title="Advanced">
+            <Checkbox name="isArchived" label="Archived" />
+          </AccordianItem>
+        </Accordian>
       </Modal>
     </Formik>
   );

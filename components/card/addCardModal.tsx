@@ -1,8 +1,9 @@
 import Button from "@ramsey-design-system/button";
 import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
-import { Modal } from "..";
+import { Modal, Accordian } from "..";
 import { useLocale } from "../../hooks";
+import { AccordianItem } from "../accordian";
 import { Input, Checkbox, ButtonGroup, TextArea, Tags } from "../rds";
 
 type AddCardModalProps = {
@@ -16,7 +17,7 @@ export type AddCardFormProps = {
   description: string;
   testSuccessCriteria: string;
   isArchived: boolean;
-  tags: string[]
+  tags: string[];
 };
 
 export default function AddCardModal(props: AddCardModalProps) {
@@ -38,7 +39,7 @@ export default function AddCardModal(props: AddCardModalProps) {
         description: "",
         testSuccessCriteria: "",
         isArchived: false,
-        tags: ["abc", "123"]
+        tags: ["abc", "123"],
       }}
       validationSchema={yup.object().shape({
         title: yup.string().required("Please provide a title"),
@@ -64,7 +65,17 @@ export default function AddCardModal(props: AddCardModalProps) {
       >
         <Input name="title" label="Title" help="What displays on the card" />
         <Input name="description" label="Description" />
-        <TextArea name="testSuccessCriteria" label="Test Success Criteria" />
+        <Accordian>
+          <AccordianItem title="Prototype"></AccordianItem>
+          <AccordianItem title="Test">
+            <TextArea
+              name="testSuccessCriteria"
+              label="Success Criteria"
+            />
+          </AccordianItem>
+          <AccordianItem title="Scale"></AccordianItem>
+        </Accordian>
+
         <Tags name="tags" label="Tags" />
         <Checkbox name="isArchived" label="Archived" />
       </Modal>

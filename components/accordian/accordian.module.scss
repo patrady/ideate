@@ -1,0 +1,76 @@
+@use "/styles" as *;
+
+.Accordian {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: $rds-size-spacing-stack-medium;
+}
+
+.AccordianItem {
+  border: $rds-size-border-small solid $rds-color-base-gray-40;
+
+  &:first-of-type {
+    border-radius: $rds-size-radius-small $rds-size-radius-small 0 0;
+
+    .AccordianItem-toggle {
+      border-radius: $rds-size-radius-small $rds-size-radius-small 0 0;
+    }
+  }
+
+  &:last-of-type {
+    border-radius: 0 0 $rds-size-radius-small $rds-size-radius-small;
+
+    .AccordianItem-toggle {
+      border-radius: 0 0 $rds-size-radius-small $rds-size-radius-small;
+    }
+  }
+
+  &:not(:first-of-type) {
+    border-top: 0;
+  }
+
+  &--active {
+    &-toggle::after {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &-title {
+    margin: 0;
+    font-size: $rds-size-font-3;
+    font-weight: $rds-font-weight-semibold;
+  }
+
+  &-toggle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: $rds-color-base-white;
+    border: 0;
+    padding: $rds-size-spacing-inset-squish-small;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-left: auto;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+
+  &-body {
+    transition: height 0.2s ease-in-out;
+    overflow: hidden;
+  }
+
+  &-content {
+    border-top: $rds-size-border-small solid $rds-color-base-gray-40;
+    padding: $rds-size-spacing-inset-medium;
+  }
+}

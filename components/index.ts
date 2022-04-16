@@ -1,3 +1,4 @@
+export * from './accordian';
 export * from "./board";
 export * from "./card";
 export { default as Footer } from "./footer";

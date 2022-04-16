@@ -70,6 +70,15 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             <TextArea name="prototype.notes" label="Notes" />
           </AccordianItem>
           <AccordianItem title="Test">
+            <Stack>
+              <Input
+                name="test.startDate"
+                label="Start"
+                type="date"
+                fullWidth
+              />
+              <Input name="test.endDate" label="End" type="date" fullWidth />
+            </Stack>
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
           </AccordianItem>

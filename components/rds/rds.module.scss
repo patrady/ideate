@@ -4,6 +4,10 @@
   &-FormField {
     margin-bottom: $rds-size-spacing-stack-medium;
 
+    &--fullWidth {
+      flex-grow: 1;
+    }
+
     &-label {
       display: inline-block;
       line-height: $rds-size-line-height-reset;

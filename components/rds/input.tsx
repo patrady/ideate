@@ -10,16 +10,23 @@ type InputProps = {
   type?: HTMLInputTypeAttribute;
   label?: string;
   help?: string;
+  fullWidth?: boolean;
 };
 
 export default function Input(props: InputProps) {
-  const { className, name, type, label, help } = props;
+  const { className, name, type, label, help, fullWidth = false } = props;
   const [{ value, onChange, onBlur }, { touched, error }] =
     useField<string>(name);
   const hasError = touched && error;
 
   return (
-    <div className={clsx(styles["rds-FormField"], className)}>
+    <div
+      className={clsx(
+        styles["rds-FormField"],
+        { [styles["rds-FormField--fullWidth"]]: fullWidth },
+        className
+      )}
+    >
       {label && (
         <Text
           element="label"

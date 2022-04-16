@@ -26,6 +26,7 @@ export type CardProps = {
   phase: Phase;
   order: number;
   isArchived: boolean;
+  link: string;
 };
 
 export type AddCardProps = Pick<
@@ -37,6 +38,7 @@ export type AddCardProps = Pick<
   | "scale"
   | "tags"
   | "isArchived"
+  | "link"
 >;
 
 export type UpdateCardProps = Pick<
@@ -48,6 +50,7 @@ export type UpdateCardProps = Pick<
   | "scale"
   | "tags"
   | "isArchived"
+  | "link"
 >;
 
 export class Card {
@@ -63,6 +66,7 @@ export class Card {
   phase: Phase;
   order: number;
   isArchived: boolean;
+  link: string;
 
   constructor({
     id,
@@ -77,6 +81,7 @@ export class Card {
     phase,
     order,
     isArchived,
+    link,
   }: CardProps) {
     this.id = id;
     this.title = title;
@@ -90,6 +95,7 @@ export class Card {
     this.phase = phase;
     this.order = order;
     this.isArchived = isArchived;
+    this.link = link;
   }
 
   public static async getByTeam() {
@@ -103,23 +109,14 @@ export class Card {
   }
 
   public static async add(props: AddCardProps) {
-    const { title, description, prototype, test, scale, tags, isArchived } =
-      props;
-
     const cards = await this.getByTeam();
     const previousCard = cards.length > 0 ? cards[cards.length - 1] : undefined;
     const newCard = new Card({
+      ...props,
       id: (previousCard?.id || 0) + 1,
-      title,
-      description,
-      prototype,
-      test,
-      scale,
-      tags,
       status: Status.Todo,
       phase: Phase.Prototype,
       order: 10,
-      isArchived,
     });
 
     localStorage.setItem("cards", JSON.stringify([...cards, newCard]));

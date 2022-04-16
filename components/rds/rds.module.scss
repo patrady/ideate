@@ -65,6 +65,33 @@
     }
   }
 
+  &-LinkInput {
+    flex-grow: 1;
+
+    input {
+      border-radius: $rds-size-radius-small 0 0 $rds-size-radius-small;
+    }
+
+    &-actions {
+      margin-left: -$rds-size-spacing-stack-xsmall;
+
+      :last-child {
+        border-top-right-radius: $rds-size-radius-small;
+        border-bottom-right-radius: $rds-size-radius-small;
+      }
+
+      :not(:last-child) {
+        border-right: none;
+      }
+    }
+
+    &-action {
+      width: 42px;
+      height: 42px;
+      border: $rds-size-border-small solid $rds-color-base-gray-40;
+    }
+  }
+
   &-Checkbox {
     display: flex;
     align-items: center;

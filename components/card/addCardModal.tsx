@@ -6,8 +6,7 @@ import { Modal, Accordian } from "..";
 import { useLocale } from "../../hooks";
 import { AddCardProps } from "../../models";
 import { AccordianItem } from "../accordian";
-import { Input, Checkbox, TextArea, Tags } from "../rds";
-import styles from "./card.module.scss";
+import { Input, Checkbox, TextArea, Tags, LinkInput } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
@@ -44,12 +43,15 @@ export default function AddCardModal(props: AddCardModalProps) {
         },
         isArchived: false,
         tags: [] as string[],
+        link: "https://www.figma.com/file/lsJ1MWa5u5Hh2e7SLwN6uo/Anxiety-and-Money?node-id=20%3A16",
       }}
       validationSchema={yup.object().shape({
         title: yup.string().required("Please provide a title"),
         description: yup.string(),
         testSuccessCriteria: yup.string(),
         isArchived: yup.bool(),
+        tags: yup.array(yup.string()),
+        link: yup.string().url('Please provide a valid link'),
       })}
       onSubmit={handleSubmit}
     >
@@ -91,7 +93,11 @@ export default function AddCardModal(props: AddCardModalProps) {
             <TextArea name="scale.notes" label="Notes" />
           </AccordianItem>
         </Accordian>
-
+        <Accordian>
+          <AccordianItem title="Links">
+            <LinkInput name="link" actions={["open", "copy"]} fullWidth />
+          </AccordianItem>
+        </Accordian>
         <Accordian>
           <AccordianItem title="Advanced">
             <Checkbox name="isArchived" label="Archived" />

@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { Accordian, AccordianItem, Modal } from "..";
 import { useLocale } from "../../hooks";
 import { Card, UpdateCardProps } from "../../models";
-import { Input, Checkbox, TextArea, Tags } from "../rds";
+import { Input, Checkbox, TextArea, Tags, LinkInput } from "../rds";
 
 type UpdateCardModalProps = {
   isOpen: boolean;
@@ -37,6 +37,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
         scale: card.scale,
         tags: card.tags,
         isArchived: card.isArchived,
+        link: card.link
       }}
       validationSchema={yup.object().shape({
         title: yup.string().required("Please provide a title"),
@@ -87,7 +88,16 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             <TextArea name="scale.notes" label="Notes" />
           </AccordianItem>
         </Accordian>
-        <Checkbox name="isArchived" label="Archived" />
+        <Accordian>
+          <AccordianItem title="Links">
+            <LinkInput name="link" actions={["open", "copy"]} fullWidth />
+          </AccordianItem>
+        </Accordian>
+        <Accordian>
+          <AccordianItem title="Advanced">
+            <Checkbox name="isArchived" label="Archived" />
+          </AccordianItem>
+        </Accordian>
       </Modal>
     </Formik>
   );

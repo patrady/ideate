@@ -8,45 +8,49 @@ import Modal from "../modal/modal";
 import { Input } from "../rds";
 
 type FormProps = {
-  tag: string;
+  value: string;
 };
 
-export default function AddTagModal(props: AddModalProps<string>) {
-  const { onAdd, onClose } = props;
+type AddStringModalProps = AddModalProps<string> & {
+  title: string;
+}
+
+export default function AddStringModal(props: AddStringModalProps) {
+  const { title, onAdd, onClose } = props;
   const t = useLocale();
 
   function handleAdd(
-    { tag }: FormProps,
+    { value }: FormProps,
     { setSubmitting }: FormikHelpers<FormProps>
   ) {
     setSubmitting(false);
-    onAdd(tag);
+    onAdd(value);
     onClose();
   }
 
   return (
     <Formik
-      initialValues={{ tag: "" }}
+      initialValues={{ value: "" }}
       validationSchema={yup.object().shape({
-        tag: yup.string().required("Please provide a tag"),
+        value: yup.string().required("Please provide a value"),
       })}
       onSubmit={handleAdd}
     >
       <Modal
         form
         isOpen
-        title={t.addTagModal.title}
+        title={title}
         onClose={onClose}
         actions={
           <Stack horizontalAlignment="right">
             <Button type="button" appearance="ghost" onClick={onClose}>
-              {t.addTagModal.cancel}
+              {t.modal.cancel}
             </Button>
-            <Button type="submit">{t.addTagModal.add}</Button>
+            <Button type="submit">{t.modal.add}</Button>
           </Stack>
         }
       >
-        <Input name="tag" />
+        <Input name="value" />
       </Modal>
     </Formik>
   );

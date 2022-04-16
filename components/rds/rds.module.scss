@@ -66,7 +66,12 @@
   }
 
   &-LinkInput {
-    flex-grow: 1;
+    display: flex;
+    width: 100%;
+
+    .rds-Input {
+      flex-grow: 1;
+    }
 
     input {
       border-radius: $rds-size-radius-small 0 0 $rds-size-radius-small;
@@ -120,4 +125,9 @@
       padding: $rds-size-spacing-inset-squish-xsmall;
     }
   }
+}
+
+// TODO: Split this out to its own component
+.Links {
+  margin-bottom: $rds-size-spacing-stack-medium;
 }

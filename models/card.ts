@@ -26,7 +26,7 @@ export type CardProps = {
   phase: Phase;
   order: number;
   isArchived: boolean;
-  link: string;
+  links: string[];
 };
 
 export type AddCardProps = Pick<
@@ -38,7 +38,7 @@ export type AddCardProps = Pick<
   | "scale"
   | "tags"
   | "isArchived"
-  | "link"
+  | "links"
 >;
 
 export type UpdateCardProps = Pick<
@@ -50,7 +50,7 @@ export type UpdateCardProps = Pick<
   | "scale"
   | "tags"
   | "isArchived"
-  | "link"
+  | "links"
 >;
 
 export class Card {
@@ -66,7 +66,7 @@ export class Card {
   phase: Phase;
   order: number;
   isArchived: boolean;
-  link: string;
+  links: string[];
 
   constructor({
     id,
@@ -81,7 +81,7 @@ export class Card {
     phase,
     order,
     isArchived,
-    link,
+    links,
   }: CardProps) {
     this.id = id;
     this.title = title;
@@ -95,7 +95,7 @@ export class Card {
     this.phase = phase;
     this.order = order;
     this.isArchived = isArchived;
-    this.link = link;
+    this.links = links || [];
   }
 
   public static async getByTeam() {

@@ -1,36 +1,21 @@
-import Text from "@ramsey-design-system/text";
 import Stack from "@ramsey-design-system/stack";
-import clsx from "clsx";
-import { FieldArray, useField } from "formik";
-import Tag from "./tag";
-import styles from "./rds.module.scss";
 import Button from "@ramsey-design-system/button";
+import { FieldArray, useField } from "formik";
 import { useBool, useLocale } from "../../hooks";
-import AddTagModal from "../tags/addTagModal";
+import AddStringModal from "../modals/addStringModal";
+import Tag from "./tag";
+import FormField, { FormFieldProps } from "./formField";
 
-type TagsProps = {
-  className?: string;
-  name: string;
-  label: string;
-  help?: string;
-};
+type TagsProps = FormFieldProps & {};
 
 export default function Tags(props: TagsProps) {
-  const { className, name, label, help } = props;
+  const { name, ...rest } = props;
   const [isAddTagOpen, closeAddTag, openAddTag] = useBool();
-  const [{ value }, { touched, error }] = useField<string[]>(name);
+  const [{ value }] = useField<string[]>(name);
   const t = useLocale();
-  const hasError = touched && error;
 
   return (
-    <div className={clsx(styles["rds-FormField"], className)}>
-      <Text
-        element="label"
-        className={styles["rds-FormField-label"]}
-        htmlFor={name}
-      >
-        {label}
-      </Text>
+    <FormField name={name} {...rest}>
       <FieldArray
         name={name}
         render={({ remove, push }) => (
@@ -55,21 +40,16 @@ export default function Tags(props: TagsProps) {
             </Button>
 
             {isAddTagOpen && (
-              <AddTagModal isOpen onAdd={push} onClose={closeAddTag} />
+              <AddStringModal
+                isOpen
+                title={t.addTagModal.title}
+                onAdd={push}
+                onClose={closeAddTag}
+              />
             )}
           </Stack>
         )}
       />
-      {hasError && (
-        <Text element="span" className={styles["rds-FormField-errorMessage"]}>
-          {error}
-        </Text>
-      )}
-      {help && (
-        <Text className={styles["rds-FormField-help"]} color="subdued">
-          {help}
-        </Text>
-      )}
-    </div>
+    </FormField>
   );
 }

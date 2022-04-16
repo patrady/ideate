@@ -34,10 +34,13 @@ export default {
   tags: {
     add: "Add Tag",
   },
+  modal: {
+    add: "Add",
+    cancel: "Cancel",
+    delete: "Delete"
+  },
   addTagModal: {
     title: "Add Tag",
-    cancel: "Cancel",
-    add: "Add",
   },
   pages: {
     index: {

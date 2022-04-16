@@ -42,7 +42,6 @@ export default function AddCardModal(props: AddCardModalProps) {
         scale: {
           notes: "",
         },
-        isArchived: false,
         tags: [] as string[],
         links: [] as string[],
       }}
@@ -98,11 +97,6 @@ export default function AddCardModal(props: AddCardModalProps) {
         <Accordian>
           <AccordianItem title="Links">
             <Links name="links" fullWidth />
-          </AccordianItem>
-        </Accordian>
-        <Accordian>
-          <AccordianItem title="Advanced">
-            <Checkbox name="isArchived" label="Archived" />
           </AccordianItem>
         </Accordian>
       </Modal>

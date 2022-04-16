@@ -38,7 +38,6 @@ export type AddCardProps = Pick<
   | "test"
   | "scale"
   | "tags"
-  | "isArchived"
   | "links"
 >;
 
@@ -115,6 +114,7 @@ export class Card {
     const newCard = new Card({
       ...props,
       id: (previousCard?.id || 0) + 1,
+      isArchived: false,
       status: Status.Todo,
       phase: Phase.Prototype,
       order: 10,

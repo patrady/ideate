@@ -23,8 +23,15 @@ export default {
         description: "Are we delivering the solution well?",
       },
     },
+    addCard: "Add Card",
     modal: {
       title: "Add Card",
+    },
+  },
+  pages: {
+    index: {
+      title: "Ideate | Board",
+      description: "Track product prototypes, tests, and features",
     },
   },
   models: {

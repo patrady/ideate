@@ -34,36 +34,43 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
   }
 
   return (
-    <Modal title={t.board.modal.title} isOpen={isOpen} onClose={onClose}>
-      <Formik
-        initialValues={{
-          title: card.title,
-          description: card.description,
-          testSuccessCriteria: card.testSuccessCriteria,
-          isArchived: card.isArchived,
-        }}
-        validationSchema={yup.object().shape({
-          title: yup.string().required("Please provide a title"),
-          description: yup.string(),
-          testSuccessCriteria: yup.string(),
-          isArchived: yup.bool(),
-        })}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <Input name="title" label="Title" help="What displays on the card" />
-          <Input name="description" label="Description" />
-          <Input name="testSuccessCriteria" label="Test Success Criteria" />
-          <Checkbox name="isArchived" label="isArchived" />
+    <Formik
+      initialValues={{
+        title: card.title,
+        description: card.description,
+        testSuccessCriteria: card.testSuccessCriteria,
+        isArchived: card.isArchived,
+      }}
+      validationSchema={yup.object().shape({
+        title: yup.string().required("Please provide a title"),
+        description: yup.string(),
+        testSuccessCriteria: yup.string(),
+        isArchived: yup.bool(),
+      })}
+      onSubmit={handleSubmit}
+    >
+      <Modal
+        form
+        title={t.board.modal.title}
+        isOpen={isOpen}
+        onClose={onClose}
+        actions={
           <ButtonGroup alignRight>
             <Button appearance="dangerSubtle" onClick={onDelete}>
               Delete
             </Button>
-            <Button appearance="ghost" onClick={onClose}>Cancel</Button>
+            <Button appearance="ghost" onClick={onClose}>
+              Cancel
+            </Button>
             <Button type="submit">Update</Button>
           </ButtonGroup>
-        </Form>
-      </Formik>
-    </Modal>
+        }
+      >
+        <Input name="title" label="Title" help="What displays on the card" />
+        <Input name="description" label="Description" />
+        <Input name="testSuccessCriteria" label="Test Success Criteria" />
+        <Checkbox name="isArchived" label="Archived" />
+      </Modal>
+    </Formik>
   );
 }

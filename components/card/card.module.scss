@@ -1,4 +1,4 @@
-@import "@ramsey-design-system/tokens/dist/variables";
+@use "/styles" as *;
 
 .Card {
   background-color: $rds-color-base-white;
@@ -6,8 +6,9 @@
   border-radius: $rds-size-radius-medium;
   margin-bottom: $rds-size-spacing-basis;
 
-  &-title {
-    font-weight: bold;
+  &-content {
+    display: flex;
+    justify-content: space-between;
   }
 
   &-end {
@@ -16,7 +17,7 @@
   }
 
   &-edit {
-      width: 1rem;
-      height: 1rem;
+    width: 1rem;
+    height: 1rem;
   }
 }

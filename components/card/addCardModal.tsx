@@ -31,33 +31,40 @@ export default function AddCardModal(props: AddCardModalProps) {
   }
 
   return (
-    <Modal title={t.board.modal.title} isOpen={isOpen} onClose={onClose}>
-      <Formik
-        initialValues={{
-          title: "",
-          description: "",
-          testSuccessCriteria: "",
-          isArchived: false,
-        }}
-        validationSchema={yup.object().shape({
-          title: yup.string().required("Please provide a title"),
-          description: yup.string(),
-          testSuccessCriteria: yup.string(),
-          isArchived: yup.bool(),
-        })}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <Input name="title" label="Title" help="What displays on the card" />
-          <Input name="description" label="Description" />
-          <Input name="testSuccessCriteria" label="Test Success Criteria" />
-          <Checkbox name="isArchived" label="isArchived" />
+    <Formik
+      initialValues={{
+        title: "",
+        description: "",
+        testSuccessCriteria: "",
+        isArchived: false,
+      }}
+      validationSchema={yup.object().shape({
+        title: yup.string().required("Please provide a title"),
+        description: yup.string(),
+        testSuccessCriteria: yup.string(),
+        isArchived: yup.bool(),
+      })}
+      onSubmit={handleSubmit}
+    >
+      <Modal
+        form
+        title={t.board.modal.title}
+        isOpen={isOpen}
+        onClose={onClose}
+        actions={
           <ButtonGroup alignRight>
-            <Button appearance="ghost" type="button" onClick={onClose}>Cancel</Button>
+            <Button appearance="ghost" type="button" onClick={onClose}>
+              Cancel
+            </Button>
             <Button type="submit">Add</Button>
           </ButtonGroup>
-        </Form>
-      </Formik>
-    </Modal>
+        }
+      >
+        <Input name="title" label="Title" help="What displays on the card" />
+        <Input name="description" label="Description" />
+        <Input name="testSuccessCriteria" label="Test Success Criteria" />
+        <Checkbox name="isArchived" label="Archived" />
+      </Modal>
+    </Formik>
   );
 }

@@ -15,7 +15,7 @@ export default function Checkbox(props: CheckboxProps) {
   const [{ onChange, value }, { touched, error }] = useField(name);
 
   return (
-    <div className={clsx(className, styles["rds-FormField"])}>
+    <div className={clsx(styles["rds-FormField"], styles["rds-Checkbox"], className)}>
       <input type="checkbox" name={name} value={value} onChange={onChange} />
       <Text
         element="label"

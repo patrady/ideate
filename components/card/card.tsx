@@ -25,9 +25,9 @@ export default function Card(props: CardProps) {
 
   return (
     <div className={styles.Card} ref={drag}>
-      <div className="flex space-between">
-        <Text className={styles["Card-title"]} element="section">{card.title}</Text>
-        {/* <Button className={styles["Card-edit"]} icon={<Icon icon={EditOutlinedIcon} />} iconOnly onClick={handleEdit} /> */}
+      <div className={styles["Card-content"]}>
+        <Text element="section">{card.title}</Text>
+        {/* <Button className={styles["Card-edit"]} icon={EditOutlinedIcon} iconOnly onClick={handleEdit} /> */}
         <button className={styles["Card-edit"]} onClick={handleEdit} >E</button>
       </div>
       {card.endDate && (

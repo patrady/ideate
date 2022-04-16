@@ -1,4 +1,4 @@
-@import "@ramsey-design-system/tokens/dist/variables";
+@use "/styles" as *;
 
 .Board {
   width: 100%;
@@ -22,7 +22,7 @@
     padding: $rds-size-font-3;
     vertical-align: top;
     border-radius: $rds-size-radius-small;
-    border-left: $rds-size-border-large solid;
+    border-left: $rds-size-border-xlarge solid;
 
     &--prototype {
       border-color: $rds-color-base-blue-50;

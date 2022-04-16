@@ -29,7 +29,15 @@ export default {
     updateCardModal: {
       title: "Update Card",
     },
-    addCard: "Add Card"
+    addCard: "Add Card",
+  },
+  tags: {
+    add: "Add Tag",
+  },
+  addTagModal: {
+    title: "Add Tag",
+    cancel: "Cancel",
+    add: "Add",
   },
   pages: {
     index: {

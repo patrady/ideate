@@ -1,14 +1,11 @@
 import Text from "@ramsey-design-system/text";
 import clsx from "clsx";
-import { FieldArray, Formik, useField, yupToFormErrors } from "formik";
+import { FieldArray, useField } from "formik";
 import Tag from "./tag";
 import styles from "./rds.module.scss";
 import Button from "@ramsey-design-system/button";
-import * as yup from "yup";
-import { useBool } from "../../hooks";
-import Modal from "../modal/modal";
-import ButtonGroup from "./buttonGroup";
-import Input from "./input";
+import { useBool, useLocale } from "../../hooks";
+import AddTagModal from "../tags/addTagModal";
 
 type TagsProps = {
   className?: string;
@@ -20,8 +17,8 @@ type TagsProps = {
 export default function Tags(props: TagsProps) {
   const { className, name, label, help } = props;
   const [isAddTagOpen, closeAddTag, openAddTag] = useBool();
-  const [{ value = [], onChange, onBlur }, { touched, error }] =
-    useField<string[]>(name);
+  const [{ value }, { touched, error }] = useField<string[]>(name);
+  const t = useLocale();
   const hasError = touched && error;
 
   return (
@@ -47,51 +44,21 @@ export default function Tags(props: TagsProps) {
               />
             ))}
 
-            <Button type="button" appearance="ghost" size="small" onClick={openAddTag}>
-              Add Tag
+            <Button
+              type="button"
+              appearance="ghost"
+              size="small"
+              onClick={openAddTag}
+            >
+              {t.tags.add}
             </Button>
 
             {isAddTagOpen && (
-              <Formik
-                initialValues={{ tag: "" }}
-                validationSchema={yup.object().shape({
-                  tag: yup.string().required("Please provide a tag"),
-                })}
-                onSubmit={({ tag }) => {
-                  push(tag);
-                  closeAddTag();
-                }}
-              >
-                <Modal
-                  form
-                  isOpen
-                  title="Add Tag"
-                  onClose={closeAddTag}
-                  actions={
-                    <ButtonGroup alignRight>
-                      <Button type="button" appearance="ghost">
-                        Cancel
-                      </Button>
-                      <Button type="submit">Add</Button>
-                    </ButtonGroup>
-                  }
-                >
-                  <Input name="tag" />
-                </Modal>
-              </Formik>
+              <AddTagModal isOpen onAdd={push} onClose={closeAddTag} />
             )}
           </div>
         )}
       />
-      {/* <div
-        className={clsx(styles["rds-FormField-control"], {
-          [styles["rds-FormField-control--error"]]: hasError,
-        })}
-      >
-        <div className={styles["rds-Input"]}>
-          <input onChange={onChange} onBlur={onBlur} />
-        </div>
-      </div> */}
       {hasError && (
         <Text element="span" className={styles["rds-FormField-errorMessage"]}>
           {error}

@@ -53,7 +53,7 @@ export class Card {
     this.description = description;
     this.testSuccessCriteria = testSuccessCriteria;
     this.endDate = endDate ? new Date(endDate) : undefined;
-    this.tags = tags;
+    this.tags = tags || [];
     this.status = status;
     this.phase = phase;
     this.order = order;

@@ -12,6 +12,8 @@ type ModalProps = {
   onClose(): void;
 };
 
+ReactModal.setAppElement('#__next');
+
 export default function Modal(props: ModalProps) {
   const {
     title,

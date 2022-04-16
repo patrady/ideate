@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { Accordian, AccordianItem, Modal } from "..";
 import { useLocale } from "../../hooks";
 import { Card, UpdateCardProps } from "../../models";
-import { Input, Checkbox, TextArea, Tags, LinkInput, Links } from "../rds";
+import { Input, Checkbox, TextArea, Tags, LinkInput, Links, Tag } from "../rds";
 
 type UpdateCardModalProps = {
   isOpen: boolean;
@@ -27,6 +27,10 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
     setSubmitting(false);
   }
 
+  const CurrentAvatar = () => (
+    <Tag text="Current" size="small" color="primary" />
+  );
+
   return (
     <Formik
       initialValues={{
@@ -37,7 +41,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
         scale: card.scale,
         tags: card.tags,
         isArchived: card.isArchived,
-        links: card.links
+        links: card.links,
       }}
       validationSchema={yup.object().shape({
         title: yup.string().required("Please provide a title"),
@@ -68,10 +72,13 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
         <Input name="description" label="Description" />
         <Tags name="tags" label="Tags" />
         <Accordian>
-          <AccordianItem title="Prototype">
+          <AccordianItem
+            title="Prototype"
+            tag={card.isPrototype() && <CurrentAvatar />}
+          >
             <TextArea name="prototype.notes" label="Notes" />
           </AccordianItem>
-          <AccordianItem title="Test">
+          <AccordianItem title="Test" tag={card.isTest() && <CurrentAvatar />}>
             <Stack>
               <Input
                 name="test.startDate"
@@ -85,7 +92,10 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             <TextArea name="test.metrics" label="Metrics" />
             <TextArea name="test.learnings" label="Learnings" />
           </AccordianItem>
-          <AccordianItem title="Scale">
+          <AccordianItem
+            title="Scale"
+            tag={card.isScale() && <CurrentAvatar />}
+          >
             <TextArea name="scale.notes" label="Notes" />
           </AccordianItem>
         </Accordian>

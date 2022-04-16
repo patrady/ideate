@@ -204,27 +204,27 @@ export class Card {
     return this.isScale() && this.isDone();
   }
 
-  private isToDo() {
+  public isToDo() {
     return this.status === Status.Todo;
   }
 
-  private isDoing() {
+  public isDoing() {
     return this.status === Status.Doing;
   }
 
-  private isDone() {
+  public isDone() {
     return this.status === Status.Done;
   }
 
-  private isPrototype() {
+  public isPrototype() {
     return this.phase === Phase.Prototype;
   }
 
-  private isTest() {
+  public isTest() {
     return this.phase === Phase.Test;
   }
 
-  private isScale() {
+  public isScale() {
     return this.phase === Phase.Scale;
   }
 }

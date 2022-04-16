@@ -3,6 +3,7 @@ import { Phase, Status } from "../types";
 type TestProps = {
   metrics: string;
   successCriteria: string;
+  learnings: string;
 };
 
 type ScaleProps = {

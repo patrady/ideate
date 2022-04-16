@@ -83,6 +83,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             </Stack>
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
+            <TextArea name="test.learnings" label="Learnings" />
           </AccordianItem>
           <AccordianItem title="Scale">
             <TextArea name="scale.notes" label="Notes" />

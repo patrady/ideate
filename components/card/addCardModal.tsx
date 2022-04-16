@@ -37,6 +37,7 @@ export default function AddCardModal(props: AddCardModalProps) {
         test: {
           successCriteria: "",
           metrics: "",
+          learnings: ""
         },
         scale: {
           notes: "",
@@ -88,6 +89,7 @@ export default function AddCardModal(props: AddCardModalProps) {
             </Stack>
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
+            <TextArea name="test.learnings" label="Learnings" />
           </AccordianItem>
           <AccordianItem title="Scale">
             <TextArea name="scale.notes" label="Notes" />

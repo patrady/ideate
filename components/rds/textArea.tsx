@@ -12,7 +12,7 @@ type TextAreaProps = {
 
 export default function TextArea(props: TextAreaProps) {
   const { className, name, label, help } = props;
-  const [{ value, onChange, onBlur }, { touched, error }] = useField(name);
+  const [{ value, onChange, onBlur }, { touched, error }] = useField<string>(name);
   const hasError = touched && error;
 
   return (

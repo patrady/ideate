@@ -12,7 +12,7 @@ type CheckboxProps = {
 
 export default function Checkbox(props: CheckboxProps) {
   const { className, name, label, help } = props;
-  const [{ onChange, value }, { touched, error }] = useField(name);
+  const [{ onChange, value }, { touched, error }] = useField<number>(name);
 
   return (
     <div className={clsx(styles["rds-FormField"], styles["rds-Checkbox"], className)}>

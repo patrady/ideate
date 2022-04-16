@@ -12,8 +12,8 @@ export default function ButtonGroup(props: ButtonGroupProps) {
 
   return (
     <div
-      className={clsx(styles["rds-ButtonGroup"], {
-        [styles["rds-ButtonGroup--right"]]: alignRight,
+      className={clsx(styles["rds-Group"], {
+        [styles["rds-Group--right"]]: alignRight,
       })}
     >
       {children}

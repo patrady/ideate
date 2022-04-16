@@ -1,18 +1,22 @@
 import Text from "@ramsey-design-system/text";
 import clsx from "clsx";
-import { useField } from "formik";
+import { FieldArray, useField } from "formik";
+import Tag from "./tag";
 import styles from "./rds.module.scss";
+import Button from "@ramsey-design-system/button";
+import { useState } from "react";
 
-type InputProps = {
+type TagsProps = {
   className?: string;
   name: string;
   label: string;
   help?: string;
 };
 
-export default function Input(props: InputProps) {
+export default function Tags(props: TagsProps) {
   const { className, name, label, help } = props;
-  const [{ value, onChange, onBlur }, { touched, error }] = useField<string>(name);
+  const [{ value = [], onChange, onBlur }, { touched, error }] =
+    useField<string[]>(name);
   const hasError = touched && error;
 
   return (
@@ -24,20 +28,35 @@ export default function Input(props: InputProps) {
       >
         {label}
       </Text>
-      <div
+      <FieldArray
+        name={name}
+        render={({ remove }) => (
+          <div className={styles["rds-Group"]}>
+            {value.map((tag, index) => (
+              <Tag
+                key={tag}
+                text={tag}
+                subtle
+                color="primary"
+                onDelete={() => remove(index)}
+              />
+            ))}
+
+            <Button appearance="ghost" size="small">
+              Add Tag
+            </Button>
+          </div>
+        )}
+      />
+      {/* <div
         className={clsx(styles["rds-FormField-control"], {
           [styles["rds-FormField-control--error"]]: hasError,
         })}
       >
         <div className={styles["rds-Input"]}>
-          <input
-            name={name}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-          />
+          <input onChange={onChange} onBlur={onBlur} />
         </div>
-      </div>
+      </div> */}
       {hasError && (
         <Text element="span" className={styles["rds-FormField-errorMessage"]}>
           {error}

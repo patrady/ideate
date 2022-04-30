@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Board } from "../../../../components";
-import { useLocale, useTeam } from "../../../../hooks";
+import { Board } from "../../../components";
+import { useLocale } from "../../../hooks";
 
 const BoardPage: NextPage = () => {
   const t = useLocale();
-  // const team = useTeam();
 
   return (
     <>
@@ -13,9 +12,7 @@ const BoardPage: NextPage = () => {
         <title>{t.pages.organizations.show.teams.show.title}</title>
         <meta
           name="description"
-          content={t.pages.organizations.show.teams.show.description({
-            name: "hi",
-          })}
+          content={t.pages.organizations.show.teams.show.description}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

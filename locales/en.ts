@@ -50,8 +50,7 @@ export default {
         teams: {
           show: {
             title: "Ideate | Board",
-            description: (team: Team) =>
-              `Track product prototypes, tests, and features for ${team}`,
+            description: "Track product prototypes, tests, and features for a team",
           },
         },
       },

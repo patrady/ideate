@@ -1,11 +1,62 @@
-.Navbar {
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  background: blue;
-  color: white;
+@use "/styles" as *;
 
-  * {
-    margin-right: 1rem;
+$navbar-height: 48px;
+
+.AppNavigation {
+  z-index: 10;
+  width: 100%;
+  background: linear-gradient(black, #002342);
+  height: $navbar-height;
+  display: flex;
+
+  &-list {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    height: 100%;
+  }
+
+  &-item {
+    margin: 0 $rds-size-spacing-inline-small;
+    height: $navbar-height;
+  }
+
+  &-logo {
+    background-color: $rds-color-base-gray-40;
+    margin: 0 $rds-size-spacing-inline-large 0 0.65rem;
+    width: 72px;
+    height: 80%;
+    display: flex;
+    align-self: center;
+    border-radius: $rds-size-radius-small;
+  }
+
+  &-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: $rds-color-base-white;
+    transition: color 0.2s ease-in-out;
+    padding: 0.9rem 0;
+
+    &:hover {
+      color: $rds-color-base-gray-40;
+    }
+
+    // &.active {
+    //   color: gray;
+
+    //   &::after {
+    //     position: absolute;
+    //     bottom: -1px;
+    //     left: 0;
+    //     background-color: white;
+    //     width: 100%;
+    //     height: $rds-size-border-large;
+    //     content: "";
+    //   }
+    // }
   }
 }

@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Board } from "../components";
 import { useLocale } from "../hooks";
 
 const BoardPage: NextPage = () => {

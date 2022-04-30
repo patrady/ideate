@@ -6,7 +6,7 @@ import { Modal, Accordian } from "..";
 import { useLocale } from "../../hooks";
 import { AddCardProps } from "../../models";
 import { AccordianItem } from "../accordian";
-import { Input, Checkbox, TextArea, Tags, Links } from "../rds";
+import { Input, TextArea, Tags, Links } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
@@ -20,10 +20,11 @@ export default function AddCardModal(props: AddCardModalProps) {
 
   async function handleSubmit(
     values: AddCardProps,
-    { setSubmitting }: FormikHelpers<AddCardProps>
+    { setSubmitting, resetForm }: FormikHelpers<AddCardProps>
   ) {
     await onAdd(values);
     setSubmitting(false);
+    resetForm();
   }
 
   return (

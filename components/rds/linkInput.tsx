@@ -7,6 +7,7 @@ import styles from "./rds.module.scss";
 type LinkInputButtons = "copy" | "open" | "delete";
 type Actions = {
   [key in LinkInputButtons]: {
+    label: string;
     action: (value: string) => any;
     icon: () => JSX.Element;
   };
@@ -23,14 +24,17 @@ export default function LinkInput(props: InputProps) {
   const actionCallbacks = useMemo<Actions>(
     () => ({
       open: {
+        label: "Open Link",
         action: (href: string) => window.open(href, "_blank"),
         icon: LinkExternalIcon,
       },
       copy: {
+        label: "Copy Link",
         action: (value: string) => navigator.clipboard.writeText(value),
         icon: DocumentOutlinedIcon,
       },
       delete: {
+        label: "Delete Link",
         action: (value: string) => onDelete && onDelete(value),
         icon: DeleteIcon,
       },
@@ -39,14 +43,15 @@ export default function LinkInput(props: InputProps) {
   );
 
   function ActionButton({ type }: { type: LinkInputButtons }) {
-    const { icon, action } = actionCallbacks[type];
+    const { label, icon, action } = actionCallbacks[type];
 
     return (
       <Button
+        iconOnly
         className={styles["rds-LinkInput-action"]}
         type="button"
         appearance="subtle"
-        iconOnly
+        aria-label={label}
         icon={icon}
         onClick={() => action(value)}
       />

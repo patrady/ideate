@@ -70,6 +70,7 @@ function ModalHeader(props: ModalHeaderProps) {
         iconOnly
         icon={CloseIcon}
         type="button"
+        aria-label="Close Modal"
         appearance="subtle"
         className={styles["Modal-close"]}
         onClick={onClose}

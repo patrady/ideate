@@ -23,6 +23,7 @@ export default function Tag(props: TagProps) {
         type="button"
         appearance="subtle"
         size="small"
+        aria-label="Delete Tag"
         className={styles["rds-Tag-delete"]}
         onClick={onDelete}
       />

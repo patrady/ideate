@@ -4,7 +4,7 @@ import Row from "./row";
 import RowHeader from "./rowheader";
 import Square from "./square";
 import Table from "./table";
-import { Card as CardComponent } from "..";
+import { Card as CardComponent, PlusIcon } from "..";
 import { parseSquareId, SquareId, Squares } from "../../types";
 import { AddCardModal, UpdateCardModal } from "../card";
 import styles from "./board.module.scss";
@@ -132,10 +132,8 @@ export default function Board() {
           </Row>
         </tbody>
       </Table>
-      <Button
-        className={styles["Board-addCard"]}
-        onClick={openAddModal}
-      >
+      <Button className={styles["Board-addCard"]} onClick={openAddModal}>
+        <PlusIcon className="rds-Button-icon rds-Button-icon--left" />
         {t.board.addCard}
       </Button>
       <AddCardModal

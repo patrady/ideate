@@ -38,7 +38,7 @@ export default function AddCardModal(props: AddCardModalProps) {
         test: {
           successCriteria: "",
           metrics: "",
-          learnings: ""
+          learnings: "",
         },
         scale: {
           notes: "",
@@ -52,7 +52,7 @@ export default function AddCardModal(props: AddCardModalProps) {
         testSuccessCriteria: yup.string(),
         isArchived: yup.bool(),
         tags: yup.array(yup.string()),
-        link: yup.string().url('Please provide a valid link'),
+        link: yup.string().url("Please provide a valid link"),
       })}
       onSubmit={handleSubmit}
     >

@@ -29,4 +29,8 @@ export class Team extends Model {
   public override is(slug: number | string) {
     return this.slug === slug;
   }
+
+  static sort(a: Team, b: Team) {
+    return a.name.localeCompare(b.name);
+  }
 }

@@ -46,6 +46,10 @@ export default {
   },
   pages: {
     organizations: {
+      index: {
+        title: "Ideate | Teams",
+        description: "View all the teams in an organization"
+      },
       show: {
         teams: {
           show: {

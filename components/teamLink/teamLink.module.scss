@@ -1,0 +1,32 @@
+@use "/styles" as *;
+
+.TeamLink {
+  &-content {
+    display: flex;
+    justify-content: space-between;
+    padding: $rds-size-spacing-inset-medium;
+    border-radius: $rds-size-radius-small;
+    box-shadow: $rds-shadow-box-small;
+    transition: box-shadow 0.3s ease-in-out;
+    text-decoration: none;
+    color: $rds-color-base-black;
+    max-width: 500px;
+
+    &:hover {
+      box-shadow: $rds-shadow-box-medium;
+    }
+  }
+
+  &-arrow {
+    fill: $rds-color-base-blue-50;
+  }
+}
+
+.TeamLinkContainer {
+  list-style: none;
+  padding: 0;
+
+  .TeamLink:not(:last-child) {
+    margin-bottom: $rds-size-spacing-stack-small;
+  }
+}

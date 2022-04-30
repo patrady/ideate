@@ -19,6 +19,20 @@ export class TeamsRepository {
         isActive: true,
         cards: CardRepository.storage,
       }),
+      new Team({
+        id: 1,
+        name: "Dark Mode",
+        slug: "dark-mode",
+        isActive: true,
+        cards: CardRepository.storage,
+      }),
+      new Team({
+        id: 1,
+        name: "Acquisition Team",
+        slug: "acquisition-team",
+        isActive: true,
+        cards: CardRepository.storage,
+      }),
     ];
   }
 }

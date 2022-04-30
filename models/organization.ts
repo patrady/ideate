@@ -25,7 +25,7 @@ export class Organization extends Model {
     this.teams = props.teams.map((t) => new Team(t));
   }
 
-  public override is(slug: string) {
+  public override is(slug: number | string) {
     return this.slug === slug;
   }
 }

@@ -82,3 +82,14 @@ export function PlusIcon(props: Props) {
     </Icon>
   );
 }
+
+export function ChevronRightIcon(props: Props) {
+  return (
+    <Icon {...props}>
+      <path
+        fillRule="evenodd"
+        d="m15.59 12-9.3 9.3a1 1 0 0 0 1.42 1.4l10-10a1 1 0 0 0 0-1.4l-10-10a1 1 0 1 0-1.42 1.4l9.3 9.3z"
+      />
+    </Icon>
+  );
+}

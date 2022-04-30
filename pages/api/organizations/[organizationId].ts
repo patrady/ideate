@@ -10,7 +10,7 @@ export default function handler(
   const { organizationId } = req.query;
   const organiation = new OrganizationMethodObject(organizationId);
 
-  if (!organiation.isValid()) {
+  if (organiation.isInvalid()) {
     return res.status(StatusCodes.BAD_REQUEST).send(organiation.getErrors());
   }
 

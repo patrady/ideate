@@ -8,10 +8,9 @@ export default function handler(
   res: NextApiResponse<ApiResponse<Team>>
 ) {
   const { teamId } = req.query;
-  console.log(`called /api/teams/${teamId}`);
   const team = new TeamMethodObject(teamId);
 
-  if (!team.isValid()) {
+  if (team.isInvalid()) {
     return res.status(StatusCodes.BAD_REQUEST).send(team.getErrors());
   }
 

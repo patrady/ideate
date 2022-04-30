@@ -24,7 +24,7 @@ class CardsController extends Controller {
   }
 
   private async get() {
-    if (!this.team.isValid()) {
+    if (this.team.isInvalid()) {
       return this.res
         .status(StatusCodes.BAD_REQUEST)
         .json(this.team.getErrors());

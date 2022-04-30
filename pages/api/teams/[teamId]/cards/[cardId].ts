@@ -26,7 +26,7 @@ class CardController extends Controller {
   }
 
   private async getById() {
-    if (!this.card.isValid()) {
+    if (this.card.isInvalid()) {
       return this.res
         .status(StatusCodes.BAD_REQUEST)
         .json(this.card.getErrors());
@@ -40,7 +40,7 @@ class CardController extends Controller {
   }
 
   private async put() {
-    if (!this.card.isValid()) {
+    if (this.card.isInvalid()) {
       return this.res
         .status(StatusCodes.BAD_REQUEST)
         .json(this.card.getErrors());
@@ -55,7 +55,7 @@ class CardController extends Controller {
   }
 
   private async delete() {
-    if (!this.card.isValid()) {
+    if (this.card.isInvalid()) {
       return this.res
         .status(StatusCodes.BAD_REQUEST)
         .json(this.card.getErrors());

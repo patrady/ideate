@@ -12,8 +12,8 @@ export abstract class MethodObject<T extends Model> {
   public abstract getValue(): T | Promise<T>;
   public abstract getErrors(): string[];
 
-  public isValid(): boolean {
-    return !this.getErrors().length;
+  public isInvalid(): boolean {
+    return this.getErrors().length > 0;
   }
 
   public getId(): number {

@@ -8,7 +8,6 @@ export class TeamSdk {
   public static async getBySlug(slug: string) {
     try {
       const team = await this.client.get<TeamProps>(`/api/teams/${slug}`);
-      console.log("team from api", team);
 
       return new Team(team);
     } catch (error) {

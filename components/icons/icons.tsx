@@ -93,3 +93,14 @@ export function ChevronRightIcon(props: Props) {
     </Icon>
   );
 }
+
+export function LockOutlinedIcon(props: Props) {
+  return (
+    <Icon {...props}>
+      <path
+        fill-rule="evenodd"
+        d="M12.28 1a5.5 5.5 0 0 1 5.45 5.55v3.54h2.63a1 1 0 0 1 1 1V22a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11.1a1 1 0 0 1 1-1l2.64-.01V6.44A5.5 5.5 0 0 1 11.96 1h.22zm7.08 11.1H5V21h14.36v-8.9zm-7.18 1.63a2.82 2.82 0 1 1 0 5.63 2.82 2.82 0 0 1 0-5.63zm0 2a.82.82 0 1 0 0 1.63.82.82 0 0 0 0-1.63zm0-12.73a3.5 3.5 0 0 0-3.54 3.45v3.64h7.09V6.54A3.5 3.5 0 0 0 12.46 3h-.19z"
+      />
+    </Icon>
+  );
+}

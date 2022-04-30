@@ -17,6 +17,11 @@
     }
   }
 
+  &-inactive {
+    margin: 0 $rds-size-spacing-inline-medium;
+    fill: $rds-color-base-red-50;
+  }
+
   &-arrow {
     fill: $rds-color-base-blue-50;
   }

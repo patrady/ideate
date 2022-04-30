@@ -4,13 +4,13 @@ import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Accordian, AccordianItem, Modal } from "..";
 import { useLocale } from "../../hooks";
-import { Card, UpdateCardProps } from "../../models";
+import { Card, UpdateableCardProps } from "../../models";
 import { Input, Checkbox, TextArea, Tags, LinkInput, Links, Tag } from "../rds";
 
 type UpdateCardModalProps = {
   isOpen: boolean;
   card: Card;
-  onUpdate(card: UpdateCardProps): Promise<void>;
+  onUpdate(card: UpdateableCardProps): Promise<void>;
   onDelete(): Promise<void>;
   onClose(): void;
 };
@@ -20,8 +20,8 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
   const t = useLocale();
 
   async function handleSubmit(
-    values: UpdateCardProps,
-    { setSubmitting }: FormikHelpers<UpdateCardProps>
+    values: UpdateableCardProps,
+    { setSubmitting }: FormikHelpers<UpdateableCardProps>
   ) {
     await onUpdate(values);
     setSubmitting(false);

@@ -1,4 +1,5 @@
 import { Phase, Status } from "../types";
+import { Model } from "./model";
 
 type TestProps = {
   metrics: string;
@@ -32,28 +33,30 @@ export type CardProps = {
 
 export type AddCardProps = Pick<
   CardProps,
-  | "title"
-  | "description"
-  | "prototype"
-  | "test"
-  | "scale"
-  | "tags"
-  | "links"
+  "title" | "description" | "prototype" | "test" | "scale" | "tags" | "links"
 >;
 
-export type UpdateCardProps = Pick<
-  CardProps,
-  | "title"
-  | "description"
-  | "prototype"
-  | "test"
-  | "scale"
-  | "tags"
-  | "isArchived"
-  | "links"
+export type UpdateCardProps = {
+  id: number;
+} & UpdateableCardProps;
+
+export type UpdateableCardProps = Partial<
+  Pick<
+    CardProps,
+    | "title"
+    | "description"
+    | "prototype"
+    | "test"
+    | "scale"
+    | "tags"
+    | "isArchived"
+    | "links"
+    | "phase"
+    | "status"
+  >
 >;
 
-export class Card {
+export class Card extends Model {
   id: number;
   title: string;
   description: string;
@@ -83,6 +86,8 @@ export class Card {
     isArchived,
     links,
   }: CardProps) {
+    super();
+
     this.id = id;
     this.title = title;
     this.description = description;
@@ -96,68 +101,6 @@ export class Card {
     this.order = order;
     this.isArchived = isArchived;
     this.links = links || [];
-  }
-
-  public static async getByTeam() {
-    const cards = localStorage.getItem("cards");
-    if (!cards) {
-      return [];
-    }
-
-    const parsedCards: CardProps[] = await JSON.parse(cards);
-    return parsedCards.map((c) => new Card(c));
-  }
-
-  public static async add(props: AddCardProps) {
-    const cards = await this.getByTeam();
-    const previousCard = cards.length > 0 ? cards[cards.length - 1] : undefined;
-    const newCard = new Card({
-      ...props,
-      id: (previousCard?.id || 0) + 1,
-      isArchived: false,
-      status: Status.Todo,
-      phase: Phase.Prototype,
-      order: 10,
-    });
-
-    localStorage.setItem("cards", JSON.stringify([...cards, newCard]));
-
-    return newCard;
-  }
-
-  public async move(phase: Phase, status: Status) {
-    const cards = await Card.getByTeam();
-    const index = cards.findIndex((c) => c.equals(this));
-    if (index === -1) {
-      return this;
-    }
-
-    cards[index] = new Card({ ...this, phase, status });
-    localStorage.setItem("cards", JSON.stringify(cards));
-
-    return cards[index];
-  }
-
-  public async update(props: UpdateCardProps) {
-    const cards = await Card.getByTeam();
-    const index = cards.findIndex((c) => c.equals(this));
-    if (index === -1) {
-      return this;
-    }
-
-    cards[index] = new Card({ ...this, ...props });
-    localStorage.setItem("cards", JSON.stringify(cards));
-
-    return cards[index];
-  }
-
-  public async delete() {
-    const cards = await Card.getByTeam();
-    const newCards = cards.filter((c) => !c.equals(this));
-
-    localStorage.setItem("cards", JSON.stringify(newCards));
-
-    return this;
   }
 
   public equals(card: number | Card) {

@@ -1,3 +1,5 @@
+import { Team } from "../models";
+
 export default {
   nav: {
     board: "Board",
@@ -37,14 +39,25 @@ export default {
   modal: {
     add: "Add",
     cancel: "Cancel",
-    delete: "Delete"
+    delete: "Delete",
   },
   addTagModal: {
     title: "Add Tag",
   },
   pages: {
+    organizations: {
+      show: {
+        teams: {
+          show: {
+            title: "Ideate | Board",
+            description: (team: Team) =>
+              `Track product prototypes, tests, and features for ${team}`,
+          },
+        },
+      },
+    },
     index: {
-      title: "Ideate | Board",
+      title: "Ideate",
       description: "Track product prototypes, tests, and features",
     },
   },

@@ -13,8 +13,6 @@ const BoardPage: NextPage = () => {
         <meta name="description" content={t.pages.index.description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Board />
     </>
   );
 };

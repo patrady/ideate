@@ -29,7 +29,7 @@ function useOrganization(): ReturnValues {
     async function fetchOrganization() {
       startLoading();
 
-      const organizationFromApi = await OrganizationSdk.getBySlug(slug);
+      const organizationFromApi = await new OrganizationSdk().getBySlug(slug);
       setOrganization(organizationFromApi);
 
       stopLoading();

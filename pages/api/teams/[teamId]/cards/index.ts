@@ -34,7 +34,7 @@ class CardsController extends Controller {
       return this.res.status(StatusCodes.NOT_FOUND);
     }
 
-    return this.res.status(200).json(this.team.getValue().cards);
+    return this.res.status(200).json((await this.team.getValue()).cards);
   }
 
   private async post() {

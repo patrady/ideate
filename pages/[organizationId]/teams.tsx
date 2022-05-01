@@ -1,13 +1,28 @@
+import Button from "@ramsey-design-system/button";
 import Heading from "@ramsey-design-system/heading";
 import { NextPage } from "next";
 import Head from "next/head";
-import { Page, TeamLink, TeamLinkContainer } from "../../components";
-import { useLocale, useOrganization } from "../../hooks";
-import { Team } from "../../models";
+import { Page, PlusIcon, TeamLink, TeamLinkContainer } from "../../components";
+import AddTeamModal from "../../components/team/addTeamModal";
+import UpdateTeamModal from "../../components/team/updateTeamModal";
+import { useBool, useLocale, useSelected, useTeams } from "../../hooks";
+import { Team, UpdateableTeamProps } from "../../models";
 
-const BoardPage: NextPage = () => {
+const TeamsPage: NextPage = () => {
   const t = useLocale();
-  const [organization, isLoading] = useOrganization();
+  const { teams, addTeam, updateTeam } = useTeams();
+  const [isModalOpen, closeModal, openModal] = useBool();
+  const [selectedTeam, setSelectedTeam, resetSelectedTeam] =
+    useSelected<Team>();
+
+  async function handleUpdateTeam(values: UpdateableTeamProps) {
+    if (!selectedTeam) {
+      return;
+    }
+
+    await updateTeam(selectedTeam, values);
+    resetSelectedTeam();
+  }
 
   return (
     <Page>
@@ -22,12 +37,25 @@ const BoardPage: NextPage = () => {
 
       <Heading level="1">Teams</Heading>
       <TeamLinkContainer>
-        {organization?.teams.sort(Team.sort).map((team) => (
-          <TeamLink key={team.slug} team={team} organization={organization} />
+        {teams.sort().map((team) => (
+          <TeamLink key={team.slug} team={team} onEdit={setSelectedTeam} />
         ))}
       </TeamLinkContainer>
+      <Button appearance="ghost" onClick={openModal}>
+        <PlusIcon className="rds-Button-icon rds-Button-icon--left" />
+        Add Team
+      </Button>
+      <AddTeamModal isOpen={isModalOpen} onAdd={addTeam} onClose={closeModal} />
+      {selectedTeam && (
+        <UpdateTeamModal
+          isOpen
+          team={selectedTeam}
+          onUpdate={handleUpdateTeam}
+          onClose={resetSelectedTeam}
+        />
+      )}
     </Page>
   );
 };
 
-export default BoardPage;
+export default TeamsPage;

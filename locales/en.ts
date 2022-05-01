@@ -38,11 +38,18 @@ export default {
   },
   modal: {
     add: "Add",
+    update: "Update",
     cancel: "Cancel",
     delete: "Delete",
   },
   addTagModal: {
     title: "Add Tag",
+  },
+  addTeamModal: {
+    title: "Add Team"
+  },
+  updateTeamModal: {
+    title: "Update Team"
   },
   pages: {
     organizations: {
@@ -73,5 +80,11 @@ export default {
         delete: "Oh no, that card couldn't be deleted",
       },
     },
+    team: {
+      errors: {
+        add: "Oh no, that team couldn't be added",
+        update: "Oh no, that team couldn't be updated",
+      }
+    }
   },
 };

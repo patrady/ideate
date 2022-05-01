@@ -53,7 +53,6 @@ export default function useCards(): UseCardsValue {
   async function moveCard(card: Card, phase: Phase, status: Status) {
     try {
       const updatedCard = await new CardsSdk().move(card, phase, status);
-      console.log("updated card", updatedCard);
       setCards(cards.update(updatedCard));
     } catch (error) {
       console.error(error);

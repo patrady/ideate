@@ -9,6 +9,10 @@ export type TeamProps = {
   cards: Card[];
 };
 
+export type AddTeamProps = Pick<TeamProps, "name" | "slug">;
+export type UpdateTeamProps = Pick<TeamProps, "id"> & UpdateableTeamProps;
+export type UpdateableTeamProps = Pick<TeamProps, "name" | "isActive">;
+
 export class Team extends Model {
   id: number;
   name: string;
@@ -26,8 +30,12 @@ export class Team extends Model {
     this.cards = props.cards.map((c) => new Card(c));
   }
 
-  public override is(slug: number | string) {
-    return this.slug === slug;
+  public override is(team: number | string | Team) {
+    if (typeof team == "string" || typeof team === "number") {
+      return this.slug === team;
+    }
+
+    return this.slug === team.slug;
   }
 
   static sort(a: Team, b: Team) {

@@ -36,9 +36,7 @@ export type AddCardProps = Pick<
   "title" | "description" | "prototype" | "test" | "scale" | "tags" | "links"
 >;
 
-export type UpdateCardProps = {
-  id: number;
-} & UpdateableCardProps;
+export type UpdateCardProps = Pick<CardProps, "id"> & UpdateableCardProps;
 
 export type UpdateableCardProps = Partial<
   Pick<

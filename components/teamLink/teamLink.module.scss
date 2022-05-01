@@ -4,7 +4,8 @@
   &-content {
     display: flex;
     justify-content: space-between;
-    padding: $rds-size-spacing-inset-medium;
+    align-items: center;
+    padding: $rds-size-spacing-inset-squish-small;
     border-radius: $rds-size-radius-small;
     box-shadow: $rds-shadow-box-small;
     transition: box-shadow 0.3s ease-in-out;
@@ -18,12 +19,19 @@
   }
 
   &-inactive {
-    margin: 0 $rds-size-spacing-inline-medium;
     fill: $rds-color-base-red-50;
   }
 
   &-arrow {
     fill: $rds-color-base-blue-50;
+  }
+
+  &-actions {
+    margin-left: 1rem;
+
+    *:not(:last-child) {
+      margin-right: 1rem;
+    }
   }
 }
 

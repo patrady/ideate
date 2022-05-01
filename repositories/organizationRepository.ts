@@ -6,18 +6,18 @@ export class OrganizationRepository {
     return this.find(slug) !== undefined;
   }
 
-  public static find(slug: string): Organization | undefined {
-    return this.all().find((organization) => organization.is(slug));
+  public static async find(slug: string): Promise<Organization | undefined> {
+    return (await this.all()).find((organization) => organization.is(slug));
   }
 
-  public static all(): Organization[] {
+  public static async all(): Promise<Organization[]> {
     return [
       new Organization({
         id: 1,
         name: "Ramsey Solutions",
         slug: "ramsey-solutions",
         isActive: true,
-        teams: TeamsRepository.all(),
+        teams: await TeamsRepository.all(),
       }),
     ];
   }

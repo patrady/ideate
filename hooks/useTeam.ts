@@ -26,7 +26,7 @@ function useTeam(): ReturnValues {
     async function fetchTeam() {
       startLoading();
 
-      const teamFromApi = await TeamSdk.getBySlug(slug);
+      const teamFromApi = await new TeamSdk().getBySlug(slug);
       setTeam(teamFromApi);
 
       stopLoading();

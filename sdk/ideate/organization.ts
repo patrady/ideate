@@ -3,9 +3,9 @@ import { ApiClient } from "./apiClient";
 import { OrganizationNotFound } from "./errors";
 
 export class OrganizationSdk {
-  private static client = new ApiClient();
+  private client = new ApiClient();
 
-  public static async getBySlug(slug: string) {
+  public async getBySlug(slug: string) {
     try {
       const team = await this.client.get<OrganizationProps>(
         `/api/organizations/${slug}`

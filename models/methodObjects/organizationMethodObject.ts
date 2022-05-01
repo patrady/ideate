@@ -12,8 +12,8 @@ export class OrganizationMethodObject extends MethodObject<Organization> {
     return OrganizationRepository.contains(this.getSlug());
   }
 
-  public getValue() {
-    const value = OrganizationRepository.find(this.getSlug());
+  public async getValue() {
+    const value = await OrganizationRepository.find(this.getSlug());
     if (!value) {
       throw new Error(`Organization ${this.getSlug()} not found`);
     }

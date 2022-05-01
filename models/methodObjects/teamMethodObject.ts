@@ -12,8 +12,8 @@ export class TeamMethodObject extends MethodObject<Team> {
     });
   }
 
-  public getValue() {
-    const value = TeamsRepository.find(this.getSlug());
+  public async getValue() {
+    const value = await TeamsRepository.find(this.getSlug());
     if (!value) {
       throw new Error(`Team ${this.getSlug()} not found`);
     }

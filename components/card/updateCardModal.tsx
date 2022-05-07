@@ -87,11 +87,11 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
               </AccordianItem>
             </Accordian>
           </Tab>
-          <Tab label="Prototype">
+          <Tab label="Prototype" isCurrentPhase={card.isPrototype()}>
             <TextArea name="prototype.notes" label="Notes" />
             <Links label="Links" name="prototype.links" fullWidth />
           </Tab>
-          <Tab label="Test">
+          <Tab label="Test" isCurrentPhase={card.isTest()}>
             <Stack>
               <Input
                 name="test.startDate"
@@ -106,25 +106,11 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             <TextArea name="test.learnings" label="Learnings" />
             <Links label="Links" name="test.links" fullWidth />
           </Tab>
-          <Tab label="Scale">
+          <Tab label="Scale" isCurrentPhase={card.isScale()}>
             <TextArea name="scale.notes" label="Notes" />
             <Links label="Links" name="scale.links" fullWidth />
           </Tab>
         </Tabs>
-        {/* <Accordian>
-          <AccordianItem
-            title="Prototype"
-            tag={card.isPrototype() && <CurrentAvatar />}
-          ></AccordianItem>
-          <AccordianItem
-            title="Test"
-            tag={card.isTest() && <CurrentAvatar />}
-          ></AccordianItem>
-          <AccordianItem
-            title="Scale"
-            tag={card.isScale() && <CurrentAvatar />}
-          ></AccordianItem>
-        </Accordian> */}
       </Modal>
     </Formik>
   );

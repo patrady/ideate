@@ -34,6 +34,7 @@ export function Tabs(props: TabsProps) {
 
 type TabProps = {
   label: string;
+  isCurrentPhase?: boolean;
   children: ReactNode;
 
   /* Passed by Parent */
@@ -43,17 +44,22 @@ type TabProps = {
 };
 
 export function Tab(props: TabProps) {
-  const { isActive = false, index = 0, label, onClick = () => {} } = props;
+  const {
+    isActive = false,
+    index = 0,
+    label,
+    isCurrentPhase,
+    onClick = () => {},
+  } = props;
 
   return (
-    <li>
-      <button
-        type="button"
-        className={clsx(styles["rds-Tab"], {
-          [styles["rds-Tab--active"]]: isActive,
-        })}
-        onClick={() => onClick(index)}
-      >
+    <li
+      className={clsx(styles["rds-Tab"], {
+        [styles["rds-Tab--active"]]: isActive,
+      })}
+    >
+      {isCurrentPhase && <div className={styles["rds-Tab--alert"]} />}
+      <button className={styles["rds-Tab-content"]} type="button" onClick={() => onClick(index)}>
         {label}
       </button>
     </li>

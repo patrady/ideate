@@ -148,24 +148,28 @@
       margin: 0;
       padding: 0;
       column-gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid $rds-color-base-gray-30;
+      margin-bottom: $rds-size-spacing-stack-large;
+      border-bottom: $rds-size-border-small solid $rds-color-base-gray-30;
     }
 
     &-content {
-      padding: 0 1rem;
+      padding: 0 $rds-size-spacing-inset-medium;
     }
   }
 
   &-Tab {
-    padding: 1rem;
+    padding: $rds-size-spacing-inset-medium;
     color: $rds-color-base-gray-70;
     list-style: none;
-    border: none;
-    background-color: transparent;
-    font-size: 1rem;
     cursor: pointer;
-    font-family: canada-type-gibson;
+    position: relative;
+
+    &-content {
+      background-color: transparent;
+      font-size: $rds-size-font-3;
+      border: none;
+      font-family: canada-type-gibson;
+    }
 
     &:hover {
       color: $rds-color-base-gray-90;
@@ -176,12 +180,22 @@
     }
 
     &--active {
-      border-bottom: 4px solid $rds-color-base-blue-50;
+      border-bottom: $rds-size-border-large solid $rds-color-base-blue-50;
       color: $rds-color-base-blue-50;
 
       &:hover {
         color: $rds-color-base-blue-50;
       }
+    }
+
+    &--alert {
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: $rds-color-base-green-50;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      border-radius: $rds-size-radius-rounded;
     }
   }
 }

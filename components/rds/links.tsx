@@ -22,12 +22,12 @@ export default function Links(props: LinksProps) {
         render={({ remove, push }) => (
           <>
             {links.length > 0 && (
-              <Stack className={styles["Links"]}>
+              <Stack className={styles["Links"]} spacing="small">
                 {links.map((link, index) => (
                   <LinkInput
                     key={link}
                     value={link}
-                    actions={["copy", "open", "delete"]}
+                    actions={["open", "delete"]}
                     onDelete={() => remove(index)}
                   />
                 ))}

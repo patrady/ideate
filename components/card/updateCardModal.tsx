@@ -10,7 +10,6 @@ import {
   Checkbox,
   TextArea,
   Tags,
-  LinkInput,
   Links,
   Tag,
   Tabs,
@@ -51,7 +50,6 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
         scale: card.scale,
         tags: card.tags,
         isArchived: card.isArchived,
-        links: card.links,
       }}
       validationSchema={yup.object().shape({
         title: yup.string().required("Please provide a title"),
@@ -84,11 +82,6 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             <Input name="description" label="Description" />
             <Tags name="tags" label="Tags" />
             <Accordian>
-              <AccordianItem title="Links">
-                <Links name="links" fullWidth />
-              </AccordianItem>
-            </Accordian>
-            <Accordian>
               <AccordianItem title="Advanced">
                 <Checkbox name="isArchived" label="Archived" />
               </AccordianItem>
@@ -96,6 +89,7 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
           </Tab>
           <Tab label="Prototype">
             <TextArea name="prototype.notes" label="Notes" />
+            <Links label="Links" name="prototype.links" fullWidth />
           </Tab>
           <Tab label="Test">
             <Stack>
@@ -110,9 +104,11 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
             <TextArea name="test.learnings" label="Learnings" />
+            <Links label="Links" name="test.links" fullWidth />
           </Tab>
           <Tab label="Scale">
             <TextArea name="scale.notes" label="Notes" />
+            <Links label="Links" name="scale.links" fullWidth />
           </Tab>
         </Tabs>
         {/* <Accordian>

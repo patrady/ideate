@@ -1,5 +1,7 @@
 import Button from "@ramsey-design-system/button";
+import Heading from "@ramsey-design-system/heading";
 import Stack from "@ramsey-design-system/stack";
+import Text from "@ramsey-design-system/text";
 import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal, Accordian } from "..";
@@ -34,17 +36,19 @@ export default function AddCardModal(props: AddCardModalProps) {
         description: "",
         prototype: {
           notes: "",
+          links: [] as string[],
         },
         test: {
           successCriteria: "",
           metrics: "",
           learnings: "",
+          links: [] as string[],
         },
         scale: {
           notes: "",
+          links: [] as string[],
         },
         tags: [] as string[],
-        links: [] as string[],
       }}
       validationSchema={yup.object().shape({
         title: yup.string().required("Please provide a title"),
@@ -75,14 +79,10 @@ export default function AddCardModal(props: AddCardModalProps) {
             <Input name="title" label="Title" />
             <Input name="description" label="Description" />
             <Tags name="tags" label="Tags" />
-            <Accordian>
-              <AccordianItem title="Links">
-                <Links name="links" fullWidth />
-              </AccordianItem>
-            </Accordian>
           </Tab>
           <Tab label="Prototype">
             <TextArea name="prototype.notes" label="Notes" />
+            <Links label="Links" name="prototype.links" fullWidth />
           </Tab>
           <Tab label="Test">
             <Stack>
@@ -97,9 +97,11 @@ export default function AddCardModal(props: AddCardModalProps) {
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
             <TextArea name="test.learnings" label="Learnings" />
+            <Links label="Links" name="test.links" fullWidth />
           </Tab>
           <Tab label="Scale">
             <TextArea name="scale.notes" label="Notes" />
+            <Links label="Links" name="scale.links" fullWidth />
           </Tab>
         </Tabs>
       </Modal>

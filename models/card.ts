@@ -5,14 +5,17 @@ type TestProps = {
   metrics: string;
   successCriteria: string;
   learnings: string;
+  links: string[];
 };
 
 type ScaleProps = {
   notes: string;
+  links: string[];
 };
 
 type PrototypeProps = {
   notes: string;
+  links: string[];
 };
 
 export type CardProps = {
@@ -28,12 +31,11 @@ export type CardProps = {
   phase: Phase;
   order: number;
   isArchived: boolean;
-  links: string[];
 };
 
 export type AddCardProps = Pick<
   CardProps,
-  "title" | "description" | "prototype" | "test" | "scale" | "tags" | "links"
+  "title" | "description" | "prototype" | "test" | "scale" | "tags"
 >;
 
 export type UpdateCardProps = Pick<CardProps, "id"> & UpdateableCardProps;
@@ -48,7 +50,6 @@ export type UpdateableCardProps = Partial<
     | "scale"
     | "tags"
     | "isArchived"
-    | "links"
     | "phase"
     | "status"
   >
@@ -67,7 +68,6 @@ export class Card extends Model {
   phase: Phase;
   order: number;
   isArchived: boolean;
-  links: string[];
 
   constructor({
     id,
@@ -82,23 +82,21 @@ export class Card extends Model {
     phase,
     order,
     isArchived,
-    links,
   }: CardProps) {
     super();
 
     this.id = id;
     this.title = title;
     this.description = description;
-    this.prototype = prototype;
-    this.test = test;
-    this.scale = scale;
+    this.prototype = { ...prototype, links: prototype.links || [] };
+    this.test = { ...test, links: test.links || [] };
+    this.scale = { ...scale, links: scale.links || [] };
     this.endDate = endDate ? new Date(endDate) : undefined;
     this.tags = tags || [];
     this.status = status;
     this.phase = phase;
     this.order = order;
     this.isArchived = isArchived;
-    this.links = links || [];
   }
 
   public equals(card: number | Card) {

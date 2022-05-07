@@ -1,15 +1,15 @@
 import Button from "@ramsey-design-system/button";
 import clsx from "clsx";
 import { useMemo } from "react";
-import { DeleteIcon, DocumentOutlinedIcon, LinkExternalIcon } from "..";
+import { DeleteIcon, LinkExternalIcon } from "..";
 import styles from "./rds.module.scss";
 
-type LinkInputButtons = "copy" | "open" | "delete";
+type LinkInputButtons = "open" | "delete";
 type Actions = {
   [key in LinkInputButtons]: {
     label: string;
     action: (value: string) => any;
-    icon: () => JSX.Element;
+    icon: (props: any) => JSX.Element;
   };
 };
 
@@ -27,11 +27,6 @@ export default function LinkInput(props: InputProps) {
         label: "Open Link",
         action: (href: string) => window.open(href, "_blank"),
         icon: LinkExternalIcon,
-      },
-      copy: {
-        label: "Copy Link",
-        action: (value: string) => navigator.clipboard.writeText(value),
-        icon: DocumentOutlinedIcon,
       },
       delete: {
         label: "Delete Link",

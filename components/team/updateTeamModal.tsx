@@ -18,8 +18,6 @@ export default function UpdateTeamModal(props: UpdateTeamModalProps) {
   const { team, isOpen, onUpdate, onClose } = props;
   const t = useLocale();
 
-  console.log('team', team);
-
   async function handleSubmit(
     values: UpdateableTeamProps,
     { setSubmitting, resetForm }: FormikHelpers<UpdateableTeamProps>

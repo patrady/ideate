@@ -1,71 +1,76 @@
-import { AddTeamProps, UpdateTeamProps } from "../models";
-import { CardRepository } from "./cardRepository";
-import { Team } from '../models/team'
+import { AddTeamProps, Organization, UpdateTeamProps } from "../models";
+import { Team, TeamProps } from "../models";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  collection,
+  getDocs,
+  addDoc,
+  setDoc,
+} from "firebase/firestore";
+import { database } from "../db";
 
 export class TeamsRepository {
-  static storage: Team[] = [
-    new Team({
-      id: 1,
-      name: "Campfire Squad",
-      slug: "campfire-squad",
-      isActive: true,
-      cards: CardRepository.storage,
-    }),
-    new Team({
-      id: 2,
-      name: "Dark Mode",
-      slug: "dark-mode",
-      isActive: true,
-      cards: CardRepository.storage,
-    }),
-    new Team({
-      id: 3,
-      name: "Acquisition Team",
-      slug: "acquisition-team",
-      isActive: false,
-      cards: CardRepository.storage,
-    }),
-  ];
-
-  public static contains(slug: string) {
-    return this.find(slug) !== undefined;
+  public static contains(organizationSlug: string, slug: string) {
+    return this.find(organizationSlug, slug) !== undefined;
   }
 
-  public static async find(slug: string | number): Promise<Team | undefined> {
-    return (await this.all()).find((team) => team.is(slug));
+  public static async find(
+    organizationSlug: string,
+    slug: string | number
+  ): Promise<Team | undefined> {
+    return (await this.all(organizationSlug)).find((team) => team.is(slug));
   }
 
-  public static async findIndex(id: number): Promise<number> {
-    return (await this.all()).findIndex((card) => card.is(id));
+  public static async findIndex(
+    organizationSlug: string,
+    id: number
+  ): Promise<number> {
+    return (await this.all(organizationSlug)).findIndex((card) => card.is(id));
   }
 
-  public static async add(props: AddTeamProps): Promise<Team> {
-    const teams = await this.all();
-
-    const newTeam = new Team({
-      ...props,
-      id: 1,
+  public static async add(
+    organization: Organization,
+    props: AddTeamProps
+  ): Promise<Team> {
+    const team = new Team({
+      id: 0,
+      name: props.name,
+      slug: props.slug,
       isActive: true,
       cards: [],
     });
 
-    this.storage = [...teams, newTeam];
+    await setDoc(
+      doc(database, "organizations", organization.slug, "teams", props.slug),
+      team.toJSON()
+    );
 
-    return newTeam;
+    return team;
   }
 
-  public static async update(props: UpdateTeamProps) {
-    const teams = await this.all();
-    const team = (await this.find(props.id))!;
-    const index = await this.findIndex(props.id);
+  public static async update(
+    organizationSlug: string,
+    team: Team,
+    teamProps: UpdateTeamProps
+  ) {
+    await updateDoc(
+      doc(database, "organizations", organizationSlug, "teams", team.slug),
+      {
+        name: teamProps.name,
+        isActive: teamProps.isActive,
+      }
+    );
 
-    teams[index] = new Team({ ...team, ...props });
-    this.storage = [...teams];
-
-    return teams[index];
+    return new Team({ ...team, ...teamProps });
   }
 
-  public static all(): Promise<Team[]> {
-    return Promise.resolve(this.storage);
+  public static async all(organizationSlug: string): Promise<Team[]> {
+    const teams = await getDocs(
+      collection(database, "organizations", organizationSlug, "teams")
+    );
+
+    return teams.docs.map((o) => new Team(o.data() as TeamProps));
   }
 }

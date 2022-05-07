@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { StatusCodes } from "http-status-codes";
-import { Controller, Team, TeamMethodObject } from "../../../../models";
-import { ApiResponse } from "../../../../types";
-import { TeamsRepository } from "../../../../repositories";
+import { Controller, Team, TeamMethodObject } from "../../../../../../models";
+import { ApiResponse } from "../../../../../../types";
+import { TeamsRepository } from "../../../../../../repositories";
 
 class TeamController extends Controller {
   private team: TeamMethodObject;
@@ -10,8 +10,8 @@ class TeamController extends Controller {
   constructor(req: NextApiRequest, res: NextApiResponse) {
     super(req, res);
 
-    const { teamId } = req.query;
-    this.team = new TeamMethodObject(teamId);
+    const { organizationId, teamId } = req.query;
+    this.team = new TeamMethodObject(teamId, organizationId);
   }
 
   public call() {
@@ -48,7 +48,12 @@ class TeamController extends Controller {
       return this.res.status(StatusCodes.NOT_FOUND);
     }
 
-    const team = await TeamsRepository.update(this.req.body);
+    const team = await TeamsRepository.update(
+      this.team.getOrganizationSlug(),
+      await this.team.getValue(),
+      this.req.body
+    );
+
     return this.res.status(200).json(team);
   }
 }

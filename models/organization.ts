@@ -22,10 +22,19 @@ export class Organization extends Model {
     this.name = props.name;
     this.slug = props.slug;
     this.isActive = props.isActive;
-    this.teams = props.teams.map((t) => new Team(t));
+    this.teams = props.teams ? props.teams.map((t) => new Team(t)) : [];
   }
 
   public override is(slug: number | string) {
     return this.slug === slug;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      slug: this.slug,
+      isActive: this.isActive,
+      teams: this.teams.map(t => t.toJSON()),
+    }
   }
 }

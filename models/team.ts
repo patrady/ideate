@@ -10,7 +10,7 @@ export type TeamProps = {
 };
 
 export type AddTeamProps = Pick<TeamProps, "name" | "slug">;
-export type UpdateTeamProps = Pick<TeamProps, "id"> & UpdateableTeamProps;
+export type UpdateTeamProps = Pick<TeamProps, "slug"> & UpdateableTeamProps;
 export type UpdateableTeamProps = Pick<TeamProps, "name" | "isActive">;
 
 export class Team extends Model {
@@ -27,7 +27,7 @@ export class Team extends Model {
     this.name = props.name;
     this.slug = props.slug;
     this.isActive = props.isActive;
-    this.cards = props.cards.map((c) => new Card(c));
+    this.cards = props.cards ? props.cards.map((c) => new Card(c)) : [];
   }
 
   public override is(team: number | string | Team) {
@@ -40,5 +40,14 @@ export class Team extends Model {
 
   static sort(a: Team, b: Team) {
     return a.name.localeCompare(b.name);
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      slug: this.slug,
+      isActive: this.isActive,
+      cards: this.cards.map((c) => c.toJSON()),
+    };
   }
 }

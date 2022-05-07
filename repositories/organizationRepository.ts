@@ -1,5 +1,6 @@
-import { Organization } from "../models";
-import { TeamsRepository } from ".";
+import { Organization, OrganizationProps } from "../models";
+import { collection, getDocs } from "firebase/firestore";
+import { database } from "../db";
 
 export class OrganizationRepository {
   public static contains(slug: string) {
@@ -11,14 +12,10 @@ export class OrganizationRepository {
   }
 
   public static async all(): Promise<Organization[]> {
-    return [
-      new Organization({
-        id: 1,
-        name: "Ramsey Solutions",
-        slug: "ramsey-solutions",
-        isActive: true,
-        teams: await TeamsRepository.all(),
-      }),
-    ];
+    const organizations = await getDocs(collection(database, "organizations"));
+
+    return organizations.docs.map(
+      (o) => new Organization(o.data() as OrganizationProps)
+    );
   }
 }

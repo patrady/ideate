@@ -1,9 +1,18 @@
 import { TeamsRepository } from "../../repositories";
-import { Team, Errors, MethodObject, Model } from "..";
+import { Team, Errors, Model } from "..";
+import { MethodObject } from "./methodObject";
+import { QueryParam } from "../../types";
 
 export class TeamMethodObject extends MethodObject<Team> {
+  private organizationSlug: QueryParam;
+
+  constructor(id: QueryParam, organizationSlug: QueryParam) {
+    super(id);
+    this.organizationSlug = organizationSlug;
+  }
+
   public exists() {
-    return TeamsRepository.contains(this.getSlug());
+    return TeamsRepository.contains(this.getOrganizationSlug(), this.getSlug());
   }
 
   public getErrors() {
@@ -13,7 +22,7 @@ export class TeamMethodObject extends MethodObject<Team> {
   }
 
   public async getValue() {
-    const value = await TeamsRepository.find(this.getSlug());
+    const value = await TeamsRepository.find(this.getOrganizationSlug(), this.getSlug());
     if (!value) {
       throw new Error(`Team ${this.getSlug()} not found`);
     }
@@ -23,5 +32,9 @@ export class TeamMethodObject extends MethodObject<Team> {
 
   public getSlug(): string {
     return Model.getSlugFromQuery(this.id);
+  }
+
+  public getOrganizationSlug(): string {
+    return Model.getSlugFromQuery(this.organizationSlug);
   }
 }

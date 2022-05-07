@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { TeamsDecorator } from "../decorators";
-import { Team, TeamProps, UpdateableTeamProps } from "../models";
+import { Organization, Team, TeamProps, UpdateableTeamProps } from "../models";
 import { TeamSdk } from "../sdk/ideate";
+import useBool from "./useBool";
 import useLocale from "./useLocale";
 import useOrganization from "./useOrganization";
 
@@ -16,12 +17,22 @@ type ReturnValues = {
 function useTeams(): ReturnValues {
   const [error, setError] = useState<string>();
   const [organization, isOrganizationLoading] = useOrganization();
+  const [isLoading, stopLoading, startLoading] = useBool(true);
   const [teams, setTeams] = useState<TeamsDecorator>(new TeamsDecorator([]));
   const t = useLocale();
 
   useEffect(() => {
+    async function fetchTeams(organization: Organization) {
+      startLoading();
+
+      const teamsFromApi = await new TeamSdk().getByOrganization(organization);
+      setTeams(new TeamsDecorator(teamsFromApi));
+
+      stopLoading();
+    }
+
     if (organization) {
-      setTeams(new TeamsDecorator(organization?.teams));
+      fetchTeams(organization);
     }
   }, [organization]);
 
@@ -40,8 +51,17 @@ function useTeams(): ReturnValues {
   }
 
   async function updateTeam(team: Team, values: UpdateableTeamProps) {
+    if (!organization) {
+      return;
+    }
+
     try {
-      const updatedTeam = await new TeamSdk().update(team, values);
+      const updatedTeam = await new TeamSdk().update(
+        organization,
+        team,
+        values
+      );
+
       setTeams(teams.update(updatedTeam));
     } catch (error) {
       console.error(error);
@@ -51,7 +71,7 @@ function useTeams(): ReturnValues {
 
   return {
     teams,
-    isLoading: isOrganizationLoading,
+    isLoading: isOrganizationLoading || isLoading,
     addTeam,
     updateTeam,
     error,

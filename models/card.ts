@@ -166,4 +166,8 @@ export class Card extends Model {
   public isScale() {
     return this.phase === Phase.Scale;
   }
+
+  public toJSON() {
+    return {};
+  }
 }

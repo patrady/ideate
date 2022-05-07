@@ -1,6 +1,7 @@
 import { CardRepository } from "../../repositories";
-import { Errors, MethodObject, Model } from "..";
+import { Errors, Model } from "..";
 import { Card } from "../card";
+import { MethodObject } from "./methodObject";
 
 export class CardMethodObject extends MethodObject<Card> {
   public exists() {

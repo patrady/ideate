@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { StatusCodes } from "http-status-codes";
-import { CardMethodObject, Card, Controller } from "../../../../../models";
-import { ApiResponse } from "../../../../../types";
-import { CardRepository } from "../../../../../repositories";
+import { CardMethodObject, Card, Controller } from "../../../../../../../models";
+import { ApiResponse } from "../../../../../../../types";
+import { CardRepository } from "../../../../../../../repositories";
 
 class CardController extends Controller {
   card: CardMethodObject;

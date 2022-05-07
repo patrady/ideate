@@ -1,14 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-  Controller,
-  Organization,
-  OrganizationMethodObject,
-} from "../../../models";
+import { Controller, OrganizationMethodObject } from "../../../../../models";
 import { StatusCodes } from "http-status-codes";
-import { ApiResponse } from "../../../types";
-import { TeamsRepository } from "../../../repositories";
+import { TeamsRepository } from "../../../../../repositories";
 
-class OrganizationController extends Controller {
+class TeamsController extends Controller {
   private organization: OrganizationMethodObject;
 
   constructor(req: NextApiRequest, res: NextApiResponse) {
@@ -38,18 +33,27 @@ class OrganizationController extends Controller {
       return this.res.status(StatusCodes.NOT_FOUND);
     }
 
-    this.res.status(200).json(await this.organization.getValue());
+    this.res
+      .status(200)
+      .json(await TeamsRepository.all(this.organization.getSlug()));
   }
 
   private async addTeam() {
-    const newTeam = await TeamsRepository.add(this.req.body);
+    if (!this.organization.exists()) {
+      return this.res.status(StatusCodes.NOT_FOUND);
+    }
+
+    const newTeam = await TeamsRepository.add(
+      await this.organization.getValue()!,
+      this.req.body
+    );
     return this.res.status(200).json(newTeam);
   }
 }
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<Organization>>
+  res: NextApiResponse
 ) {
-  return await new OrganizationController(req, res).call();
+  return await new TeamsController(req, res).call();
 }

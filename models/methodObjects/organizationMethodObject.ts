@@ -1,5 +1,6 @@
 import { OrganizationRepository } from "../../repositories";
-import { Errors, MethodObject, Organization, Model } from "..";
+import { Errors, Organization, Model } from "..";
+import { MethodObject } from "./methodObject";
 
 export class OrganizationMethodObject extends MethodObject<Organization> {
   public getErrors() {

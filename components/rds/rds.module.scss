@@ -139,6 +139,51 @@
       }
     }
   }
+
+  &-Tabs {
+    &-list {
+      display: flex;
+      width: 100%;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      column-gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid $rds-color-base-gray-30;
+    }
+
+    &-content {
+      padding: 0 1rem;
+    }
+  }
+
+  &-Tab {
+    padding: 1rem;
+    color: $rds-color-base-gray-70;
+    list-style: none;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: canada-type-gibson;
+
+    &:hover {
+      color: $rds-color-base-gray-90;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &--active {
+      border-bottom: 4px solid $rds-color-base-blue-50;
+      color: $rds-color-base-blue-50;
+
+      &:hover {
+        color: $rds-color-base-blue-50;
+      }
+    }
+  }
 }
 
 // TODO: Split this out to its own component

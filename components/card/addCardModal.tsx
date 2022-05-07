@@ -6,7 +6,7 @@ import { Modal, Accordian } from "..";
 import { useLocale } from "../../hooks";
 import { AddCardProps } from "../../models";
 import { AccordianItem } from "../accordian";
-import { Input, TextArea, Tags, Links } from "../rds";
+import { Input, TextArea, Tags, Links, Tabs, Tab } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
@@ -70,14 +70,21 @@ export default function AddCardModal(props: AddCardModalProps) {
           </Stack>
         }
       >
-        <Input name="title" label="Title" />
-        <Input name="description" label="Description" />
-        <Tags name="tags" label="Tags" />
-        <Accordian>
-          <AccordianItem title="Prototype">
+        <Tabs>
+          <Tab label="Info">
+            <Input name="title" label="Title" />
+            <Input name="description" label="Description" />
+            <Tags name="tags" label="Tags" />
+            <Accordian>
+              <AccordianItem title="Links">
+                <Links name="links" fullWidth />
+              </AccordianItem>
+            </Accordian>
+          </Tab>
+          <Tab label="Prototype">
             <TextArea name="prototype.notes" label="Notes" />
-          </AccordianItem>
-          <AccordianItem title="Test">
+          </Tab>
+          <Tab label="Test">
             <Stack>
               <Input
                 name="test.startDate"
@@ -90,16 +97,11 @@ export default function AddCardModal(props: AddCardModalProps) {
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
             <TextArea name="test.learnings" label="Learnings" />
-          </AccordianItem>
-          <AccordianItem title="Scale">
+          </Tab>
+          <Tab label="Scale">
             <TextArea name="scale.notes" label="Notes" />
-          </AccordianItem>
-        </Accordian>
-        <Accordian>
-          <AccordianItem title="Links">
-            <Links name="links" fullWidth />
-          </AccordianItem>
-        </Accordian>
+          </Tab>
+        </Tabs>
       </Modal>
     </Formik>
   );

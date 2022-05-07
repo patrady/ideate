@@ -5,7 +5,17 @@ import * as yup from "yup";
 import { Accordian, AccordianItem, Modal } from "..";
 import { useLocale } from "../../hooks";
 import { Card, UpdateableCardProps } from "../../models";
-import { Input, Checkbox, TextArea, Tags, LinkInput, Links, Tag } from "../rds";
+import {
+  Input,
+  Checkbox,
+  TextArea,
+  Tags,
+  LinkInput,
+  Links,
+  Tag,
+  Tabs,
+  Tab,
+} from "../rds";
 
 type UpdateCardModalProps = {
   isOpen: boolean;
@@ -68,17 +78,26 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
           </Stack>
         }
       >
-        <Input name="title" label="Title" />
-        <Input name="description" label="Description" />
-        <Tags name="tags" label="Tags" />
-        <Accordian>
-          <AccordianItem
-            title="Prototype"
-            tag={card.isPrototype() && <CurrentAvatar />}
-          >
+        <Tabs>
+          <Tab label="Info">
+            <Input name="title" label="Title" />
+            <Input name="description" label="Description" />
+            <Tags name="tags" label="Tags" />
+            <Accordian>
+              <AccordianItem title="Links">
+                <Links name="links" fullWidth />
+              </AccordianItem>
+            </Accordian>
+            <Accordian>
+              <AccordianItem title="Advanced">
+                <Checkbox name="isArchived" label="Archived" />
+              </AccordianItem>
+            </Accordian>
+          </Tab>
+          <Tab label="Prototype">
             <TextArea name="prototype.notes" label="Notes" />
-          </AccordianItem>
-          <AccordianItem title="Test" tag={card.isTest() && <CurrentAvatar />}>
+          </Tab>
+          <Tab label="Test">
             <Stack>
               <Input
                 name="test.startDate"
@@ -91,24 +110,25 @@ export default function UpdateCardModal(props: UpdateCardModalProps) {
             <TextArea name="test.successCriteria" label="Success Criteria" />
             <TextArea name="test.metrics" label="Metrics" />
             <TextArea name="test.learnings" label="Learnings" />
-          </AccordianItem>
+          </Tab>
+          <Tab label="Scale">
+            <TextArea name="scale.notes" label="Notes" />
+          </Tab>
+        </Tabs>
+        {/* <Accordian>
+          <AccordianItem
+            title="Prototype"
+            tag={card.isPrototype() && <CurrentAvatar />}
+          ></AccordianItem>
+          <AccordianItem
+            title="Test"
+            tag={card.isTest() && <CurrentAvatar />}
+          ></AccordianItem>
           <AccordianItem
             title="Scale"
             tag={card.isScale() && <CurrentAvatar />}
-          >
-            <TextArea name="scale.notes" label="Notes" />
-          </AccordianItem>
-        </Accordian>
-        <Accordian>
-          <AccordianItem title="Links">
-            <Links name="links" fullWidth />
-          </AccordianItem>
-        </Accordian>
-        <Accordian>
-          <AccordianItem title="Advanced">
-            <Checkbox name="isArchived" label="Archived" />
-          </AccordianItem>
-        </Accordian>
+          ></AccordianItem>
+        </Accordian> */}
       </Modal>
     </Formik>
   );

@@ -1,16 +1,21 @@
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import { Team } from "../models";
+import { Organization, Team } from "../models";
 import { TeamSdk } from "../sdk/ideate";
 import useBool from "./useBool";
+import useOrganization from "./useOrganization";
 
-type ReturnValues = [team: Team | undefined, isLoading: boolean];
+type ReturnValues = {
+  team: Team | undefined;
+  isLoading: boolean;
+};
 
 function useTeam(): ReturnValues {
   const {
     query: { teamId },
   } = useRouter();
   const [isLoading, stopLoading, startLoading] = useBool(true);
+  const [organization, isOrganizationLoading] = useOrganization();
   const [team, setTeam] = useState<Team>();
 
   const slug = useMemo(() => {
@@ -23,21 +28,24 @@ function useTeam(): ReturnValues {
   }, [teamId]);
 
   useEffect(() => {
-    async function fetchTeam() {
+    async function fetchTeam(organization: Organization) {
       startLoading();
 
-      const teamFromApi = await new TeamSdk().getBySlug(slug);
+      const teamFromApi = await new TeamSdk().getBySlug(organization, slug);
       setTeam(teamFromApi);
 
       stopLoading();
     }
 
-    if (slug) {
-      fetchTeam();
+    if (slug && organization) {
+      fetchTeam(organization);
     }
-  }, [slug]);
+  }, [slug, organization]);
 
-  return [team, isLoading];
+  return {
+    team,
+    isLoading: isLoading || isOrganizationLoading,
+  };
 }
 
 export default useTeam;

@@ -24,9 +24,11 @@ export class TeamSdk {
     }
   }
 
-  public async getBySlug(slug: string) {
+  public async getBySlug(organization: Organization, slug: string) {
     try {
-      const team = await this.client.get<TeamProps>(`/api/teams/${slug}`);
+      const team = await this.client.get<TeamProps>(
+        `/api/organizations/${organization.slug}/teams/${slug}`
+      );
 
       return new Team(team);
     } catch (error) {

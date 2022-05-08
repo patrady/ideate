@@ -18,7 +18,7 @@ type UseCardsValue = {
 };
 
 export default function useCards(): UseCardsValue {
-  const [team, isTeamLoading] = useTeam();
+  const { team, isLoading: isTeamLoading } = useTeam();
   const [cards, setCards] = useState(new CardsDecorator([]));
   const [isLoading, stopLoading, startLoading] = useBool(false);
   const [error, setError] = useState<string>();

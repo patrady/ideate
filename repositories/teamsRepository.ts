@@ -1,4 +1,10 @@
-import { AddTeamProps, Organization, UpdateTeamProps } from "../models";
+import {
+  AddTeamProps,
+  Card,
+  CardProps,
+  Organization,
+  UpdateTeamProps,
+} from "../models";
 import { Team, TeamProps } from "../models";
 import {
   doc,
@@ -8,6 +14,7 @@ import {
   getDocs,
   addDoc,
   setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { database } from "../db";
 
@@ -18,16 +25,30 @@ export class TeamsRepository {
 
   public static async find(
     organizationSlug: string,
-    slug: string | number
+    slug: string
   ): Promise<Team | undefined> {
-    return (await this.all(organizationSlug)).find((team) => team.is(slug));
-  }
+    const team = await getDoc(
+      doc(database, "organizations", organizationSlug, "teams", slug)
+    );
+    if (!team.exists()) {
+      return undefined;
+    }
 
-  public static async findIndex(
-    organizationSlug: string,
-    id: number
-  ): Promise<number> {
-    return (await this.all(organizationSlug)).findIndex((card) => card.is(id));
+    const cards = await getDocs(
+      collection(
+        database,
+        "organizations",
+        organizationSlug,
+        "teams",
+        slug,
+        "cards"
+      )
+    );
+
+    return new Team({
+      ...(team.data() as TeamProps),
+      cards: cards.docs.map(card => new Card(card.data() as CardProps)),
+    });
   }
 
   public static async add(

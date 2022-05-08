@@ -1,4 +1,5 @@
 import { Card } from ".";
+import { CardProps } from "./card";
 import { Model } from "./model";
 
 export type TeamProps = {
@@ -6,7 +7,7 @@ export type TeamProps = {
   name: string;
   slug: string;
   isActive: boolean;
-  cards: Card[];
+  cards: CardProps[];
 };
 
 export type AddTeamProps = Pick<TeamProps, "name" | "slug">;

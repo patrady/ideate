@@ -1,5 +1,5 @@
 import {
-  AddableCardprops,
+  AddableCardProps,
   AddCardProps,
   Card,
   CardProps,
@@ -29,7 +29,7 @@ export class CardsSdk {
   public async add(
     organization: Organization,
     team: Team,
-    cardProps: AddableCardprops
+    cardProps: AddableCardProps
   ) {
     try {
       const props: AddCardProps = {

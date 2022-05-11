@@ -36,13 +36,13 @@ export type CardProps = {
   teamSlug: string;
 };
 
-export type AddableCardprops = Pick<
+export type AddableCardProps = Pick<
   CardProps,
   "title" | "description" | "prototype" | "test" | "scale" | "tags"
 >;
 
 export type AddCardProps = Pick<CardProps, "organizationSlug" | "teamSlug"> &
-  AddableCardprops;
+  AddableCardProps;
 
 export type UpdateCardProps = Pick<CardProps, "id"> & UpdateableCardProps;
 
@@ -74,6 +74,8 @@ export class Card extends Model {
   phase: Phase;
   order: number;
   isArchived: boolean;
+  organizationSlug: string;
+  teamSlug: string;
 
   constructor({
     id,
@@ -88,6 +90,8 @@ export class Card extends Model {
     phase,
     order,
     isArchived,
+    organizationSlug,
+    teamSlug
   }: CardProps) {
     super();
 
@@ -103,6 +107,8 @@ export class Card extends Model {
     this.phase = phase;
     this.order = order;
     this.isArchived = isArchived;
+    this.organizationSlug = organizationSlug;
+    this.teamSlug = teamSlug;
   }
 
   public static for(object: DocumentSnapshot<DocumentData>) {

@@ -4,12 +4,12 @@ import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Modal } from "..";
 import { useLocale } from "../../hooks";
-import { AddableCardprops } from "../../models";
+import { AddableCardProps } from "../../models";
 import { Input, TextArea, Tags, Links, Tabs, Tab } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
-  onAdd(card: AddableCardprops): Promise<void>;
+  onAdd(card: AddableCardProps): Promise<void>;
   onClose(): void;
 };
 
@@ -18,8 +18,8 @@ export default function AddCardModal(props: AddCardModalProps) {
   const t = useLocale();
 
   async function handleSubmit(
-    values: AddableCardprops,
-    { setSubmitting, resetForm }: FormikHelpers<AddableCardprops>
+    values: AddableCardProps,
+    { setSubmitting, resetForm }: FormikHelpers<AddableCardProps>
   ) {
     await onAdd(values);
     setSubmitting(false);

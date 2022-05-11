@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CardsDecorator } from "../decorators";
 import {
-  AddableCardprops as AddableCardProps,
+  AddableCardProps as AddableCardProps,
   Card,
   Organization,
   Team,
@@ -52,7 +52,6 @@ export default function useCards(): UseCardsValue {
 
     try {
       const newCard = await new CardsSdk().add(organization, team, values);
-      console.log('new card', newCard);
       setCards(cards.add(newCard));
     } catch (error) {
       console.error(error);
@@ -61,12 +60,16 @@ export default function useCards(): UseCardsValue {
   }
 
   async function moveCard(card: Card, phase: Phase, status: Status) {
+    // Optimistic update
+    let updatedCard = new Card({ ...card, phase, status });
+    setCards(cards.update(updatedCard));
+
     try {
-      const updatedCard = await new CardsSdk().move(card, phase, status);
-      setCards(cards.update(updatedCard));
+      updatedCard = await new CardsSdk().move(card, phase, status);
     } catch (error) {
       console.error(error);
       setError(t.models.card.errors.add);
+      setCards(cards.update(card));
     }
   }
 

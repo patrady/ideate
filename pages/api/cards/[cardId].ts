@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { StatusCodes } from "http-status-codes";
-import { CardMethodObject, Card, Controller } from "../../../../../../../models";
-import { ApiResponse } from "../../../../../../../types";
-import { CardRepository } from "../../../../../../../repositories";
+import { CardMethodObject, Card, Controller } from "../../../models";
+import { ApiResponse } from "../../../types";
+import { CardRepository } from "../../../repositories";
 
 class CardController extends Controller {
   card: CardMethodObject;
@@ -16,27 +16,11 @@ class CardController extends Controller {
 
   public call() {
     switch (this.method) {
-      case "GET":
-        return this.getById();
       case "PUT":
         return this.put();
       case "DELETE":
         return this.delete();
     }
-  }
-
-  private async getById() {
-    if (this.card.isInvalid()) {
-      return this.res
-        .status(StatusCodes.BAD_REQUEST)
-        .json(this.card.getErrors());
-    }
-
-    if (!this.card.exists()) {
-      return this.res.status(StatusCodes.NOT_FOUND);
-    }
-
-    return this.res.status(200).json(await this.card.getValue());
   }
 
   private async put() {
@@ -65,8 +49,10 @@ class CardController extends Controller {
       return this.res.status(StatusCodes.NOT_FOUND);
     }
 
-    await CardRepository.delete(await this.card.getValue());
-    return this.res.status(StatusCodes.ACCEPTED);
+    const card = await this.card.getValue();
+    await CardRepository.delete(card);
+
+    this.res.status(StatusCodes.ACCEPTED).json(card);
   }
 }
 

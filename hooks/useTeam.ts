@@ -6,6 +6,7 @@ import useBool from "./useBool";
 import useOrganization from "./useOrganization";
 
 type ReturnValues = {
+  organization: Organization | undefined;
   team: Team | undefined;
   isLoading: boolean;
 };
@@ -43,6 +44,7 @@ function useTeam(): ReturnValues {
   }, [slug, organization]);
 
   return {
+    organization,
     team,
     isLoading: isLoading || isOrganizationLoading,
   };

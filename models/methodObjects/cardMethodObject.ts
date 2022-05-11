@@ -5,17 +5,18 @@ import { MethodObject } from "./methodObject";
 
 export class CardMethodObject extends MethodObject<Card> {
   public exists() {
-    return CardRepository.contains(this.getId());
+    console.log('id', this.getId());
+    return CardRepository.contains(this.getStringId());
   }
 
   public getErrors() {
     return Errors.from({
-      "Invalid Card Id": !Model.isValidId(this.id),
+      "Invalid Card Id": !Model.isValidStringId(this.id),
     });
   }
 
   public async getValue() {
-    const value = await CardRepository.find(this.getId());
+    const value = await CardRepository.find(this.getStringId());
     if (!value) {
       throw new Error(`Card ${this.getId()} not found`);
     }

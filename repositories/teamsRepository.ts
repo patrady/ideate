@@ -9,10 +9,8 @@ import { Team, TeamProps } from "../models";
 import {
   doc,
   updateDoc,
-  arrayUnion,
   collection,
   getDocs,
-  addDoc,
   setDoc,
   getDoc,
 } from "firebase/firestore";
@@ -47,7 +45,7 @@ export class TeamsRepository {
 
     return new Team({
       ...(team.data() as TeamProps),
-      cards: cards.docs.map(card => new Card(card.data() as CardProps)),
+      cards: cards.docs.map((card) => card.data() as CardProps),
     });
   }
 

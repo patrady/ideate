@@ -1,7 +1,9 @@
 import {
+  AddableCardprops,
   AddCardProps,
   Card,
   CardProps,
+  Organization,
   Team,
   UpdateableCardProps,
 } from "../../models";
@@ -11,10 +13,10 @@ import { ApiClient } from "./apiClient";
 export class CardsSdk {
   private client = new ApiClient();
 
-  public async getByTeam(team: Team) {
+  public async get(organization: Organization, team: Team) {
     try {
       const cards = await this.client.get<CardProps[]>(
-        `/api/teams/${team.slug}/cards`
+        `/api/cards?organization=${organization.slug}&team=${team.slug}`
       );
 
       return cards.map((c) => new Card(c));
@@ -24,13 +26,19 @@ export class CardsSdk {
     }
   }
 
-  public async add(team: Team, cardProps: AddCardProps) {
+  public async add(
+    organization: Organization,
+    team: Team,
+    cardProps: AddableCardprops
+  ) {
     try {
-      const card = await this.client.post<CardProps>(
-        `/api/teams/${team.slug}/cards`,
-        cardProps
-      );
+      const props: AddCardProps = {
+        ...cardProps,
+        organizationSlug: organization.slug,
+        teamSlug: team.slug,
+      };
 
+      const card = await this.client.post<CardProps>(`/api/cards`, props);
       return new Card(card);
     } catch (error) {
       throw new Error("Oops, could not add the card.");
@@ -44,7 +52,7 @@ export class CardsSdk {
   public async update(card: Card, props: UpdateableCardProps) {
     try {
       const updatedCard = await this.client.put<CardProps>(
-        `/api/teams/campfire-squad/cards/${card.id}`,
+        `/api/cards/${card.id}`,
         { ...card, ...props }
       );
 
@@ -56,7 +64,7 @@ export class CardsSdk {
 
   public async delete(card: Card) {
     try {
-      await this.client.delete(`/api/teams/campfire-squad/cards/${card.id}`);
+      await this.client.delete(`/api/cards/${card.id}`);
     } catch (error) {
       throw new Error("Oops, could not delete the card.");
     }

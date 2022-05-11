@@ -1,18 +1,15 @@
 import Button from "@ramsey-design-system/button";
-import Heading from "@ramsey-design-system/heading";
 import Stack from "@ramsey-design-system/stack";
-import Text from "@ramsey-design-system/text";
 import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
-import { Modal, Accordian } from "..";
+import { Modal } from "..";
 import { useLocale } from "../../hooks";
-import { AddCardProps } from "../../models";
-import { AccordianItem } from "../accordian";
+import { AddableCardprops } from "../../models";
 import { Input, TextArea, Tags, Links, Tabs, Tab } from "../rds";
 
 type AddCardModalProps = {
   isOpen: boolean;
-  onAdd(card: AddCardProps): Promise<void>;
+  onAdd(card: AddableCardprops): Promise<void>;
   onClose(): void;
 };
 
@@ -21,8 +18,8 @@ export default function AddCardModal(props: AddCardModalProps) {
   const t = useLocale();
 
   async function handleSubmit(
-    values: AddCardProps,
-    { setSubmitting, resetForm }: FormikHelpers<AddCardProps>
+    values: AddableCardprops,
+    { setSubmitting, resetForm }: FormikHelpers<AddableCardprops>
   ) {
     await onAdd(values);
     setSubmitting(false);

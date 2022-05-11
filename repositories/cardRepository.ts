@@ -1,59 +1,70 @@
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { database } from "../db";
 import { AddCardProps, Card, UpdateCardProps } from "../models";
 import { Phase, Status } from "../types";
 
 export class CardRepository {
   static storage: Card[] = [];
 
-  public static contains(id: number) {
+  public static contains(id: string) {
     return this.find(id) !== undefined;
   }
 
-  public static async find(id: number): Promise<Card | undefined> {
-    return (await this.all()).find((card) => card.is(id));
+  public static async find(id: string): Promise<Card | undefined> {
+    const card = await getDoc(doc(database, "cards", id));
+    if (!card.exists()) {
+      return undefined;
+    }
+
+    return Card.for(card);
   }
 
-  public static async findIndex(id: number): Promise<number> {
-    return (await this.all()).findIndex((card) => card.is(id));
-  }
+  public static async all(
+    organizationSlug: string,
+    teamSlug: string
+  ): Promise<Card[]> {
+    const cards = await getDocs(
+      query(
+        collection(database, "cards"),
+        where("organizationSlug", "==", organizationSlug),
+        where("teamSlug", "==", teamSlug)
+      )
+    );
 
-  public static async all(): Promise<Card[]> {
-    return Promise.resolve(this.storage);
+    return cards.docs.map((card) => Card.for(card));
   }
 
   public static async add(props: AddCardProps): Promise<Card> {
-    const cards = await this.all();
-    const previousCard = cards.length > 0 ? cards[cards.length - 1] : undefined;
-    const newCard = new Card({
+    const cardRef = await addDoc(collection(database, "cards"), {
       ...props,
-      id: (previousCard?.id || 0) + 1,
       isArchived: false,
       status: Status.Todo,
       phase: Phase.Prototype,
-      order: 10,
+      order: 0,
     });
 
-    this.storage = [...cards, newCard];
-
-    return newCard;
+    return Card.for(await getDoc(cardRef));
   }
 
   public static async update(props: UpdateCardProps) {
-    const cards = await this.all();
-    const card = (await this.find(props.id))!;
-    const index = await this.findIndex(props.id);
+    const { id, ...rest } = props;
 
-    cards[index] = new Card({ ...card, ...props });
-    this.storage = [...cards];
+    await updateDoc(doc(database, "cards", props.id), { ...rest });
 
-    return cards[index];
+    return await this.find(id);
   }
 
   public static async delete(card: Card) {
-    const cards = await this.all();
-    const remainingCards = cards.filter((c) => !c.equals(card));
-
-    this.storage = [...remainingCards];
-
-    return card;
+    await deleteDoc(doc(database, "cards", card.id));
   }
 }

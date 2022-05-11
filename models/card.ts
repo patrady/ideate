@@ -1,3 +1,4 @@
+import { DocumentData, DocumentSnapshot } from "firebase/firestore";
 import { Phase, Status } from "../types";
 import { Model } from "./model";
 
@@ -19,7 +20,7 @@ type PrototypeProps = {
 };
 
 export type CardProps = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   prototype: PrototypeProps;
@@ -31,12 +32,17 @@ export type CardProps = {
   phase: Phase;
   order: number;
   isArchived: boolean;
+  organizationSlug: string;
+  teamSlug: string;
 };
 
-export type AddCardProps = Pick<
+export type AddableCardprops = Pick<
   CardProps,
   "title" | "description" | "prototype" | "test" | "scale" | "tags"
 >;
+
+export type AddCardProps = Pick<CardProps, "organizationSlug" | "teamSlug"> &
+  AddableCardprops;
 
 export type UpdateCardProps = Pick<CardProps, "id"> & UpdateableCardProps;
 
@@ -56,7 +62,7 @@ export type UpdateableCardProps = Partial<
 >;
 
 export class Card extends Model {
-  id: number;
+  id: string;
   title: string;
   description: string;
   prototype: PrototypeProps;
@@ -99,8 +105,15 @@ export class Card extends Model {
     this.isArchived = isArchived;
   }
 
-  public equals(card: number | Card) {
-    if (typeof card === "number") {
+  public static for(object: DocumentSnapshot<DocumentData>) {
+    return new Card({
+      ...(object.data() as CardProps),
+      id: object.id,
+    });
+  }
+
+  public equals(card: string | Card) {
+    if (typeof card === "string") {
       return this.id === card;
     }
 
@@ -168,6 +181,6 @@ export class Card extends Model {
   }
 
   public toJSON() {
-    return {};
+    return this;
   }
 }

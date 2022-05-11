@@ -35,7 +35,9 @@ class OrganizationController extends Controller {
       return this.res.status(StatusCodes.NOT_FOUND);
     }
 
-    this.res.status(200).json(await this.organization.getValue());
+    const value = await this.organization.getValue()
+    this.res.status(200).json(value);
+    return value;
   }
 }
 

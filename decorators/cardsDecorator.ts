@@ -43,11 +43,11 @@ export class CardsDecorator {
     return new CardsDecorator(this.cards.filter((c) => !c.equals(card)));
   }
 
-  public find(id: number | Card): Card | undefined {
+  public find(id: string | Card): Card | undefined {
     return this.cards[this.findIndex(id)];
   }
 
-  private findIndex(card: Card | number) {
+  private findIndex(card: Card | string) {
     return this.cards.findIndex((c) => c.equals(card));
   }
 }

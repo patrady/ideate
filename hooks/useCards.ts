@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { CardsDecorator } from "../decorators";
-import { AddCardProps, Card, UpdateableCardProps } from "../models";
+import {
+  AddableCardprops as AddableCardProps,
+  Card,
+  Organization,
+  Team,
+  UpdateableCardProps,
+} from "../models";
 import { CardsSdk } from "../sdk/ideate";
 import { Phase, Status } from "../types";
 import useBool from "./useBool";
@@ -11,38 +17,42 @@ type UseCardsValue = {
   cards: CardsDecorator;
   isLoading: boolean;
   error?: string;
-  addCard(values: AddCardProps): Promise<void>;
+  addCard(values: AddableCardProps): Promise<void>;
   moveCard(card: Card, phase: Phase, status: Status): Promise<void>;
   updateCard(card: Card, values: UpdateableCardProps): Promise<void>;
   removeCard(card: Card): Promise<void>;
 };
 
 export default function useCards(): UseCardsValue {
-  const { team, isLoading: isTeamLoading } = useTeam();
+  const { organization, team, isLoading: isTeamLoading } = useTeam();
   const [cards, setCards] = useState(new CardsDecorator([]));
   const [isLoading, stopLoading, startLoading] = useBool(false);
   const [error, setError] = useState<string>();
   const t = useLocale();
 
   useEffect(() => {
-    getCards();
-  }, []);
-
-  function getCards() {
-    if (!team) {
-      return;
+    if (organization && team) {
+      getCards(organization, team);
     }
+  }, [organization, team]);
 
-    setCards(new CardsDecorator(team.cards));
+  async function getCards(organization: Organization, team: Team) {
+    startLoading();
+
+    const cards = await new CardsSdk().get(organization, team);
+    setCards(new CardsDecorator(cards));
+
+    stopLoading();
   }
 
-  async function addCard(values: AddCardProps) {
-    if (!team) {
+  async function addCard(values: AddableCardProps) {
+    if (!organization || !team) {
       return;
     }
 
     try {
-      const newCard = await new CardsSdk().add(team, values);
+      const newCard = await new CardsSdk().add(organization, team, values);
+      console.log('new card', newCard);
       setCards(cards.add(newCard));
     } catch (error) {
       console.error(error);

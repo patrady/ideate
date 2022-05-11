@@ -8,7 +8,7 @@ import { Card as CardComponent, PlusIcon } from "..";
 import { parseSquareId, SquareId, Squares } from "../../types";
 import { AddCardModal, UpdateCardModal } from "../card";
 import styles from "./board.module.scss";
-import { AddCardProps, Card, UpdateableCardProps } from "../../models";
+import { AddableCardprops, Card, UpdateableCardProps } from "../../models";
 import Button from "@ramsey-design-system/button";
 
 export default function Board() {
@@ -29,7 +29,7 @@ export default function Board() {
     await moveCard(card, phase, status);
   }
 
-  async function handleAddCard(values: AddCardProps) {
+  async function handleAddCard(values: AddableCardprops) {
     await addCard(values);
     closeAddModal();
   }

@@ -1,7 +1,8 @@
+import { DocumentData, DocumentSnapshot } from "firebase/firestore";
 import { Model, Team } from ".";
 
 export type OrganizationProps = {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   isActive: boolean;
@@ -9,7 +10,7 @@ export type OrganizationProps = {
 };
 
 export class Organization extends Model {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   isActive: boolean;
@@ -25,8 +26,11 @@ export class Organization extends Model {
     this.teams = props.teams ? props.teams.map((t) => new Team(t)) : [];
   }
 
-  public override is(slug: number | string) {
-    return this.slug === slug;
+  public static for(object: DocumentSnapshot<DocumentData>) {
+    return new Organization({
+      ...(object.data() as OrganizationProps),
+      id: object.id,
+    });
   }
 
   toJSON() {
@@ -34,7 +38,7 @@ export class Organization extends Model {
       name: this.name,
       slug: this.slug,
       isActive: this.isActive,
-      teams: this.teams.map(t => t.toJSON()),
-    }
+      teams: this.teams.map((t) => t.toJSON()),
+    };
   }
 }

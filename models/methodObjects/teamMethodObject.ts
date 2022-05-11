@@ -17,12 +17,15 @@ export class TeamMethodObject extends MethodObject<Team> {
 
   public getErrors() {
     return Errors.from({
-      "Invalid Team Slug": !Model.isValidSlug(this.id),
+      "Invalid Team Slug": !Model.isValidId(this.id),
     });
   }
 
   public async getValue() {
-    const value = await TeamsRepository.find(this.getOrganizationSlug(), this.getSlug());
+    const value = await TeamsRepository.find(
+      this.getOrganizationSlug(),
+      this.getSlug()
+    );
     if (!value) {
       throw new Error(`Team ${this.getSlug()} not found`);
     }
@@ -31,10 +34,10 @@ export class TeamMethodObject extends MethodObject<Team> {
   }
 
   public getSlug(): string {
-    return Model.getSlugFromQuery(this.id);
+    return Model.getIdFromQuery(this.id);
   }
 
   public getOrganizationSlug(): string {
-    return Model.getSlugFromQuery(this.organizationSlug);
+    return Model.getIdFromQuery(this.organizationSlug);
   }
 }

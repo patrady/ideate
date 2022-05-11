@@ -5,7 +5,7 @@ import { MethodObject } from "./methodObject";
 export class OrganizationMethodObject extends MethodObject<Organization> {
   public getErrors() {
     return Errors.from({
-      "Invalid Team Id": !Model.isValidSlug(this.id),
+      "Invalid Team Id": !Model.isValidId(this.id),
     });
   }
 
@@ -23,6 +23,6 @@ export class OrganizationMethodObject extends MethodObject<Organization> {
   }
 
   public getSlug(): string {
-    return Model.getSlugFromQuery(this.id);
+    return Model.getIdFromQuery(this.id);
   }
 }

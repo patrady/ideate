@@ -1,4 +1,4 @@
-import { Organization, OrganizationProps } from "../models";
+import { Organization } from "../models";
 import { collection, getDocs } from "firebase/firestore";
 import { database } from "../db";
 
@@ -14,8 +14,6 @@ export class OrganizationRepository {
   public static async all(): Promise<Organization[]> {
     const organizations = await getDocs(collection(database, "organizations"));
 
-    return organizations.docs.map(
-      (o) => new Organization(o.data() as OrganizationProps)
-    );
+    return organizations.docs.map((o) => Organization.for(o));
   }
 }

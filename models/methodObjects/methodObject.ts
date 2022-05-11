@@ -16,11 +16,7 @@ export abstract class MethodObject<T extends Model> {
     return this.getErrors().length > 0;
   }
 
-  public getId(): number | string {
+  public getId(): string {
     return Model.getIdFromQuery(this.id);
-  }
-
-  public getStringId(): string {
-    return Model.getStringIdFromQuery(this.id);
   }
 }

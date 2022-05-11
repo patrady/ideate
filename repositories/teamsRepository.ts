@@ -1,11 +1,5 @@
-import {
-  AddTeamProps,
-  Card,
-  CardProps,
-  Organization,
-  UpdateTeamProps,
-} from "../models";
-import { Team, TeamProps } from "../models";
+import { AddTeamProps, Organization, UpdateTeamProps, Team } from "../models";
+import { database } from "../db";
 import {
   doc,
   updateDoc,
@@ -14,7 +8,6 @@ import {
   setDoc,
   getDoc,
 } from "firebase/firestore";
-import { database } from "../db";
 
 export class TeamsRepository {
   public static contains(organizationSlug: string, slug: string) {
@@ -43,10 +36,7 @@ export class TeamsRepository {
       )
     );
 
-    return new Team({
-      ...(team.data() as TeamProps),
-      cards: cards.docs.map((card) => card.data() as CardProps),
-    });
+    return Team.for(team);
   }
 
   public static async add(
@@ -54,11 +44,10 @@ export class TeamsRepository {
     props: AddTeamProps
   ): Promise<Team> {
     const team = new Team({
-      id: 0,
+      id: props.slug,
       name: props.name,
       slug: props.slug,
       isActive: true,
-      cards: [],
     });
 
     await setDoc(
@@ -82,7 +71,7 @@ export class TeamsRepository {
       }
     );
 
-    return new Team({ ...team, ...teamProps });
+    return this.find(organizationSlug, team.id);
   }
 
   public static async all(organizationSlug: string): Promise<Team[]> {
@@ -90,6 +79,6 @@ export class TeamsRepository {
       collection(database, "organizations", organizationSlug, "teams")
     );
 
-    return teams.docs.map((o) => new Team(o.data() as TeamProps));
+    return teams.docs.map((team) => Team.for(team));
   }
 }

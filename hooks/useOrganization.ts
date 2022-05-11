@@ -17,12 +17,12 @@ function useOrganization(): ReturnValues {
   const [organization, setOrganization] = useState<Organization>();
 
   const slug = useMemo(() => {
-    if (!Organization.isValidSlug(organizationId)) {
+    if (!Organization.isValidId(organizationId)) {
       console.error("Invalid Organization Slug", organizationId);
       return "";
     }
 
-    return Organization.getSlugFromQuery(organizationId);
+    return Organization.getIdFromQuery(organizationId);
   }, [organizationId]);
 
   useEffect(() => {

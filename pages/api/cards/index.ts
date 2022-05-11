@@ -10,8 +10,8 @@ class CardsController extends Controller {
     super(req, res);
 
     const { organization, team } = this.req.query;
-    this.organizationId = Organization.getSlugFromQuery(organization);
-    this.teamId = Team.getSlugFromQuery(team);
+    this.organizationId = Organization.getIdFromQuery(organization);
+    this.teamId = Team.getIdFromQuery(team);
   }
 
   public call() {

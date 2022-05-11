@@ -20,12 +20,12 @@ function useTeam(): ReturnValues {
   const [team, setTeam] = useState<Team>();
 
   const slug = useMemo(() => {
-    if (!Team.isValidSlug(teamId)) {
+    if (!Team.isValidId(teamId)) {
       console.error("Invalid Team Id", teamId);
       return "";
     }
 
-    return Team.getSlugFromQuery(teamId);
+    return Team.getIdFromQuery(teamId);
   }, [teamId]);
 
   useEffect(() => {

@@ -62,7 +62,7 @@ export class TeamSdk {
         values
       );
 
-      return new Team({ ...team, ...values });
+      return new Team(updatedTeam);
     } catch (error) {
       console.log(error);
       throw error;

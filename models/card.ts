@@ -32,8 +32,8 @@ export type CardProps = {
   phase: Phase;
   order: number;
   isArchived: boolean;
-  organizationSlug: string;
-  teamSlug: string;
+  organizationId: string;
+  teamId: string;
 };
 
 export type AddableCardProps = Pick<
@@ -41,7 +41,7 @@ export type AddableCardProps = Pick<
   "title" | "description" | "prototype" | "test" | "scale" | "tags"
 >;
 
-export type AddCardProps = Pick<CardProps, "organizationSlug" | "teamSlug"> &
+export type AddCardProps = Pick<CardProps, "organizationId" | "teamId"> &
   AddableCardProps;
 
 export type UpdateCardProps = Pick<CardProps, "id"> & UpdateableCardProps;
@@ -74,8 +74,8 @@ export class Card extends Model {
   phase: Phase;
   order: number;
   isArchived: boolean;
-  organizationSlug: string;
-  teamSlug: string;
+  organizationId: string;
+  teamId: string;
 
   constructor({
     id,
@@ -90,8 +90,8 @@ export class Card extends Model {
     phase,
     order,
     isArchived,
-    organizationSlug,
-    teamSlug
+    organizationId,
+    teamId
   }: CardProps) {
     super();
 
@@ -107,8 +107,8 @@ export class Card extends Model {
     this.phase = phase;
     this.order = order;
     this.isArchived = isArchived;
-    this.organizationSlug = organizationSlug;
-    this.teamSlug = teamSlug;
+    this.organizationId = organizationId;
+    this.teamId = teamId;
   }
 
   public static for(object: DocumentSnapshot<DocumentData>) {
@@ -184,9 +184,5 @@ export class Card extends Model {
 
   public isScale() {
     return this.phase === Phase.Scale;
-  }
-
-  public toJSON() {
-    return this;
   }
 }

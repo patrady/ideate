@@ -4,18 +4,16 @@ import { Model } from "./model";
 export type TeamProps = {
   id: string;
   name: string;
-  slug: string;
   isActive: boolean;
 };
 
-export type AddTeamProps = Pick<TeamProps, "name" | "slug">;
-export type UpdateTeamProps = Pick<TeamProps, "slug"> & UpdateableTeamProps;
+export type AddTeamProps = Pick<TeamProps, "name"> & { slug: string };
+export type UpdateTeamProps = Pick<TeamProps, "id"> & UpdateableTeamProps;
 export type UpdateableTeamProps = Pick<TeamProps, "name" | "isActive">;
 
 export class Team extends Model {
   id: string;
   name: string;
-  slug: string;
   isActive: boolean;
 
   constructor(props: TeamProps) {
@@ -23,16 +21,15 @@ export class Team extends Model {
 
     this.id = props.id;
     this.name = props.name;
-    this.slug = props.slug;
     this.isActive = props.isActive;
   }
 
   public override is(team: number | string | Team) {
     if (typeof team == "string" || typeof team === "number") {
-      return this.slug === team;
+      return this.id === team;
     }
 
-    return this.slug === team.slug;
+    return this.id === team.id;
   }
 
   static sort(a: Team, b: Team) {
@@ -44,13 +41,5 @@ export class Team extends Model {
       ...(object.data() as TeamProps),
       id: object.id,
     });
-  }
-
-  toJSON() {
-    return {
-      name: this.name,
-      slug: this.slug,
-      isActive: this.isActive,
-    };
   }
 }

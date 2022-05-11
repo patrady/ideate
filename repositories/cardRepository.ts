@@ -30,14 +30,14 @@ export class CardRepository {
   }
 
   public static async all(
-    organizationSlug: string,
-    teamSlug: string
+    organizationId: string,
+    teamId: string
   ): Promise<Card[]> {
     const cards = await getDocs(
       query(
         collection(database, "cards"),
-        where("organizationSlug", "==", organizationSlug),
-        where("teamSlug", "==", teamSlug)
+        where("organizationId", "==", organizationId),
+        where("teamId", "==", teamId)
       )
     );
 

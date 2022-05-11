@@ -24,6 +24,8 @@ const TeamsPage: NextPage = () => {
     resetSelectedTeam();
   }
 
+console.log('teams', teams);
+
   return (
     <Page>
       <Head>
@@ -38,7 +40,7 @@ const TeamsPage: NextPage = () => {
       <Heading level="1">Teams</Heading>
       <TeamLinkContainer>
         {teams.sort().map((team) => (
-          <TeamLink key={team.slug} team={team} onEdit={setSelectedTeam} />
+          <TeamLink key={team.id} team={team} onEdit={setSelectedTeam} />
         ))}
       </TeamLinkContainer>
       <Button appearance="ghost" onClick={openModal}>

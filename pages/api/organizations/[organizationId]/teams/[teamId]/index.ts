@@ -49,7 +49,7 @@ class TeamController extends Controller {
     }
 
     const team = await TeamsRepository.update(
-      this.team.getOrganizationSlug(),
+      this.team.getOrganizationId(),
       await this.team.getValue(),
       this.req.body
     );

@@ -4,40 +4,36 @@ import { MethodObject } from "./methodObject";
 import { QueryParam } from "../../types";
 
 export class TeamMethodObject extends MethodObject<Team> {
-  private organizationSlug: QueryParam;
+  private organizationId: QueryParam;
 
-  constructor(id: QueryParam, organizationSlug: QueryParam) {
+  constructor(id: QueryParam, organizationId: QueryParam) {
     super(id);
-    this.organizationSlug = organizationSlug;
+    this.organizationId = organizationId;
   }
 
   public exists() {
-    return TeamsRepository.contains(this.getOrganizationSlug(), this.getSlug());
+    return TeamsRepository.contains(this.getOrganizationId(), this.getId());
   }
 
   public getErrors() {
     return Errors.from({
-      "Invalid Team Slug": !Model.isValidId(this.id),
+      "Invalid Team Id": !Model.isValidId(this.id),
     });
   }
 
   public async getValue() {
     const value = await TeamsRepository.find(
-      this.getOrganizationSlug(),
-      this.getSlug()
+      this.getOrganizationId(),
+      this.getId()
     );
     if (!value) {
-      throw new Error(`Team ${this.getSlug()} not found`);
+      throw new Error(`Team ${this.getId()} not found`);
     }
 
     return value;
   }
 
-  public getSlug(): string {
-    return Model.getIdFromQuery(this.id);
-  }
-
-  public getOrganizationSlug(): string {
-    return Model.getIdFromQuery(this.organizationSlug);
+  public getOrganizationId(): string {
+    return Model.getIdFromQuery(this.organizationId);
   }
 }

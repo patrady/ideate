@@ -4,7 +4,6 @@ import { Model, Team } from ".";
 export type OrganizationProps = {
   id: string;
   name: string;
-  slug: string;
   isActive: boolean;
   teams: Team[];
 };
@@ -12,7 +11,6 @@ export type OrganizationProps = {
 export class Organization extends Model {
   id: string;
   name: string;
-  slug: string;
   isActive: boolean;
   teams: Team[];
 
@@ -21,7 +19,6 @@ export class Organization extends Model {
 
     this.id = props.id;
     this.name = props.name;
-    this.slug = props.slug;
     this.isActive = props.isActive;
     this.teams = props.teams ? props.teams.map((t) => new Team(t)) : [];
   }
@@ -31,14 +28,5 @@ export class Organization extends Model {
       ...(object.data() as OrganizationProps),
       id: object.id,
     });
-  }
-
-  toJSON() {
-    return {
-      name: this.name,
-      slug: this.slug,
-      isActive: this.isActive,
-      teams: this.teams.map((t) => t.toJSON()),
-    };
   }
 }

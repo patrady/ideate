@@ -14,7 +14,7 @@ export class TeamSdk {
   public async getByOrganization(organization: Organization) {
     try {
       const teams = await this.client.get<TeamProps[]>(
-        `/api/organizations/${organization.slug}/teams`
+        `/api/organizations/${organization.id}/teams`
       );
 
       return teams.map((team) => new Team(team));
@@ -24,10 +24,10 @@ export class TeamSdk {
     }
   }
 
-  public async getBySlug(organization: Organization, slug: string) {
+  public async getById(organization: Organization, id: string) {
     try {
       const team = await this.client.get<TeamProps>(
-        `/api/organizations/${organization.slug}/teams/${slug}`
+        `/api/organizations/${organization.id}/teams/${id}`
       );
 
       return new Team(team);
@@ -40,7 +40,7 @@ export class TeamSdk {
   public async add(organization: Organization, teamProps: AddTeamProps) {
     try {
       const team = await this.client.post<TeamProps>(
-        `/api/organizations/${organization.slug}/teams`,
+        `/api/organizations/${organization.id}/teams`,
         teamProps
       );
 
@@ -58,7 +58,7 @@ export class TeamSdk {
   ) {
     try {
       const updatedTeam = await this.client.put<TeamProps>(
-        `/api/organizations/${organization.slug}/teams/${team.slug}`,
+        `/api/organizations/${organization.id}/teams/${team.id}`,
         values
       );
 

@@ -10,31 +10,20 @@ import {
 } from "firebase/firestore";
 
 export class TeamsRepository {
-  public static contains(organizationSlug: string, slug: string) {
-    return this.find(organizationSlug, slug) !== undefined;
+  public static contains(organizationId: string, id: string) {
+    return this.find(organizationId, id) !== undefined;
   }
 
   public static async find(
-    organizationSlug: string,
-    slug: string
+    organizationId: string,
+    id: string
   ): Promise<Team | undefined> {
     const team = await getDoc(
-      doc(database, "organizations", organizationSlug, "teams", slug)
+      doc(database, "organizations", organizationId, "teams", id)
     );
     if (!team.exists()) {
       return undefined;
     }
-
-    const cards = await getDocs(
-      collection(
-        database,
-        "organizations",
-        organizationSlug,
-        "teams",
-        slug,
-        "cards"
-      )
-    );
 
     return Team.for(team);
   }
@@ -46,37 +35,36 @@ export class TeamsRepository {
     const team = new Team({
       id: props.slug,
       name: props.name,
-      slug: props.slug,
       isActive: true,
     });
 
     await setDoc(
-      doc(database, "organizations", organization.slug, "teams", props.slug),
-      team.toJSON()
+      doc(database, "organizations", organization.id, "teams", props.slug),
+      { ...props, isActive: true }
     );
 
     return team;
   }
 
   public static async update(
-    organizationSlug: string,
+    organizationId: string,
     team: Team,
     teamProps: UpdateTeamProps
   ) {
     await updateDoc(
-      doc(database, "organizations", organizationSlug, "teams", team.slug),
+      doc(database, "organizations", organizationId, "teams", team.id),
       {
         name: teamProps.name,
         isActive: teamProps.isActive,
       }
     );
 
-    return this.find(organizationSlug, team.id);
+    return this.find(organizationId, team.id);
   }
 
-  public static async all(organizationSlug: string): Promise<Team[]> {
+  public static async all(organizationId: string): Promise<Team[]> {
     const teams = await getDocs(
-      collection(database, "organizations", organizationSlug, "teams")
+      collection(database, "organizations", organizationId, "teams")
     );
 
     return teams.docs.map((team) => Team.for(team));

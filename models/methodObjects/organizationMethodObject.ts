@@ -10,19 +10,15 @@ export class OrganizationMethodObject extends MethodObject<Organization> {
   }
 
   public exists() {
-    return OrganizationRepository.contains(this.getSlug());
+    return OrganizationRepository.contains(this.getId());
   }
 
   public async getValue() {
-    const value = await OrganizationRepository.find(this.getSlug());
+    const value = await OrganizationRepository.find(this.getId());
     if (!value) {
-      throw new Error(`Organization ${this.getSlug()} not found`);
+      throw new Error(`Organization ${this.getId()} not found`);
     }
 
     return value;
-  }
-
-  public getSlug(): string {
-    return Model.getIdFromQuery(this.id);
   }
 }

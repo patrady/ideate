@@ -16,7 +16,7 @@ export class CardsSdk {
   public async get(organization: Organization, team: Team) {
     try {
       const cards = await this.client.get<CardProps[]>(
-        `/api/cards?organization=${organization.slug}&team=${team.slug}`
+        `/api/cards?organization=${organization.id}&team=${team.id}`
       );
 
       return cards.map((c) => new Card(c));
@@ -34,8 +34,8 @@ export class CardsSdk {
     try {
       const props: AddCardProps = {
         ...cardProps,
-        organizationSlug: organization.slug,
-        teamSlug: team.slug,
+        organizationId: organization.id,
+        teamId: team.id,
       };
 
       const card = await this.client.post<CardProps>(`/api/cards`, props);

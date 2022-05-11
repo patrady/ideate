@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Organization } from "../models";
 import { OrganizationSdk } from "../sdk/ideate";
 import useBool from "./useBool";
@@ -16,29 +16,22 @@ function useOrganization(): ReturnValues {
   const [isLoading, stopLoading, startLoading] = useBool(true);
   const [organization, setOrganization] = useState<Organization>();
 
-  const slug = useMemo(() => {
-    if (!Organization.isValidId(organizationId)) {
-      console.error("Invalid Organization Slug", organizationId);
-      return "";
-    }
-
-    return Organization.getIdFromQuery(organizationId);
-  }, [organizationId]);
-
   useEffect(() => {
     async function fetchOrganization() {
       startLoading();
 
-      const organizationFromApi = await new OrganizationSdk().getBySlug(slug);
+      const organizationFromApi = await new OrganizationSdk().getById(
+        Organization.getIdFromQuery(organizationId)
+      );
       setOrganization(organizationFromApi);
 
       stopLoading();
     }
 
-    if (slug) {
+    if (Organization.isValidId(organizationId)) {
       fetchOrganization();
     }
-  }, [slug]);
+  }, [organizationId]);
 
   return [organization, isLoading];
 }

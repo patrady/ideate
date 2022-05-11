@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Organization, Team } from "../models";
 import { TeamSdk } from "../sdk/ideate";
 import useBool from "./useBool";
@@ -19,29 +19,23 @@ function useTeam(): ReturnValues {
   const [organization, isOrganizationLoading] = useOrganization();
   const [team, setTeam] = useState<Team>();
 
-  const slug = useMemo(() => {
-    if (!Team.isValidId(teamId)) {
-      console.error("Invalid Team Id", teamId);
-      return "";
-    }
-
-    return Team.getIdFromQuery(teamId);
-  }, [teamId]);
-
   useEffect(() => {
     async function fetchTeam(organization: Organization) {
       startLoading();
 
-      const teamFromApi = await new TeamSdk().getBySlug(organization, slug);
+      const teamFromApi = await new TeamSdk().getById(
+        organization,
+        Team.getIdFromQuery(teamId)
+      );
       setTeam(teamFromApi);
 
       stopLoading();
     }
 
-    if (slug && organization) {
+    if (Team.isValidId(teamId) && organization) {
       fetchTeam(organization);
     }
-  }, [slug, organization]);
+  }, [teamId, organization]);
 
   return {
     organization,

@@ -17,7 +17,7 @@ export default function TeamLink(props: Props) {
     query: { organizationId },
   } = useRouter();
   const { team, onEdit } = props;
-  const { name, slug, isActive } = team;
+  const { name, id, isActive } = team;
 
   function handleEdit(e: React.MouseEvent<SVGSVGElement, MouseEvent>) {
     e.preventDefault();
@@ -26,7 +26,7 @@ export default function TeamLink(props: Props) {
 
   return (
     <li className={styles["TeamLink"]}>
-      <Link href={`/${organizationId}/${encodeURIComponent(slug)}`}>
+      <Link href={`/${organizationId}/${encodeURIComponent(id)}`}>
         <a className={styles["TeamLink-content"]}>
           <div>{name}</div>
           <div className={styles["TeamLink-actions"]}>

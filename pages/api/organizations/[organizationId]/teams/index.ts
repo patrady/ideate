@@ -33,9 +33,7 @@ class TeamsController extends Controller {
       return this.res.status(StatusCodes.NOT_FOUND);
     }
 
-    this.res
-      .status(200)
-      .json(await TeamsRepository.all(this.organization.getSlug()));
+    this.res.status(200).json(await TeamsRepository.all(this.organization.getId()));
   }
 
   private async addTeam() {

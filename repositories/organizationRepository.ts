@@ -3,12 +3,12 @@ import { collection, getDocs } from "firebase/firestore";
 import { database } from "../db";
 
 export class OrganizationRepository {
-  public static contains(slug: string) {
-    return this.find(slug) !== undefined;
+  public static contains(id: string) {
+    return this.find(id) !== undefined;
   }
 
-  public static async find(slug: string): Promise<Organization | undefined> {
-    return (await this.all()).find((organization) => organization.is(slug));
+  public static async find(id: string): Promise<Organization | undefined> {
+    return (await this.all()).find((organization) => organization.is(id));
   }
 
   public static async all(): Promise<Organization[]> {

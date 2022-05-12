@@ -1,5 +1,5 @@
 import { Organization } from "../models";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { database } from "../db";
 
 export class OrganizationRepository {
@@ -8,7 +8,12 @@ export class OrganizationRepository {
   }
 
   public static async find(id: string): Promise<Organization | undefined> {
-    return (await this.all()).find((organization) => organization.is(id));
+    const organization = await getDoc(doc(database, "organizations", id));
+    if (!organization.exists()) {
+      return undefined;
+    }
+
+    return Organization.for(organization);
   }
 
   public static async all(): Promise<Organization[]> {

@@ -28,6 +28,14 @@ export class TeamsRepository {
     return Team.for(team);
   }
 
+  public static async all(organizationId: string): Promise<Team[]> {
+    const teams = await getDocs(
+      collection(database, "organizations", organizationId, "teams")
+    );
+
+    return teams.docs.map((team) => Team.for(team));
+  }
+
   public static async add(
     organization: Organization,
     props: AddTeamProps
@@ -60,13 +68,5 @@ export class TeamsRepository {
     );
 
     return this.find(organizationId, team.id);
-  }
-
-  public static async all(organizationId: string): Promise<Team[]> {
-    const teams = await getDocs(
-      collection(database, "organizations", organizationId, "teams")
-    );
-
-    return teams.docs.map((team) => Team.for(team));
   }
 }

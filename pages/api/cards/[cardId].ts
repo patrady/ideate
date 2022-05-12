@@ -52,7 +52,7 @@ class CardController extends Controller {
     const card = await this.card.getValue();
     await CardRepository.delete(card);
 
-    this.res.status(StatusCodes.ACCEPTED).json(card);
+    return this.res.status(StatusCodes.ACCEPTED).json(card);
   }
 }
 

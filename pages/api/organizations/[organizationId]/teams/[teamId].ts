@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { StatusCodes } from "http-status-codes";
-import { Controller, Team, TeamMethodObject } from "../../../../../../models";
-import { ApiResponse } from "../../../../../../types";
-import { TeamsRepository } from "../../../../../../repositories";
+import { Controller, Team, TeamMethodObject } from "../../../../../models";
+import { ApiResponse } from "../../../../../types";
+import { TeamsRepository } from "../../../../../repositories";
 
 class TeamController extends Controller {
   private team: TeamMethodObject;
@@ -34,7 +34,7 @@ class TeamController extends Controller {
       return this.res.status(StatusCodes.NOT_FOUND);
     }
 
-    this.res.status(200).json(await this.team.getValue());
+    return this.res.status(200).json(await this.team.getValue());
   }
 
   private async put() {

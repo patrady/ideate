@@ -36,8 +36,7 @@ class OrganizationController extends Controller {
     }
 
     const value = await this.organization.getValue()
-    this.res.status(200).json(value);
-    return value;
+    return this.res.status(200).json(value);
   }
 }
 

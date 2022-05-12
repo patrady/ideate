@@ -24,14 +24,14 @@ class CardsController extends Controller {
   }
 
   private async get() {
-    this.res
+    return this.res
       .status(200)
       .json(await CardRepository.all(this.organizationId, this.teamId));
   }
 
   private async post() {
     const newCard = await CardRepository.add(this.req.body);
-    this.res.status(200).json(newCard);
+    return this.res.status(200).json(newCard);
   }
 }
 
@@ -39,5 +39,5 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await new CardsController(req, res).call();
+  return await new CardsController(req, res).call();
 }

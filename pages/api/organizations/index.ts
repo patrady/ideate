@@ -6,5 +6,5 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Organization[]>
 ) {
-  res.status(200).json(await OrganizationRepository.all());
+  return res.status(200).json(await OrganizationRepository.all());
 }

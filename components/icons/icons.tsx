@@ -104,3 +104,14 @@ export function LockOutlinedIcon(props: Props) {
     </Icon>
   );
 }
+
+export function TimeOutlined(props: Props) {
+  return (
+    <Icon {...props}>
+      <path
+        fillRule="evenodd"
+        d="M12 1a11 11 0 1 1 0 22 11 11 0 0 1 0-22zm0 2a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 2.55a1 1 0 0 1 1 1V11h4.45a1 1 0 0 1 0 2H12a1 1 0 0 1-1-1V6.55a1 1 0 0 1 1-1z"
+      />
+    </Icon>
+  );
+}

@@ -4,6 +4,7 @@ import { Card as CardModel } from "../../models";
 import styles from "./card.module.scss";
 import Button from "@ramsey-design-system/button";
 import { EditOutlinedIcon } from "..";
+import { TimeOutlined } from "../icons/icons";
 
 type CardProps = {
   card: CardModel;
@@ -34,10 +35,13 @@ export default function Card(props: CardProps) {
           onClick={handleEdit}
         />
       </div>
-      {card.endDate && (
-        <Text className={styles["Card-end"]} size="bodySmall">
-          {card.endDate.toLocaleDateString()}
-        </Text>
+      {card.showTime() && (
+        <div className={styles["Card-time"]}>
+          <TimeOutlined className={styles["Card-time-icon"]} />
+          <Text className={styles["Card-time-text"]} size="bodySmall">
+            {`${card.getTestStartDate()} - ${card.getTestEndDate()}`}
+          </Text>
+        </div>
       )}
     </div>
   );

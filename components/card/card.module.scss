@@ -11,9 +11,20 @@
     justify-content: space-between;
   }
 
-  &-end {
+  &-time {
     margin-top: $rds-size-spacing-stack-xsmall;
-    text-align: right;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: $rds-color-base-gray-50;
+
+    &-icon {
+      margin-right: $rds-size-spacing-inline-small;
+    }
+
+    &-text {
+      color: currentColor;
+    }
   }
 
   &-edit {

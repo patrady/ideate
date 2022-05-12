@@ -7,6 +7,8 @@ type TestProps = {
   successCriteria: string;
   learnings: string;
   links: string[];
+  startDate?: string;
+  endDate?: string;
 };
 
 type ScaleProps = {
@@ -68,7 +70,6 @@ export class Card extends Model {
   prototype: PrototypeProps;
   test: TestProps;
   scale: ScaleProps;
-  endDate?: Date;
   tags: string[];
   status: Status;
   phase: Phase;
@@ -84,14 +85,13 @@ export class Card extends Model {
     test,
     scale,
     prototype,
-    endDate,
     tags,
     status,
     phase,
     order,
     isArchived,
     organizationId,
-    teamId
+    teamId,
   }: CardProps) {
     super();
 
@@ -101,7 +101,6 @@ export class Card extends Model {
     this.prototype = { ...prototype, links: prototype.links || [] };
     this.test = { ...test, links: test.links || [] };
     this.scale = { ...scale, links: scale.links || [] };
-    this.endDate = endDate ? new Date(endDate) : undefined;
     this.tags = tags || [];
     this.status = status;
     this.phase = phase;
@@ -184,5 +183,34 @@ export class Card extends Model {
 
   public isScale() {
     return this.phase === Phase.Scale;
+  }
+
+  public showTime() {
+    return this.isTest() && this.areTestDatesPresent();
+  }
+
+  public areTestDatesPresent() {
+    return this.test.startDate && this.test.endDate;
+  }
+
+  public getTestStartDate() {
+    if (!this.test.startDate) {
+      return "";
+    }
+
+    return this.formatDate(this.test.startDate);
+  }
+
+  public getTestEndDate() {
+    if (!this.test.endDate) {
+      return "";
+    }
+
+    return this.formatDate(this.test.endDate);
+  }
+
+  private formatDate(date: string) {
+    const _date = new Date(date);
+    return `${_date.getMonth() + 1}/${_date.getDate() + 1}`;
   }
 }

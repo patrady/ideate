@@ -16,7 +16,7 @@ export default function Checkbox(props: CheckboxProps) {
 
   return (
     <div className={clsx(styles["rds-FormField"], styles["rds-Checkbox"], className)}>
-      <input type="checkbox" name={name} value={value} onChange={onChange} />
+      <input type="checkbox" name={name} checked={Boolean(value)} onChange={onChange} />
       <Text
         element="label"
         className={styles["rds-FormField-label"]}

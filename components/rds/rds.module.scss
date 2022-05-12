@@ -150,6 +150,10 @@
       column-gap: 0.5rem;
       margin-bottom: $rds-size-spacing-stack-large;
       border-bottom: $rds-size-border-small solid $rds-color-base-gray-30;
+
+      *:not(:last-child) {
+        margin-right: $rds-size-spacing-inline-small;
+      }
     }
 
     &-content {
@@ -158,10 +162,8 @@
   }
 
   &-Tab {
-    padding: $rds-size-spacing-inset-medium;
     color: $rds-color-base-gray-70;
     list-style: none;
-    cursor: pointer;
     position: relative;
 
     &-content {
@@ -169,6 +171,8 @@
       font-size: $rds-size-font-3;
       border: none;
       font-family: canada-type-gibson;
+      padding: $rds-size-spacing-inset-medium;
+      cursor: pointer;
     }
 
     &:hover {

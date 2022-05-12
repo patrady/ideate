@@ -58,8 +58,12 @@ export function Tab(props: TabProps) {
         [styles["rds-Tab--active"]]: isActive,
       })}
     >
-      {isCurrentPhase && <div className={styles["rds-Tab--alert"]} />}
-      <button className={styles["rds-Tab-content"]} type="button" onClick={() => onClick(index)}>
+      <button
+        className={styles["rds-Tab-content"]}
+        type="button"
+        onClick={() => onClick(index)}
+      >
+        {isCurrentPhase && <div className={styles["rds-Tab--alert"]} />}
         {label}
       </button>
     </li>

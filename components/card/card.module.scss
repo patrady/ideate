@@ -11,8 +11,13 @@
     justify-content: space-between;
   }
 
+  &-footer {
+    & > * {
+      padding-top: $rds-size-spacing-stack-small;
+    }
+  }
+
   &-time {
-    margin-top: $rds-size-spacing-stack-xsmall;
     display: flex;
     justify-content: flex-start;
     align-items: center;
